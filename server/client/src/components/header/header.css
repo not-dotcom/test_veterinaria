@@ -1,0 +1,27 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; /* Vertically center the children */
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+    font-size:x-large;
+    margin: auto; /* Center the link elements */
+}
+
+.link:hover {
+    /* Add hover styles if needed */
+}
+
+.image {
+
+    display: block;
+    margin-left: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+    -webkit-box-reflect: below 0px linear-gradient(transparent, rgba(0, 0, 0, 0.3)) ;
+}
