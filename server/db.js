@@ -11,6 +11,7 @@
 // });
 
 // export default pool;
+//pinche pablo
 
 import pkg from "pg";
 const { Pool } = pkg;
