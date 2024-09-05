@@ -12,17 +12,31 @@ const EditSolic2 = ({ solicitud }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 550,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
         borderRadius: 5,
         boxShadow: 24,
         p: 4,
     };
-    let fecha = new Date(solicitud.fecha_cita);
-    let fecha_cita = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
 
+    function formatFecha(fechaISO) {
+        const fecha = new Date(fechaISO);
     
+        const dias = fecha.getUTCDate();
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const mes = meses[fecha.getUTCMonth()];
+        const año = fecha.getUTCFullYear();
+    
+        return `${dias} del ${mes} del ${año}`;
+    }
+
+    let fecha = new Date(solicitud.fecha_cita);
+    let fecha_cita = formatFecha(fecha);
+
+
+    const fecha2 = new Date(solicitud.created_at);
+    const fechaDeCreacion = formatFecha(fecha2);
+
     return (
         <Fragment>
             <div>
@@ -34,44 +48,37 @@ const EditSolic2 = ({ solicitud }) => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h3">
-                            Editar cita
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            {/* <label>Fecha</label>
-                            <input className='form-control' value={solicitud.fecha_cita} disabled="true"></input>
-                            <label>Hora</label>
-                            <input className='form-control' value={solicitud.hora_cita}></input>
-                            <label>Paciente</label>
-                            <input className='form-control' value={solicitud.paciente}></input>
-                            <label>Tipo de mascota</label>
-                            <input className='form-control' value={solicitud.tipo_mascota}></input>
-                            <label>Propietario</label>
-                            <input className='form-control' value={solicitud.propietario}></input>
-                            <label>Cedula</label>
-                            <input className='form-control' value={solicitud.cedula}></input>
-                            <label>Correo</label>
-                            <input className='form-control' value={solicitud.correo}></input>
-                            
-                            <input className='form-control' value={solicitud.telefono}></input>
-                            
-                            <input className='form-control' value={solicitud.direccion}></input>
-                            
-                            <input className='form-control' value={solicitud.tipo_cliente}></input>
-                            
-                            <input className='form-control' value={solicitud.servicio}></input>
-                            
-                            <input className='form-control' value={solicitud.forma_pago}></input> */}
-                            <p>
-                                El propietario <label className='name'>{solicitud.propietario}</label> con cedula {solicitud.cedula} tiene una cita para el paciente {solicitud.paciente} el dia {fecha_cita} a las {solicitud.hora_cita} para el servicio de {solicitud.servicio} con forma de pago {solicitud.forma_pago} y tipo de cliente {solicitud.tipo_cliente} en la direccion {solicitud.direccion} y telefono {solicitud.telefono} y correo {solicitud.correo}
+                        <h1>
+                            <Typography id="modal-modal-title" variant="h6" component="h3">
+                                Clinica Veterinaria UDES
+                            </Typography>
+                            <Typography id="modal-modal-description" variant="h6" component="h3">
+                                {fechaDeCreacion}
+                            </Typography>
+
+                        </h1>
+                        <p>
+                            <label className='name'>Cita agendada.</label>
                             </p>
-                            
-                        
-                        </Typography>
-                    </Box>
-                </Modal>
-            </div>
-        </Fragment>
+                            <p>
+                            Nombre del propietario: <label className='name'>{solicitud.propietario}</label> <br/>
+                            Numero de cedula {solicitud.cedula}<br/>
+                            Nombre del paciente: {solicitud.paciente}<br/>
+                            Cita agendada el dia <label className='name'>{fecha_cita}</label> a las {solicitud.hora_cita} <br/>
+                            Tipo de servicio: {solicitud.servicio}<br/> 
+                            Forma de pago: {solicitud.forma_pago}<br/>
+                            Tipo de cliente: {solicitud.tipo_cliente}<br/>
+                            Direccion del paciente: {solicitud.direccion}<br/>
+                            Telefono del propietario: {solicitud.telefono}<br/> Correo del propietario: <a href={"mailto:" + solicitud.correo}>{solicitud.correo}</a>
+                        </p>
+
+
+
+                    
+                </Box>
+            </Modal>
+        </div>
+        </Fragment >
     );
 };
 
