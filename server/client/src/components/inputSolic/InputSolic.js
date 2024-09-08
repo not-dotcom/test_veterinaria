@@ -3,7 +3,6 @@ import './InputSolicitud.css';
 
 const InputSolic = () => {
     const [nombre_doctores, setNombre_doctores] = useState([]);
-    const [disponibilidad, setDisponibilidad] = useState({});
 
     const [nombre_doctor, setNombre_doctor] = useState([]);
     const [fecha_cita, setFecha_cita] = useState("");
@@ -20,17 +19,6 @@ const InputSolic = () => {
     const [forma_pago, setForma_pago] = useState("");
     const [created_at, setCreated_at] = useState("");
     const [horaFecha, setHoraFecha] = useState("");
-    const [blockedHours, setBlockedHours] = useState([]);
-
-    const fetchBlockedHours = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/blocked-hours");
-            const data = await response.json();
-            setBlockedHours(data);
-        } catch (err) {
-            console.log(err.message);
-        }
-    };
 
     const fetchDoctores = async () => {
         try {
@@ -40,7 +28,8 @@ const InputSolic = () => {
             data.forEach((value) => {
                 results.push({
                     key: value.nombre_doctor,
-                    value: value.id_doctor,
+                    value: value.nombre_doctor,
+                    //value: value.id_doctor, //cuando se maneje con pk cambiar a id_doctor
                 });
             });
             setNombre_doctores([
@@ -54,10 +43,7 @@ const InputSolic = () => {
     };
 
     useEffect(() => {
-        fetchBlockedHours();
         fetchDoctores();
-        const interval = setInterval(fetchBlockedHours, 5000); // Polling every 5 seconds
-        return () => clearInterval(interval);
     }, []);
 
     const onsubmitform = async (e) => {
@@ -77,28 +63,6 @@ const InputSolic = () => {
         }
     };
 
-    const disponibilidadDoctores = {
-        "doctor1": {
-            days: ["2024-09-05", "2024-09-07"],
-            hours: ["09:00", "14:00"],
-        },
-        "doctor2": {
-            days: ["2024-09-06", "2024-09-08"],
-            hours: ["10:00", "15:00"],
-        },
-    };
-
-    const handleDoctorChange = (e) => {
-        const selectedDoctor = e.target.value;
-        setNombre_doctor(selectedDoctor);
-        setDisponibilidad(disponibilidadDoctores[selectedDoctor] || {});
-    };
-
-    const handleDateChange = (e) => {
-        setFecha_cita(e.target.value);
-        setHora_cita(""); // Resetea la hora cuando se cambia la fecha
-    };
-
     return (
         <Fragment>
             <div className="container">
@@ -114,40 +78,7 @@ const InputSolic = () => {
                     <label>Fecha de la cita</label>
                     <input type='date' className="form-control" value={fecha_cita} onChange={e => setFecha_cita(e.target.value)}></input>
                     <label>Hora de la cita</label>
-                    <select
-                        className="form-control"
-                        value={hora_cita}
-                        onChange={e => setHora_cita(e.target.value)}
-                    >
-
-                    </select>
-
-                    <label>Fecha de la cita</label>
-                    <input
-                        type="date"
-                        className="form-control"
-                        value={fecha_cita}
-                        onChange={handleDateChange}
-                        min={disponibilidad.days ? disponibilidad.days[0] : ""}
-                        max={disponibilidad.days ? disponibilidad.days[disponibilidad.days.length - 1] : ""}
-                    />
-
-                    <label>Hora de la cita</label>
-                    <select
-                        className="form-control"
-                        value={hora_cita}
-                        onChange={e => setHora_cita(e.target.value)}
-                        disabled={!fecha_cita || !disponibilidad.days.includes(fecha_cita)}
-                    >
-                        <option value="">-- Selecciona una Hora --</option>
-                        {disponibilidad.hours &&
-                            disponibilidad.days.includes(fecha_cita) &&
-                            disponibilidad.hours.map((hora) => (
-                                <option key={hora} value={hora}>
-                                    {hora}
-                                </option>
-                            ))}
-                    </select>
+                    <input type='time' className="form-control" value={hora_cita} onChange={e => setHora_cita(e.target.value)}></input>
                     <label>Paciente</label>
                     <input type='text' className="form-control" value={paciente} onChange={e => setPaciente(e.target.value)}></input>
                     <label>Tipo de mascota</label>

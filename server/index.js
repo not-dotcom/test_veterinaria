@@ -25,6 +25,21 @@ try {
 }
 });
 
+//create a horario
+
+app.post("/horario", async (req, res) =>{
+    try {
+        const {nombreDoctor, dia, inicioHorario, finHorario, intervaloCitas} = req.body;
+        const newHorario = await pool.query("INSERT INTO weekly_schedules (doctor_id, day_of_week, start_time, end_time, interval_appointments) VALUES($1, $2, $3, $4, $5) RETURNING *", 
+            [nombreDoctor, dia, inicioHorario, finHorario, intervaloCitas]);
+            res.json(newHorario.rows[0]);
+    
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+    });
+
 //get all solicitudes
 
 app.get("/solicitudes", async (req, res) =>{
