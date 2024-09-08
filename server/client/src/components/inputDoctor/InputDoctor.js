@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
 import './InputDoctor.css';
-import Timetable from 'react-timetable-events'
 
 const InputDoctor = () => {
     const [nombreDoctores, setNombreDoctores] = useState([]);
