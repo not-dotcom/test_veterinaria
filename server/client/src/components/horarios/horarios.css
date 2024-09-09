@@ -1,0 +1,29 @@
+.check {
+    height: 40px;
+    width: 40px;
+    background-color: red;
+    border-radius: 100px;
+    border: 1px solid black;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.check input[type="checkbox"] {
+    display: none;
+}
+
+.dayContainer {
+    display: flex;
+    gap: 10px; /* Optional: Adds space between the divs */
+}
+
+.horario {
+    display: flex;
+    gap: 10px; /* Optional: Adds space between the elements */
+    align-items: center;
+}

@@ -5,6 +5,8 @@ import EditSolic from '../editSolic/editSolic';
 import EditSolic2 from '../editSolic/editSolic2';
 import Horarios from '../horarios/horarios';
 import './ListSolic.css';
+import InputDoctor from "../inputDoctor/InputDoctor"
+import HorarioDoctor from "../horarioDoctor/HorarioDoctor"
 
 
 const ListSolicitudes = () => {
@@ -127,6 +129,39 @@ const ListSolicitudes = () => {
             Cell: ({ row }) => <button onClick={() => deleteSolicitud(row.original.id_solic)} className='btn btn-danger'>Delete</button>
         },
     ];
+    const columnsDoctores = [
+        {
+            accessorKey: "fecha_cita",
+            header: "Nombre",
+        }, 
+        {
+            accessorKey: "hora_cita",
+            header: "Horarios",
+        },
+        {
+            accessorKey: "paciente",
+            header: "Numero",
+        },
+        {
+            accessorKey: "tipo_mascota",
+            header: "Cedula",
+        },
+        {
+            accessorKey: "edit",
+            header: "Edit",
+            Cell: ({ row }) => <Horarios solicitud={row.original} />, 
+        },
+        {
+            accessorKey: "horarios",
+            header: "Ver horario",
+            Cell: ({ row }) => <HorarioDoctor solicitud={row.original} />, 
+        },
+        {
+            accessorKey: "delete",
+            header: "Delete",
+            Cell: ({ row }) => <button onClick={() => deleteSolicitud(row.original.id_solic)} className='btn btn-danger'>Delete</button>
+        },
+    ];
     return (
         <Fragment >
             <h2 style={{ textAlign: 'center' }}>Lista de Solicitudes</h2>
@@ -136,7 +171,7 @@ const ListSolicitudes = () => {
             ></MaterialReactTable>
             <h2 style={{ textAlign: 'center' }}>Administracion de Horarios</h2>
             <div className='divHorarios'>
-                <p>Contenido para el manejo de las horas</p>
+                {/* <p>Contenido para el manejo de las horas</p>
                 {["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"].map(hour => (
                     <label key={hour} className="checkbox-label">
                         <input
@@ -147,9 +182,18 @@ const ListSolicitudes = () => {
                         />
                         <span>{hour}</span>
                     </label>
-                ))}
+                ))} */}
+
+                {/* <Horarios></Horarios> */}
+                <MaterialReactTable
+                /*Aqui van los valores de las tablas de doctores*/
+                columns={columnsDoctores}
+                data={solicitudes}
+            ></MaterialReactTable>
+                
+
             </div>
-            <Horarios></Horarios>
+            
         </Fragment>
     );
 }
