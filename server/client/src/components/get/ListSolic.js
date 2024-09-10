@@ -1,31 +1,29 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import {MaterialReactTable,useMaterialReactTable,
+import {
+    MaterialReactTable, useMaterialReactTable,
 } from 'material-react-table';
-import EditSolic from '../editSolic/editSolic';
 import EditSolic2 from '../editSolic/editSolic2';
-import Horarios from '../horarios/horarios';
 import './ListSolic.css';
-import InputDoctor from "../inputDoctor/InputDoctor"
-import HorarioDoctor from "../horarioDoctor/HorarioDoctor"
+
 
 
 const ListSolicitudes = () => {
     const [solicitudes, setSolicitudes] = useState([]);
     const [blockedHours, setBlockedHours] = useState([]);
 
-   const deleteSolicitud = async (id) => {
-    try {
-        console.log("Deleting solicitud with id:", id); // Log the id
-        const response = await fetch(`http://localhost:5000/solicitudes/${id}`, {
-            method: "DELETE"
-        });
-        console.log(response);
-        // Optionally, remove the deleted solicitud from the state
-        setSolicitudes(solicitudes.filter(solicitud => solicitud.id_solic !== id));
-    } catch (err) {
-        console.log(err.message);
-    }
-};
+    const deleteSolicitud = async (id) => {
+        try {
+            console.log("Deleting solicitud with id:", id); // Log the id
+            const response = await fetch(`http://localhost:5000/solicitudes/${id}`, {
+                method: "DELETE"
+            });
+            console.log(response);
+            // Optionally, remove the deleted solicitud from the state
+            setSolicitudes(solicitudes.filter(solicitud => solicitud.id_solic !== id));
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     const getSolicitudes = async () => {
         try {
@@ -36,6 +34,7 @@ const ListSolicitudes = () => {
             console.log(err.message);
         }
     };
+
     const getBlockedHours = async () => {
         try {
             const response = await fetch("http://localhost:5000/blocked-hours");
@@ -65,11 +64,12 @@ const ListSolicitudes = () => {
         getSolicitudes();
         getBlockedHours();
     }, []);
+
     const columns = [
         {
             accessorKey: "fecha_cita",
             header: "Fecha de la cita",
-        }, 
+        },
         {
             accessorKey: "hora_cita",
             header: "Hora de la cita",
@@ -116,12 +116,12 @@ const ListSolicitudes = () => {
         },
         {
             accessorKey: "created_at",
-            header: "Fecha de creacion", 
+            header: "Fecha de creacion",
         },
         {
             accessorKey: "edit",
             header: "Edit",
-            Cell: ({ row }) => <EditSolic2 solicitud={row.original} />, 
+            Cell: ({ row }) => <EditSolic2 solicitud={row.original} />,
         },
         {
             accessorKey: "delete",
@@ -129,39 +129,7 @@ const ListSolicitudes = () => {
             Cell: ({ row }) => <button onClick={() => deleteSolicitud(row.original.id_solic)} className='btn btn-danger'>Delete</button>
         },
     ];
-    const columnsDoctores = [
-        {
-            accessorKey: "fecha_cita",
-            header: "Nombre",
-        }, 
-        {
-            accessorKey: "hora_cita",
-            header: "Horarios",
-        },
-        {
-            accessorKey: "paciente",
-            header: "Numero",
-        },
-        {
-            accessorKey: "tipo_mascota",
-            header: "Cedula",
-        },
-        {
-            accessorKey: "edit",
-            header: "Edit",
-            Cell: ({ row }) => <Horarios solicitud={row.original} />, 
-        },
-        {
-            accessorKey: "horarios",
-            header: "Ver horario",
-            Cell: ({ row }) => <HorarioDoctor solicitud={row.original} />, 
-        },
-        {
-            accessorKey: "delete",
-            header: "Delete",
-            Cell: ({ row }) => <button onClick={() => deleteSolicitud(row.original.id_solic)} className='btn btn-danger'>Delete</button>
-        },
-    ];
+    
     return (
         <Fragment >
             <h2 style={{ textAlign: 'center' }}>Lista de Solicitudes</h2>
@@ -184,16 +152,11 @@ const ListSolicitudes = () => {
                     </label>
                 ))} */}
 
-                {/* <Horarios></Horarios> */}
-                <MaterialReactTable
-                /*Aqui van los valores de las tablas de doctores*/
-                columns={columnsDoctores}
-                data={solicitudes}
-            ></MaterialReactTable>
                 
 
+
             </div>
-            
+
         </Fragment>
     );
 }
