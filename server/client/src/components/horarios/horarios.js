@@ -5,6 +5,15 @@ import "./horarios.css";
 
 const Horarios = ({ doctor }) => {
     const [horario, setHorario] = useState([]);
+    const [checkedDays, setCheckedDays] = useState({
+        Lun: false,
+        Mar: false,
+        Mie: false,
+        Jue: false,
+        Vie: false,
+        Sab: false,
+        Dom: false,
+    });
 
     const dayNames = {
         Lun: 'Lunes',
@@ -33,20 +42,8 @@ const Horarios = ({ doctor }) => {
         }
     }, [id]);
 
-    const initialCheckedDays = {
-        Lun: horario.some(h => h.dia_semana === 'Lunes'),
-        Mar: horario.some(h => h.dia_semana === 'Martes'),
-        Mie: horario.some(h => h.dia_semana === 'Miércoles'),
-        Jue: horario.some(h => h.dia_semana === 'Jueves'),
-        Vie: horario.some(h => h.dia_semana === 'Viernes'),
-        Sab: horario.some(h => h.dia_semana === 'Sábado'),
-        Dom: horario.some(h => h.dia_semana === 'Domingo'),
-    };
-
-    const [checkedDays, setCheckedDays] = useState(initialCheckedDays);
-
     useEffect(() => {
-        setCheckedDays({
+        const initialCheckedDays = {
             Lun: horario.some(h => h.dia_semana === 'Lunes'),
             Mar: horario.some(h => h.dia_semana === 'Martes'),
             Mie: horario.some(h => h.dia_semana === 'Miércoles'),
@@ -54,7 +51,8 @@ const Horarios = ({ doctor }) => {
             Vie: horario.some(h => h.dia_semana === 'Viernes'),
             Sab: horario.some(h => h.dia_semana === 'Sábado'),
             Dom: horario.some(h => h.dia_semana === 'Domingo'),
-        });
+        };
+        setCheckedDays(initialCheckedDays);
     }, [horario]);
 
     const style = {
@@ -147,7 +145,6 @@ const Horarios = ({ doctor }) => {
                                                             type="time"
                                                             value={h.hora_inicio} // Convertir 'time with time zone' a formato 'HH:MM'
                                                         />
-                                                        <br />
                                                         <label>Hora final:</label>
                                                         <input
                                                             className="form-control"
@@ -156,6 +153,23 @@ const Horarios = ({ doctor }) => {
                                                         />
                                                     </div>
                                                 ))}
+                                            {/* Agregar nuevos campos de horario solo si no hay horarios existentes */}
+                                            {horario.filter(h => h.dia_semana === dayNames[day]).length === 0 && (
+                                                <div>
+                                                    <label>Hora inicio:</label>
+                                                    <input
+                                                        className="form-control"
+                                                        type="time"
+                                                        defaultValue="" // Campo vacío para agregar nuevo horario
+                                                    />
+                                                    <label>Hora final:</label>
+                                                    <input
+                                                        className="form-control"
+                                                        type="time"
+                                                        defaultValue="" // Campo vacío para agregar nuevo horario
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     )
                                 ))}

@@ -24,6 +24,26 @@
 
 .horario {
     display: flex;
-    gap: 10px; /* Optional: Adds space between the elements */
+    flex-direction: column;
+    gap: 10px; /* Adds space between the elements */
+    align-items: flex-start;
+    margin-bottom: 20px; /* Adds space between different days */
+}
+
+.horario label {
+    font-weight: bold;
+}
+
+.horario input {
+    margin-left: 10px;
+}
+
+.horariosDiv {
+    margin-top: 20px;
+}
+
+.horario div {
+    display: flex;
     align-items: center;
+    gap: 10px; /* Adds space between the labels and inputs */
 }
