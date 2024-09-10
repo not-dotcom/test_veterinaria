@@ -1,18 +1,19 @@
 import React, { Fragment, useState, useEffect } from "react";
-
+import {
+    MaterialReactTable, useMaterialReactTable,
+} from 'material-react-table';
 import { Button, Modal, Box, Typography } from '@mui/material';
 import './InputDoctor.css';
-
-const InputDoctor = ({solicitud}) => {
-    const [nombreDoctores, setNombreDoctores] = useState([]);
-=======
-import './InputDoctor.css';
+import Horarios from '../horarios/horarios';
+import HorarioDoctor from "../horarioDoctor/HorarioDoctor"
 
 const InputDoctor = () => {
-    const [nombreDoctores, setNombreDoctores] = useState([]);
+    const [doctores, setDoctores] = useState([]);
 
-
-
+    const [cedulaCiudadania, setCedulaCiudadania] = useState("");
+    const [nombreDoctor, setNombreDoctor] = useState("");
+    const [numeroTelefono, setNumeroTelefono] = useState("");
+    const [especialidad, setEspecialidad] = useState("");
 
     const [open, setOpen] = useState(false);
 
@@ -31,86 +32,114 @@ const InputDoctor = () => {
         p: 4,
     };
 
-    //ESTO NO SE PARA QUE ES
+    const getDoctores = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/doctores");
+            const jsonData = await response.json();
+            setDoctores(jsonData);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
-=======
+    const deleteDoctor = async (id) => {
+        try {
+            console.log("Deleting doctor with id:", id); // Log the id
+            const response = await fetch(`http://localhost:5000/doctores/${id}`, {
+                method: "DELETE"
+            });
+            console.log(response);
+            // Optionally, remove the deleted solicitud from the state
+            setDoctores(doctores.filter(doctor => doctor.id_doctor !== id));
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
+    useEffect(() => {
+        getDoctores();
+    }, []);
+
+    const columnsDoctores = [
+        {
+            accessorKey: "cedula_ciudadania",
+            header: "Cedula",
+        },
+        {
+            accessorKey: "nombre_doctor",
+            header: "Nombre",
+        },
+        {
+            accessorKey: "numero_telefono",
+            header: "Numero de telefono",
+        },
+        {
+            accessorKey: "especialidad",
+            header: "Especialidad",
+        },
+        {
+            accessorKey: "edit",
+            header: "Edit",
+            Cell: ({ row }) => <Horarios doctor={row.original} />,
+        },
+        {
+            accessorKey: "horarios",
+            header: "Ver horario",
+            Cell: ({ row }) => <HorarioDoctor doctor={row.original} />,
+        },
+        {
+            accessorKey: "delete",
+            header: "Delete",
+            Cell: ({ row }) => <button onClick={() => deleteDoctor(row.original.id_doctor)} className='btn btn-danger'>Delete</button>
+        },
+    ];
+
+    const onsubmitform = async (e) => {
+        e.preventDefault();
+        try {
+            const body = { cedulaCiudadania, nombreDoctor, numeroTelefono, especialidad };
+            const response = await fetch("http://localhost:5000/doctores", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+            window.location = "/doctors";
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
     return (
         <Fragment>
+            <MaterialReactTable
+                /*Aqui van los valores de las tablas de doctores*/
+                columns={columnsDoctores}
+                data={doctores}
+            ></MaterialReactTable>
 
             <div className="">
-                <Button onClick={handleOpen}>Editar horario</Button>
+                <Button onClick={handleOpen}>Agregar Doctor</Button>
                 <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                    <form className="form" onSubmit={onsubmitform}>
-                        <label>Doctor</label>
-                        <select className="form-control" value={nombreDoctor} onChange={e => setNombreDoctor(e.target.value)}>
-                            {nombreDoctores.map((doctor) => (
-                                <option key={doctor.value} value={doctor.value}>
-                                    {doctor.key}
-                                </option>
-                            ))}
-                        </select>
-                        <label>Dia</label>
-                        <select className="form-control" value={dia} onChange={e => setDia(e.target.value)}>
-                            <option>Lunes</option>
-                            <option>Martes</option>
-                            <option>Miercoles</option>
-                            <option>Jueves</option>
-                            <option>Viernes</option>
-                            <option>Sabado</option>
-                            <option>Domingo</option>
-                        </select>
-                        <label>Inicio de labores</label>
-                        <input type='time' className="form-control" value={inicioHorario} onChange={e => setInicioHorio(e.target.value)}></input>
-                        <label>Fin de labores</label>
-                        <input type='time' className="form-control" value={finHorario} onChange={e => setFinHorario(e.target.value)}></input>
-                        <label>Duracion de cada cita:</label>
-                        <input type='number' className="form-control" value={intervaloCitas} onChange={e => setIntervaloDias(e.target.value)}></input>
-                        <br></br>
-                        <button type="submit" className='btn btn-success'>Agendar cita</button>
-                    </form>
+                        <form className="form" onSubmit={onsubmitform}>
+                            <label>Cedula de ciudadania</label>
+                            <input type='text' className="form-control" value={cedulaCiudadania} onChange={e => setCedulaCiudadania(e.target.value)}></input>
+                            <label>Nombre</label>
+                            <input type='text' className="form-control" value={nombreDoctor} onChange={e => setNombreDoctor(e.target.value)}></input>
+                            <label>Numero de telefono</label>
+                            <input type='number' className="form-control" value={numeroTelefono} onChange={e => setNumeroTelefono(e.target.value)}></input>
+                            <label>Especialidad</label>
+                            <input type='text' className="form-control" value={especialidad} onChange={e => setEspecialidad(e.target.value)}></input>
+                            <br></br>
+                            <button type="submit" className='btn btn-success'>Agregar doctor</button>
+                        </form>
                     </Box>
                 </Modal>
-            </div>
-
-
-=======
-            <div className="container">
-                <form className="form" onSubmit={onsubmitform}>
-                    <label>Doctor</label>
-                    <select className="form-control" value={nombreDoctor} onChange={e => setNombreDoctor(e.target.value)}>
-                        {nombreDoctores.map((doctor) => (
-                            <option key={doctor.value} value={doctor.value}>
-                                {doctor.key}
-                            </option>
-                        ))}
-                    </select>
-                    <label>Dia</label>
-                    <select className="form-control" value={dia} onChange={e => setDia(e.target.value)}>
-                        <option>Lunes</option>
-                        <option>Martes</option>
-                        <option>Miercoles</option>
-                        <option>Jueves</option>
-                        <option>Viernes</option>
-                        <option>Sabado</option>
-                        <option>Domingo</option>
-                    </select>
-                    <label>Inicio de labores</label>
-                    <input type='time' className="form-control" value={inicioHorario} onChange={e => setInicioHorio(e.target.value)}></input>
-                    <label>Fin de labores</label>
-                    <input type='time' className="form-control" value={finHorario} onChange={e => setFinHorario(e.target.value)}></input>
-                    <label>Duracion de cada cita:</label>
-                    <input type='number' className="form-control" value={intervaloCitas} onChange={e => setIntervaloDias(e.target.value)}></input>
-                    <br></br>
-                    <button type="submit" className='btn btn-success'>Agendar cita</button>
-                </form>
             </div>
 
 

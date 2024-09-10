@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Button, Modal, Box, Typography } from '@mui/material';
 import './HorarioDoctor.css';
 
-const InputDoctor = ({solicitud}) => {
+const InputDoctor = ({ solicitud }) => {
     const [nombreDoctores, setNombreDoctores] = useState([]);
     const [nombreDoctor, setNombreDoctor] = useState("");
     const [dia, setDia] = useState("");
@@ -32,13 +32,26 @@ const InputDoctor = ({solicitud}) => {
             <div className="">
                 <Button onClick={handleOpen}>Ver horario</Button>
                 <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                    <img src={require('../../media/Horario.jpg')} width="500" height="300" class="" alt="Profile Image"></img>
+                        <img src={require('../../media/Horario.jpg')} width="500" height="300" class="" alt="Profile Image"></img> 
+                        {/* <div>
+                            <h1>Horarios de los Doctores</h1>
+                            <ul>
+                                {horario.map((item, index) => (
+                                    <li key={index}>
+                                        <strong>Día:</strong> {item.dia_semana} <br />
+                                        <strong>Hora Inicio:</strong> {item.hora_inicio} <br />
+                                        <strong>Hora Fin:</strong> {item.hora_final}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>*/}
+
                     </Box>
                 </Modal>
             </div>

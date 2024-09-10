@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Modal, Box, Typography } from '@mui/material';
 import './editSolic2.css';
+
 const EditSolic2 = ({ solicitud }) => {
     const [open, setOpen] = useState(false);
 
