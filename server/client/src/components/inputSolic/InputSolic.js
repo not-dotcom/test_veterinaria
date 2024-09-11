@@ -108,7 +108,7 @@ const InputSolic = () => {
                         <option value="Consulta + Ecografia">Consulta + Ecografia</option>
                         <option value="Consulta + Rayos X">Consulta + Rayos X</option>
                         <option value="Consulta prequirurgica">Consulta Prequirurgica</option>
-                        <option value="Consulta ortopedica">Cunsulta Ortopedica (Martes y Viernes - 08:00 - 12:00)</option>
+                        <option value="Consulta ortopedica">Consulta Ortopedica (Martes y Viernes - 08:00 - 12:00)</option>
                         <option value="Consulta oncologica">Consulta Oncologica (Martes y Viernes - 08:00 - 12:00)</option>
                     </select>
                     <label>Forma de pago</label>

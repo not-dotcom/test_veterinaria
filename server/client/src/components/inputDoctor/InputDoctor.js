@@ -79,7 +79,7 @@ const InputDoctor = () => {
         },
         {
             accessorKey: "edit",
-            header: "Edit",
+            header: "Editar",
             Cell: ({ row }) => <Horarios doctor={row.original} />,
         },
         {
@@ -89,8 +89,8 @@ const InputDoctor = () => {
         },
         {
             accessorKey: "delete",
-            header: "Delete",
-            Cell: ({ row }) => <button onClick={() => deleteDoctor(row.original.id_doctor)} className='btn btn-danger'>Delete</button>
+            header: "Eliminar",
+            Cell: ({ row }) => <button onClick={() => deleteDoctor(row.original.id_doctor)} className='btn btn-danger'>Eliminar</button>
         },
     ];
 
@@ -115,10 +115,31 @@ const InputDoctor = () => {
                 /*Aqui van los valores de las tablas de doctores*/
                 columns={columnsDoctores}
                 data={doctores}
-            ></MaterialReactTable>
+                enableRowSelection={true}
+                renderTopToolbarCustomActions={() => (
+                    <div className="headerTable">
+                        <label className="tableTitle">Doctores</label>
+                        <button onClick={handleOpen} className='btn btn-success'>Agregar</button>
+                    </div>
+
+                )
+                }
+                muiTopToolbarProps={
+                    {
+                        style: {
+                            display: 'flex',
+                        }
+                    }
+                }
+
+
+
+            >
+
+            </MaterialReactTable>
+
 
             <div className="">
-                <Button onClick={handleOpen}>Agregar Doctor</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}
