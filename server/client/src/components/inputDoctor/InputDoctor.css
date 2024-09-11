@@ -1,0 +1,26 @@
+.headerTable {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.headerTable .btn-success {
+    margin-left: auto;
+}
+
+.tableTitle {
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.MuiTable-root {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+

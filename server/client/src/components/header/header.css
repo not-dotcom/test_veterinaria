@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center; /* Vertically center the children */
+
 }
 
 .link {
@@ -24,4 +25,7 @@
     width: 50px;
     border-radius: 100px;
     -webkit-box-reflect: below 0px linear-gradient(transparent, rgba(0, 0, 0, 0.3)) ;
+}
+nav{
+    border-bottom: 1px solid #ddd;
 }

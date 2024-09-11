@@ -175,7 +175,8 @@ const Horarios = ({ doctor }) => {
                                 ))}
                             </div>
 
-                            {/*<button type="submit" className='btn btn-success'>Actualizar horario</button>*/}
+                            {/* Botón de guardar cambios */}
+                            <button type="submit" className='btn btn-success'>Guardar cambios</button>
 
                         </form>
 

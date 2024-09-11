@@ -29,7 +29,6 @@ function App() {
       <Header />
    
       <ListSolicitudes solicitudes={solicitudes} setSolicitudes={setSolicitudes} />
-      <InputSolic getSolicitudes={getSolicitudes} />
     </div>
   );
 }
