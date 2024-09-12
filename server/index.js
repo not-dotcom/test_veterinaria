@@ -134,6 +134,74 @@ app.get("/horario/:id", async (req, res) => {
     }
 });
 
+//create, update and delete a horario (formulario de horario en /doctors)
+app.post("/horario", async (req, res) => {
+    try {
+        const { id_doctor, horarios } = req.body;
+
+        if (!id_doctor || !Array.isArray(horarios)) {
+            return res.status(400).json({ error: 'falta el id_doctor y el array de horarios.' });
+        }
+
+        const selectedDays = horarios.map(h => h.dia_semana);
+
+        //Insertar o actualizar horarios
+        for (let i = 0; i < horarios.length; i++) {
+            const { dia_semana, hora_inicio, hora_final } = horarios[i];
+
+            if (!dia_semana || !hora_inicio || !hora_final) {
+                return res.status(400).json({ error: 'Todos los horarios deben tener día, hora de inicio y hora de fin.' });
+            }
+
+            // Verificar si ya existe un horario para este doctor y día de la semana
+            const existingHorario = await pool.query(
+                'SELECT * FROM horarios WHERE id_doctor = $1 AND dia_semana = $2',
+                [id_doctor, dia_semana]
+            );
+
+            if (existingHorario.rows.length > 0) {
+                // Si existe un horario, hacemos un UPDATE
+                await pool.query(
+                    'UPDATE horarios SET hora_inicio = $1, hora_final = $2 WHERE id_doctor = $3 AND dia_semana = $4',
+                    [hora_inicio, hora_final, id_doctor, dia_semana]
+                );
+            } else {
+                // Si no existe, hacemos un INSERT
+                await pool.query(
+                    'INSERT INTO horarios (id_doctor, dia_semana, hora_inicio, hora_final) VALUES ($1, $2, $3, $4)',
+                    [id_doctor, dia_semana, hora_inicio, hora_final]
+                );
+            }
+        }
+
+        //Eliminar horarios no seleccionados
+        //Seleccionar todos los días almacenados en la BD para este doctor
+        const horariosExistentes = await pool.query(
+            'SELECT dia_semana FROM horarios WHERE id_doctor = $1',
+            [id_doctor]
+        );
+
+        // Filtrar los días que ya no están en el array 'selectedDays' (días desmarcados)
+        const diasParaEliminar = horariosExistentes.rows
+            .map(row => row.dia_semana)
+            .filter(dia => !selectedDays.includes(dia));
+
+        // Eliminar los horarios que ya no están seleccionados
+        if (diasParaEliminar.length > 0) {
+            await pool.query(
+                'DELETE FROM horarios WHERE id_doctor = $1 AND dia_semana = ANY($2::text[])',
+                [id_doctor, diasParaEliminar]
+            );
+        }
+
+        //menaje con éxito
+        res.status(200).json({ message: 'Horarios actualizados correctamente.' });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Hubo un error al actualizar los horarios.' });
+    }
+});
+
 app.listen(5000, () => {
     console.log("Server has started on port 5000");
 });

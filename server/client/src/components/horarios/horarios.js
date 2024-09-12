@@ -76,21 +76,80 @@ const Horarios = ({ doctor }) => {
         }));
     };
 
+    // Función para actualizar el horario en el estado cuando el usuario cambia un valor
+    const handleHorarioChange = (day, field, value) => {
+        const updatedHorarios = horario.map((h) => {
+            if (h.dia_semana === day) {
+                return {
+                    ...h,
+                    [field]: value, // Actualizar la hora_inicio o la hora_final dependiendo del campo
+                };
+            }
+            return h;
+        });
+        setHorario(updatedHorarios);
+    };
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const onsubmitform = async (e) => {
         e.preventDefault();
+
         try {
-            const body = {};
-            const response = await fetch("http://localhost:5000/horario", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body)
+            const selectedDays = Object.keys(checkedDays).filter(day => checkedDays[day]);
+
+            const horariosSeleccionados = selectedDays.map(day => {
+                const horariosDelDia = horario.filter(h => h.dia_semana === dayNames[day]);
+
+                if (horariosDelDia.length > 0) {
+                    return {
+                        dia_semana: dayNames[day],
+                        hora_inicio: horariosDelDia[0].hora_inicio,
+                        hora_final: horariosDelDia[0].hora_final
+                    };
+                } else {
+                    const inputHoraInicio = document.querySelector(`input[name="hora_inicio_${day}"]`);
+                    const inputHoraFinal = document.querySelector(`input[name="hora_final_${day}"]`);
+
+                    return {
+                        dia_semana: dayNames[day],
+                        hora_inicio: inputHoraInicio ? inputHoraInicio.value : '',
+                        hora_final: inputHoraFinal ? inputHoraFinal.value : ''
+                    };
+                }
             });
-            window.location = "/doctors";
-        } catch (error) {
-            console.log(error.message);
+
+            const horariosValidos = horariosSeleccionados.every(h => h.hora_inicio && h.hora_final);
+            if (!horariosValidos) {
+                alert('Por favor, asegúrate de que todos los horarios tengan una hora de inicio y final.');
+                return;
+            }
+
+            const data = {
+                id_doctor: doctor.id_doctor, // ID del doctor
+                horarios: horariosSeleccionados // Array con los días y sus horarios
+            };
+
+            // Enviar los datos al servidor
+            const response = await fetch(`http://localhost:5000/horario`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Verificar la respuesta del servidor
+            const responseData = await response.json();
+            if (response.ok) {
+                alert('Horarios actualizados correctamente.');
+                getHorario(doctor.id_doctor);
+            } else {
+                alert('Error al actualizar los horarios: ' + responseData.message);
+            }
+        } catch (err) {
+            console.error('Error al enviar el formulario:', err);
+            alert('Hubo un error al enviar el formulario.');
         }
     };
 
@@ -143,13 +202,19 @@ const Horarios = ({ doctor }) => {
                                                         <input
                                                             className="form-control"
                                                             type="time"
-                                                            value={h.hora_inicio} // Convertir 'time with time zone' a formato 'HH:MM'
+                                                            value={h.hora_inicio} // Valor del input
+                                                            onChange={(e) =>
+                                                                handleHorarioChange(dayNames[day], 'hora_inicio', e.target.value)
+                                                            } // Actualizar el valor
                                                         />
                                                         <label>Hora final:</label>
                                                         <input
                                                             className="form-control"
                                                             type="time"
-                                                            value={h.hora_final} // Convertir 'time with time zone' a formato 'HH:MM'
+                                                            value={h.hora_final} // Valor del input
+                                                            onChange={(e) =>
+                                                                handleHorarioChange(dayNames[day], 'hora_final', e.target.value)
+                                                            } // Actualizar el valor
                                                         />
                                                     </div>
                                                 ))}
@@ -160,13 +225,15 @@ const Horarios = ({ doctor }) => {
                                                     <input
                                                         className="form-control"
                                                         type="time"
-                                                        defaultValue="" // Campo vacío para agregar nuevo horario
+                                                        name={`hora_inicio_${day}`} // Nombre dinámico basado en el día
+                                                        defaultValue=""
                                                     />
                                                     <label>Hora final:</label>
                                                     <input
                                                         className="form-control"
                                                         type="time"
-                                                        defaultValue="" // Campo vacío para agregar nuevo horario
+                                                        name={`hora_final_${day}`} // Nombre dinámico basado en el día
+                                                        defaultValue=""
                                                     />
                                                 </div>
                                             )}
