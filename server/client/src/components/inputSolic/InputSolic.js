@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import './InputSolicitud.css';
+import DoctorProfile from "../doctorProfile/doctorProfile";
 
 const InputSolic = () => {
     const [nombre_doctores, setNombre_doctores] = useState([]);
@@ -68,7 +69,8 @@ const InputSolic = () => {
             <div className="container">
                 <form className="form" onSubmit={onsubmitform}>
                     <label>Doctor</label>
-                    <select className="form-control" value={nombre_doctor} onChange={e => setNombre_doctor(e.target.value)}>
+                    <DoctorProfile />
+                    <select className="form-control" hidden="true" value={nombre_doctor} onChange={e => setNombre_doctor(e.target.value)}>
                         {nombre_doctores.map((doctor) => (
                             <option key={doctor.value} value={doctor.value}>
                                 {doctor.key}

@@ -1,0 +1,62 @@
+.autocomplete-card {
+    width: 100%;
+    margin-bottom: 1rem;
+    
+  }
+  
+  .autocomplete-card-content {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .autocomplete-avatar {
+    margin-right: 0.5rem;
+    
+  }
+  
+  .selected-doctor-card {
+    margin-top: 2rem;
+    
+  }
+  
+  .selected-doctor-card-content {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .selected-doctor-avatar {
+    margin-right: 0.5rem;
+    width: 56px;
+    height: 56px;
+    
+  }
+  
+  .change-doctor-button {
+    margin-left: auto;
+    
+  }
+  
+  .text-field {
+    background-color: white;
+    width: 100%;
+
+    
+  }
+  
+  .typography-subtitle1 {
+    font-weight: bold;
+  }
+  
+  .typography-body2 {
+    color: gray;
+  }
+  
+  .typography-h6 {
+    font-size: 1.25rem;
+  }
+  
+  .typography-body1 {
+    font-size: 1rem;
+  }
