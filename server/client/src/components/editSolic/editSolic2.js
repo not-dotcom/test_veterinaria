@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Modal, Box, Typography } from '@mui/material';
 import './editSolic2.css';
+import logo from '../../media/profile.jpg'; // Importa la imagen del logo
 
 const EditSolic2 = ({ solicitud }) => {
     const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const EditSolic2 = ({ solicitud }) => {
         bgcolor: 'background.paper',
         borderRadius: 5,
         boxShadow: 24,
-        p: 4,
+        p: 0, // Elimina el padding
     };
 
     function formatFecha(fechaISO) {
@@ -34,14 +35,13 @@ const EditSolic2 = ({ solicitud }) => {
     let fecha = new Date(solicitud.fecha_cita);
     let fecha_cita = formatFecha(fecha);
 
-
     const fecha2 = new Date(solicitud.created_at);
     const fechaDeCreacion = formatFecha(fecha2);
 
     return (
         <Fragment>
             <div>
-                <Button onClick={handleOpen}>Editar</Button>
+                <Button onClick={handleOpen}>Imprimir Cita</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -49,37 +49,30 @@ const EditSolic2 = ({ solicitud }) => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                        <h1>
-                            <Typography id="modal-modal-title" variant="h6" component="h3">
-                                Clinica Veterinaria UDES
-                            </Typography>
-                            <Typography id="modal-modal-description" variant="h6" component="h3">
-                                {fechaDeCreacion}
-                            </Typography>
-
-                        </h1>
-                        <p>
-                            <label className='name'>Cita agendada.</label>
-                            </p>
+                        <div className='header'>
+                            <img src={logo} alt="Logo" className='logo' /> {/* Agrega la imagen del logo */}
+                            Clinica Veterinaria UDES
+                        </div>
+                        <div className='fecha'>{fechaDeCreacion}</div>
+                        <div className='cita-agendada'>Cita agendada</div>
+                        <div className='content'>
                             <p>
-                            Nombre del propietario: <label className='name'>{solicitud.propietario}</label> <br/>
-                            Numero de cedula {solicitud.cedula}<br/>
-                            Nombre del paciente: {solicitud.paciente}<br/>
-                            Cita agendada el dia <label className='name'>{fecha_cita}</label> a las {solicitud.hora_cita} <br/>
-                            Tipo de servicio: {solicitud.servicio}<br/> 
-                            Forma de pago: {solicitud.forma_pago}<br/>
-                            Tipo de cliente: {solicitud.tipo_cliente}<br/>
-                            Direccion del paciente: {solicitud.direccion}<br/>
-                            Telefono del propietario: {solicitud.telefono}<br/> Correo del propietario: <a href={"mailto:" + solicitud.correo}>{solicitud.correo}</a>
-                        </p>
-
-
-
-                    
-                </Box>
-            </Modal>
-        </div>
-        </Fragment >
+                                <label className='name'>Nombre del propietario: </label> {solicitud.propietario}<br/>
+                                <label className='name'>Numero de cedula:</label> {solicitud.cedula}<br/>
+                                <label className='name'>Nombre del paciente:</label> {solicitud.paciente}<br/>
+                                <label className='name'>Cita agendada el dia:</label> {fecha_cita} a las {solicitud.hora_cita} <br/>
+                                <label className='name'>Tipo de servicio:</label> {solicitud.servicio}<br/> 
+                                <label className='name'>Forma de pago:</label> {solicitud.forma_pago}<br/>
+                                <label className='name'>Tipo de cliente:</label> {solicitud.tipo_cliente}<br/>
+                                <label className='name'>Direccion del paciente:</label> {solicitud.direccion}<br/>
+                                <label className='name'>Telefono del propietario:</label> {solicitud.telefono}<br/> 
+                                <label className='name'>Correo del propietario:</label> <a href={"mailto:" + solicitud.correo}>{solicitud.correo}</a>
+                            </p>
+                        </div>
+                    </Box>
+                </Modal>
+            </div>
+        </Fragment>
     );
 };
 

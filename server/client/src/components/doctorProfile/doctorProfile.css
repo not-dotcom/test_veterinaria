@@ -16,7 +16,7 @@
   }
   
   .selected-doctor-card {
-    margin-top: 2rem;
+    margin-top: 0.2rem;
     
   }
   
@@ -35,6 +35,7 @@
   
   .change-doctor-button {
     margin-left: auto;
+    font-size: 2px; 
     
   }
   

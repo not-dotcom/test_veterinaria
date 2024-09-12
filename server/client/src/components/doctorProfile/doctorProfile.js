@@ -95,7 +95,7 @@ export default function DoctorProfile() {
         />
       )}
       {selectedDoctor && (
-        <Card className="selected-doctor-card">
+        <Card className="selected-doctor-card" style={{ position: 'relative' }}>
           <CardContent className="selected-doctor-card-content">
             <Avatar src={selectedDoctor.image} alt={`Foto de ${selectedDoctor.label}`} className="selected-doctor-avatar" />
             <div>
@@ -103,8 +103,28 @@ export default function DoctorProfile() {
               <Typography variant="body1" className="typography-body1">{selectedDoctor.specialty}</Typography>
               <Typography variant="body2" className="typography-body2">{selectedDoctor.phone}</Typography>
             </div>
-            <Button onClick={handleClearSelection} variant="contained" color="secondary" className="change-doctor-button">
-              Cambiar Doctor
+            <Button 
+              onClick={handleClearSelection} 
+              variant="contained" 
+              sx={{ 
+                marginLeft: 'auto', 
+                fontSize: '0.8rem', 
+                position: 'absolute', 
+                top: '0.5rem', 
+                right: '0.5rem',
+                width: '30px',
+                height: '30px',
+                minWidth: '20px',
+                minHeight: '20px',
+                borderRadius: '50%',
+                padding: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              color='error'
+            >
+              X
             </Button>
           </CardContent>
         </Card>

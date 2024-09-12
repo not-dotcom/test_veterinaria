@@ -120,7 +120,7 @@ const ListSolicitudes = () => {
         },
         {
             accessorKey: "edit",
-            header: "Edit",
+            header: "Imprimir",
             Cell: ({ row }) => <EditSolic2 solicitud={row.original} />,
         },
         {
