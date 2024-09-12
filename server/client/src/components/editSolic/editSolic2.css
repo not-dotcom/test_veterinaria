@@ -1,3 +1,49 @@
-.name{
-font-weight: bold;
+.name {
+    font-weight: bold;
+}
+.header {
+    background-color: #2D4A8E;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    margin: 0; /* Elimina el margen */
+    border-top-left-radius: 5px; /* Ajusta el borde superior izquierdo */
+    border-top-right-radius: 5px; /* Ajusta el borde superior derecho */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.logo {
+    position: absolute;
+    left: 10px;
+    width: 40px; /* Ajusta el tamaño según sea necesario */
+    height: 40px; /* Ajusta el tamaño según sea necesario */
+    border-radius: 50%; /* Aplica el borde redondeado */
+}
+.fecha {
+    position: absolute;
+    top: 60px; /* Ajusta esta distancia según sea necesario */
+    right: 20px; /* Ajusta esta distancia según sea necesario */
+    font-size: 14px;
+    color: #333;
+}
+.cita-agendada {
+    position: absolute;
+    top: 60px; /* Ajusta esta distancia según sea necesario */
+    left: 20px; /* Ajusta esta distancia según sea necesario */
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+}
+.content {
+    padding: 20px;
+    margin-top: 40px; /* Agrega margen superior para evitar superposición */
+}
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
 }

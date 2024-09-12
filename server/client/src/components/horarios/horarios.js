@@ -14,6 +14,7 @@ const Horarios = ({ doctor }) => {
         Sab: false,
         Dom: false,
     });
+    const [originalCheckedDays, setOriginalCheckedDays] = useState(checkedDays);
 
     const dayNames = {
         Lun: 'Lunes',
@@ -53,6 +54,7 @@ const Horarios = ({ doctor }) => {
             Dom: horario.some(h => h.dia_semana === 'Domingo'),
         };
         setCheckedDays(initialCheckedDays);
+        setOriginalCheckedDays(initialCheckedDays);
     }, [horario]);
 
     const style = {
@@ -89,8 +91,22 @@ const Horarios = ({ doctor }) => {
         });
         setHorario(updatedHorarios);
     };
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+        setOriginalCheckedDays(checkedDays); // Guardar el estado original al abrir el modal
+    };
+
+    const handleClose = () => {
+        if (JSON.stringify(checkedDays) !== JSON.stringify(originalCheckedDays)) {
+            if (window.confirm('Los cambios no se guardarán. ¿Estás seguro de querer salir?')) {
+                setCheckedDays(originalCheckedDays); // Restaurar el estado original si el usuario confirma
+                setOpen(false);
+            }
+        } else {
+            setOpen(false);
+        }
+    };
 
     const onsubmitform = async (e) => {
         e.preventDefault();
@@ -147,6 +163,7 @@ const Horarios = ({ doctor }) => {
             } else {
                 alert('Error al actualizar los horarios: ' + responseData.message);
             }
+            window.location = "/doctors";
         } catch (err) {
             console.error('Error al enviar el formulario:', err);
             alert('Hubo un error al enviar el formulario.');
