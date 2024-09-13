@@ -47,3 +47,16 @@
     align-items: center;
     gap: 10px; /* Adds space between the labels and inputs */
 }
+    .form{
+    display: flex;
+    flex-direction: column;
+}
+.doctor-info {
+    display: flex;
+    gap: 10px; /* Espacio entre los elementos */
+    align-items: center;
+}
+.modal-content {
+    max-height: 80vh; /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto;
+}

@@ -62,11 +62,12 @@ const Horarios = ({ doctor }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 550,
+        width: 600,
         bgcolor: 'background.paper',
         borderRadius: 5,
         boxShadow: 24,
         p: 4,
+        overflow:'scroll',
     };
 
     const [open, setOpen] = useState(false);
@@ -180,12 +181,16 @@ const Horarios = ({ doctor }) => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Box sx={style}>
+                    <Box sx={style} className="modal-content">
                         <form className="form" onSubmit={onsubmitform}>
+                        <h4 className="modal-title">Editar Horario</h4>
+                        <div className="doctor-info">
                             <label>Nombre del doctor: </label>
-                            <label className='name'>{doctor.nombre_doctor}</label><br></br>
+                            <label className='name'>{doctor.nombre_doctor}</label>
                             <label>Especialidad: </label>
-                            <label className='name'>{doctor.especialidad}</label><br></br>
+                            <label className='name'>{doctor.especialidad}</label>
+                        </div>
+                        <br></br>
                             <label>Dias de trabajo</label><br></br>
                             <div className="dayContainer">
                                 {Object.keys(checkedDays).map(day => (

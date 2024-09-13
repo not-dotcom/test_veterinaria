@@ -9,6 +9,12 @@
     margin-left: auto;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+
+}
 .tableTitle {
     font-size: 22px;
     font-weight: bold;
@@ -23,4 +29,8 @@
     border: 1px solid #ddd;
     border-collapse: collapse;
 }
-
+.modal-title {
+    text-align: center;
+    margin-top: -12px; /* Ajusta este valor según sea necesario */
+    margin-bottom: 12px
+}

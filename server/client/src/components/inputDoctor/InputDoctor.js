@@ -62,12 +62,12 @@ const InputDoctor = () => {
 
     const columnsDoctores = [
         {
-            accessorKey: "cedula_ciudadania",
-            header: "Cedula",
-        },
-        {
             accessorKey: "nombre_doctor",
             header: "Nombre",
+        },
+        {
+            accessorKey: "cedula_ciudadania",
+            header: "Cedula",
         },
         {
             accessorKey: "numero_telefono",
@@ -148,16 +148,19 @@ const InputDoctor = () => {
                 >
                     <Box sx={style}>
                         <form className="form" onSubmit={onsubmitform}>
-                            <label>Cedula de ciudadania</label>
-                            <input type='text' className="form-control" value={cedulaCiudadania} onChange={e => setCedulaCiudadania(e.target.value)}></input>
+                            <h3 className="modal-title">Agregar Doctor</h3>
                             <label>Nombre</label>
                             <input type='text' className="form-control" value={nombreDoctor} onChange={e => setNombreDoctor(e.target.value)}></input>
-                            <label>Numero de telefono</label>
-                            <input type='number' className="form-control" value={numeroTelefono} onChange={e => setNumeroTelefono(e.target.value)}></input>
+                            <label>Cedula de ciudadania</label>
+                            <input type='text' className="form-control" value={cedulaCiudadania} onChange={e => setCedulaCiudadania(e.target.value)}></input>
                             <label>Especialidad</label>
                             <input type='text' className="form-control" value={especialidad} onChange={e => setEspecialidad(e.target.value)}></input>
+                            <label>Numero de telefono</label>
+                            <input type='number' className="form-control" value={numeroTelefono} onChange={e => setNumeroTelefono(e.target.value)}></input>
                             <br></br>
-                            <button type="submit" className='btn btn-success'>Agregar doctor</button>
+                            <div className="button-container">
+                                <button type="submit" className='btn btn-success'>Agregar</button>
+                            </div>
                         </form>
                     </Box>
                 </Modal>
