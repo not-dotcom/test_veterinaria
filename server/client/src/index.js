@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import UserView from './userView'; // Ensure the component name starts with an uppercase letter
 import DoctorView from './doctorView';
+import Login from '../src/components/login/login.js';
+import Register from '../src/components/register/register.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +16,8 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/user" element={<UserView />} />
         <Route path="/doctors" element={<DoctorView />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

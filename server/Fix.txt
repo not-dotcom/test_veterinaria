@@ -1,0 +1,10 @@
+COSAS PENDIENTES
+
+1. Agregar sistema de actulizacion de las solicitudes realizadas
+    -Posibles soluciones: Polling o WebSockets
+2. Login (Autentificacion y tokens con sistema JWT)
+3. Imprimir cita
+4. Guardar foto de doctor
+
+littleBugs
+En el formulario de agregarDoctor la entrada del numero de telefono es un type number

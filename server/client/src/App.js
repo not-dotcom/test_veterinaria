@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-   
+      <div hidden="true"><InputSolic getSolicitudes={getSolicitudes}/></div>
       <ListSolicitudes solicitudes={solicitudes} setSolicitudes={setSolicitudes} />
     </div>
   );

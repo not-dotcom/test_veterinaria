@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import './InputSolicitud.css';
+import './InputSolic.css';
 import DoctorProfile from "../doctorProfile/doctorProfile";
 
 const InputSolic = () => {
@@ -68,6 +68,7 @@ const InputSolic = () => {
         <Fragment>
             <div className="container">
                 <form className="form" onSubmit={onsubmitform}>
+                <h3 className="modal-title">Agenda tu cita</h3>
                     <label>Doctor</label>
                     <DoctorProfile />
                     <select className="form-control" hidden="true" value={nombre_doctor} onChange={e => setNombre_doctor(e.target.value)}>
@@ -117,8 +118,10 @@ const InputSolic = () => {
                     <input type='text' className="form-control" value={forma_pago} onChange={e => setForma_pago(e.target.value)}></input>
                     <label hidden="true">Fecha de creacion</label>
                     <input hidden="true" type='datetime-local' className="form-control" value={created_at} onChange={e => setCreated_at(e.target.value)}></input>
-                    <br></br>
-                    <button type="submit" className='btn btn-success'>Agendar cita</button>
+                    <div className="button-container">
+                    <button type="submit" className='btn btn-success'>Agendar</button>
+                    </div>
+                
                 </form>
             </div>
         </Fragment>
