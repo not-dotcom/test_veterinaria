@@ -8,3 +8,7 @@ COSAS PENDIENTES
 
 littleBugs
 En el formulario de agregarDoctor la entrada del numero de telefono es un type number
+
+
+posible soluciones
+Hacer que el select sea un componente externo.

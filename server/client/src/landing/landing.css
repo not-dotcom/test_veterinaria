@@ -1,0 +1,6 @@
+.main{
+    height: 100vh;
+    background: rgb(27,113,181);background: radial-gradient(circle, rgba(27,113,181,1) 35%, rgba(46,73,144,1) 100%);
+    padding: 5px;
+
+}

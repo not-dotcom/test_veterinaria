@@ -7,6 +7,7 @@ import DoctorView from './doctorView';
 import Login from '../src/components/login/login.js';
 import Register from '../src/components/register/register.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Landing from './landing/index.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +19,8 @@ root.render(
         <Route path="/doctors" element={<DoctorView />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/landing" element={<Landing />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
