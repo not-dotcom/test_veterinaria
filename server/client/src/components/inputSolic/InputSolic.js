@@ -118,7 +118,7 @@ const InputSolic = () => {
 
         while (current < endTime) {
             times.push(current.toTimeString().slice(0, 5));
-            current.setMinutes(current.getMinutes() + 30); // Intervalo de 30 minutos
+            current.setMinutes(current.getMinutes() + 15); // Intervalo de tiempo en minutos
         }
 
         return times;
