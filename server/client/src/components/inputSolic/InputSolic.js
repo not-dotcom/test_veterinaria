@@ -1,9 +1,18 @@
 import React, { Fragment, useState, useEffect } from "react";
 import './InputSolic.css';
 import DoctorProfile from "../doctorProfile/doctorProfile";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const InputSolic = () => {
-    const [nombre_doctores, setNombre_doctores] = useState([]);
+
+    const [doctors, setDoctors] = useState([]);
+    const [availability, setAvailability] = useState([]);
+
+    const [selectedDoctor, setSelectedDoctor] = useState('');
+    const [startDate, setStartDate] = useState(null);
+    const [availableDays, setAvailableDays] = useState([]);
+    const [availableTimes, setAvailableTimes] = useState([]);
 
     const [nombre_doctor, setNombre_doctor] = useState([]);
     const [fecha_cita, setFecha_cita] = useState("");
@@ -19,32 +28,17 @@ const InputSolic = () => {
     const [servicio, setServicio] = useState("");
     const [forma_pago, setForma_pago] = useState("");
     const [created_at, setCreated_at] = useState("");
-    const [horaFecha, setHoraFecha] = useState("");
-
-    const fetchDoctores = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/doctores");
-            const data = await response.json();
-            const results = [];
-            data.forEach((value) => {
-                results.push({
-                    key: value.nombre_doctor,
-                    value: value.nombre_doctor,
-                    //value: value.id_doctor, //cuando se maneje con pk cambiar a id_doctor
-                });
-            });
-            setNombre_doctores([
-                { key: 'Selecciona un doctor', value: '' },
-                ...results
-            ]);
-
-        } catch (err) {
-            console.log(err);
-        }
-    };
 
     useEffect(() => {
-        fetchDoctores();
+        fetch('http://localhost:5000/doctores')
+            .then(response => response.json())
+            .then(data => setDoctors(data))
+            .catch(error => console.error('Error al obtener doctores:', error));
+
+        fetch('http://localhost:5000/horarios')
+            .then(response => response.json())
+            .then(data => setAvailability(data))
+            .catch(error => console.error('Error al obtener disponibilidad:', error));
     }, []);
 
     const onsubmitform = async (e) => {
@@ -64,6 +58,72 @@ const InputSolic = () => {
         }
     };
 
+    const handleDoctorChange = (e) => {
+        const doctorId = parseInt(e.target.value);
+        setSelectedDoctor(doctorId);
+
+        // Obtener los días disponibles según el doctor seleccionado
+        const daysAvailable = availability
+            .filter(item => item.id_doctor === doctorId)
+            .map(item => item.dia_semana);
+
+        setAvailableDays(daysAvailable);
+        setStartDate(null); // Reiniciar la fecha seleccionada
+        setAvailableTimes([]); // Reiniciar horas disponibles
+    };
+
+    const cache = new Map();
+
+    const isAvailableDay = (date) => {
+        const dayNumber = date.getDay();
+
+        if (cache.has(dayNumber)) {
+            return cache.get(dayNumber); // Usar el valor almacenado
+        }
+
+        const result = availableDays.includes(dayNumber);
+        cache.set(dayNumber, result); // Almacenar el resultado
+        return result;
+    };
+
+    const handleDateChange = (date) => {
+        setStartDate(date);
+        const dayNumber = date.getDay();
+
+        // Encontrar la disponibilidad de horas para el doctor y el día seleccionado
+        const available = availability.find(
+            item => item.id_doctor === selectedDoctor && item.dia_semana === dayNumber
+        );
+
+        if (available) {
+            const startHour = available.hora_inicio;
+            const endHour = available.hora_final;
+
+            // Generar array de horas en intervalos de 30 minutos
+            const times = generateAvailableTimes(startHour, endHour);
+            setAvailableTimes(times);
+        } else {
+            setAvailableTimes([]);
+        }
+    };
+
+    // Función para generar intervalos de 30 minutos entre hora_inicio y hora_final
+    const generateAvailableTimes = (start, end) => {
+        const times = [];
+        let current = new Date();
+        current.setHours(start.split(':')[0], start.split(':')[1], 0, 0);
+
+        const endTime = new Date();
+        endTime.setHours(end.split(':')[0], end.split(':')[1], 0, 0);
+
+        while (current < endTime) {
+            times.push(current.toTimeString().slice(0, 5));
+            current.setMinutes(current.getMinutes() + 30); // Intervalo de 30 minutos
+        }
+
+        return times;
+    };
+
     return (
         <Fragment>
             <div className="container">
@@ -71,17 +131,50 @@ const InputSolic = () => {
                 <h3 className="modal-title">Agenda tu cita</h3>
                     <label>Doctor</label>
                     <DoctorProfile />
-                    <select className="form-control" hidden="true" value={nombre_doctor} onChange={e => setNombre_doctor(e.target.value)}>
-                        {nombre_doctores.map((doctor) => (
-                            <option key={doctor.value} value={doctor.value}>
-                                {doctor.key}
-                            </option>
-                        ))}
-                    </select>
-                    <label>Fecha de la cita</label>
-                    <input type='date' className="form-control" value={fecha_cita} onChange={e => setFecha_cita(e.target.value)}></input>
-                    <label>Hora de la cita</label>
-                    <input type='time' className="form-control" value={hora_cita} onChange={e => setHora_cita(e.target.value)}></input>
+                    
+                    <label>
+                        Selecciona un Doctor:
+                        <select onChange={handleDoctorChange} value={selectedDoctor}>
+                            <option value="">Selecciona...</option>
+                            {doctors.map(doctor => (
+                                <option key={doctor.id_doctor} value={doctor.id_doctor}>
+                                    {doctor.nombre_doctor}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
+                    {selectedDoctor && (
+                        <label>
+                            Selecciona una fecha:
+                            <DatePicker
+                                selected={startDate}
+                                onChange={handleDateChange}
+                                filterDate={isAvailableDay} // Filtra los días disponibles
+                                placeholderText="Selecciona una fecha"
+                                minDate={new Date()} // Opcional: desactivar días anteriores a hoy
+                            />
+                        </label>
+                    )}
+
+                    {startDate && availableTimes.length > 0 && (
+                        <>
+                            <label>
+                                Selecciona una hora:
+                                <select>
+                                    {availableTimes.map((time, index) => (
+                                        <option key={index} value={time}>
+                                            {time}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                        </>
+                    )}
+
+                    {startDate && availableTimes.length === 0 && (
+                        <p>No hay horas disponibles para la fecha seleccionada.</p>
+                    )}<br></br>
                     <label>Paciente</label>
                     <input type='text' className="form-control" value={paciente} onChange={e => setPaciente(e.target.value)}></input>
                     <label>Tipo de mascota</label>
