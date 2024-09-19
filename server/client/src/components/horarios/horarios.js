@@ -17,13 +17,13 @@ const Horarios = ({ doctor }) => {
     const [originalCheckedDays, setOriginalCheckedDays] = useState(checkedDays);
 
     const dayNames = {
-        Lun: 'Lunes',
-        Mar: 'Martes',
-        Mie: 'Miércoles',
-        Jue: 'Jueves',
-        Vie: 'Viernes',
-        Sab: 'Sábado',
-        Dom: 'Domingo'
+        Lun: 1,
+        Mar: 2,
+        Mie: 3,
+        Jue: 4,
+        Vie: 5,
+        Sab: 6,
+        Dom: 0
     };
 
     const getHorario = async (id) => {
@@ -45,13 +45,13 @@ const Horarios = ({ doctor }) => {
 
     useEffect(() => {
         const initialCheckedDays = {
-            Lun: horario.some(h => h.dia_semana === 'Lunes'),
-            Mar: horario.some(h => h.dia_semana === 'Martes'),
-            Mie: horario.some(h => h.dia_semana === 'Miércoles'),
-            Jue: horario.some(h => h.dia_semana === 'Jueves'),
-            Vie: horario.some(h => h.dia_semana === 'Viernes'),
-            Sab: horario.some(h => h.dia_semana === 'Sábado'),
-            Dom: horario.some(h => h.dia_semana === 'Domingo'),
+            Lun: horario.some(h => h.dia_semana === 1),
+            Mar: horario.some(h => h.dia_semana === 2),
+            Mie: horario.some(h => h.dia_semana === 3),
+            Jue: horario.some(h => h.dia_semana === 4),
+            Vie: horario.some(h => h.dia_semana === 5),
+            Sab: horario.some(h => h.dia_semana === 6),
+            Dom: horario.some(h => h.dia_semana === 0),
         };
         setCheckedDays(initialCheckedDays);
         setOriginalCheckedDays(initialCheckedDays);

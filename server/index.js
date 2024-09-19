@@ -120,6 +120,18 @@ app.delete("/doctores/:id", async (req, res) => {
     }
 });
 
+//get all horarios
+app.get("/horarios/", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const horarios = await pool.query("SELECT * FROM horarios");
+        res.json(horarios.rows);
+    } catch (error) {
+        console.log(error.message);
+
+    }
+});
+
 //get a horario
 app.get("/horario/:id", async (req, res) => {
     try {
