@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import pool from './db.js';
+import { ConstructionOutlined } from '@mui/icons-material';
 const app = express();
 
 // middleware
@@ -35,9 +36,10 @@ app.get("/solicitudes/:id", async (req, res) => {
 //create a solicitud
 app.post("/solicitudes", async (req, res) => {
     try {
-        const { nombre_doctor, fecha_cita, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at } = req.body;
+        const { selectedDoctor, startDate, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at } = req.body;
+        console.log(startDate);
         const newSolic = await pool.query("INSERT INTO solicitudes (fecha_cita, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at, nombre_doctor) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
-            [fecha_cita, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at, nombre_doctor]);
+            [startDate, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at, selectedDoctor]);
         res.json(newSolic.rows[0]);
 
     } catch (error) {
@@ -136,9 +138,11 @@ app.get("/horarios/", async (req, res) => {
 app.get("/horario/:id", async (req, res) => {
     try {
         const { id } = req.params;
+        console.log(id);
         const horarios = await pool.query("SELECT * FROM horarios WHERE id_doctor = $1", [
             id
         ]);
+        console.log(horarios);
         res.json(horarios.rows);
     } catch (error) {
         console.log(error.message);

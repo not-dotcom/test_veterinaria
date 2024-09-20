@@ -46,7 +46,7 @@ const InputSolic = () => {
         try {
             const fecha = new Date().toISOString().slice(0, 16);
             setCreated_at(fecha);
-            const body = { nombre_doctor, fecha_cita, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at: fecha };
+            const body = { selectedDoctor, startDate, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at: fecha };
             const response = await fetch("http://localhost:5000/solicitudes", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -163,7 +163,8 @@ const InputSolic = () => {
                             <label>
                                 Selecciona una hora:
                                 <br></br>
-                                <select className="form-control">
+                                <select className="form-control" value={hora_cita} onChange={e => setHora_cita(e.target.value)}>
+                                    
                                     {availableTimes.map((time, index) => (
                                         <option key={index} value={time}>
                                             {time}

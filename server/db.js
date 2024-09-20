@@ -19,11 +19,11 @@ const pool = new Pool({
     user: "postgres",
     host: "localhost",  
     database: "pernvet",
-    password: "postgres",
+    //password: "postgres",
     
-    port: 5432,
-     //password: "hola1234",
-     //port: 5433,
+    //port: 5432,
+    password: "hola1234",
+    port: 5433,
 
 });
 
