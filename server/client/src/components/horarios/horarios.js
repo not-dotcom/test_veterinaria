@@ -185,13 +185,13 @@ const Horarios = ({ doctor }) => {
                         <form className="form" onSubmit={onsubmitform}>
                         <h4 className="modal-title">Editar Horario</h4>
                         <div className="doctor-info">
-                            <label>Nombre del doctor: </label>
-                            <label className='name'>{doctor.nombre_doctor}</label>
-                            <label>Especialidad: </label>
-                            <label className='name'>{doctor.especialidad}</label>
+                            <label className='name'>Nombre del doctor: </label>
+                            <label>{doctor.nombre_doctor}</label>
+                            <label className='name'>Especialidad: </label>
+                            <label>{doctor.especialidad}</label>
                         </div>
                         <br></br>
-                            <label>Dias de trabajo</label><br></br>
+                            <label className='name'>Dias de trabajo</label><br></br>
                             <div className="dayContainer">
                                 {Object.keys(checkedDays).map(day => (
                                     <div
