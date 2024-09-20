@@ -130,11 +130,10 @@ const InputSolic = () => {
                 <form className="form" onSubmit={onsubmitform}>
                 <h3 className="modal-title">Agenda tu cita</h3>
                     <label>Doctor</label>
-                    <DoctorProfile />
+                    {/* <DoctorProfile /> */}
                     
                     <label>
-                        Selecciona un Doctor:
-                        <select onChange={handleDoctorChange} value={selectedDoctor}>
+                        <select className="form-control" onChange={handleDoctorChange} value={selectedDoctor}>
                             <option value="">Selecciona...</option>
                             {doctors.map(doctor => (
                                 <option key={doctor.id_doctor} value={doctor.id_doctor}>
@@ -147,7 +146,9 @@ const InputSolic = () => {
                     {selectedDoctor && (
                         <label>
                             Selecciona una fecha:
+                            <br></br>
                             <DatePicker
+                            className="form-control"
                                 selected={startDate}
                                 onChange={handleDateChange}
                                 filterDate={isAvailableDay} // Filtra los días disponibles
@@ -161,7 +162,8 @@ const InputSolic = () => {
                         <>
                             <label>
                                 Selecciona una hora:
-                                <select>
+                                <br></br>
+                                <select className="form-control">
                                     {availableTimes.map((time, index) => (
                                         <option key={index} value={time}>
                                             {time}
@@ -174,18 +176,18 @@ const InputSolic = () => {
 
                     {startDate && availableTimes.length === 0 && (
                         <p>No hay horas disponibles para la fecha seleccionada.</p>
-                    )}<br></br>
-                    <label>Paciente</label>
+                    )}
+                    <label>Nombre del Paciente</label>
                     <input type='text' className="form-control" value={paciente} onChange={e => setPaciente(e.target.value)}></input>
                     <label>Tipo de mascota</label>
                     <input type='text' className="form-control" value={tipo_mascota} onChange={e => setTipo_mascota(e.target.value)}></input>
-                    <label>Propietario</label>
+                    <label>Nombre del Propietario</label>
                     <input type='text' className="form-control" value={propietario} onChange={e => setPropietario(e.target.value)}></input>
-                    <label>Cedula</label>
+                    <label>No. de Cedula</label>
                     <input type='text' className="form-control" value={cedula} onChange={e => setCedula(e.target.value)}></input>
                     <label>Correo</label>
                     <input type='email' className="form-control" value={correo} onChange={e => setCorreo(e.target.value)}></input>
-                    <label>Telefono</label>
+                    <label>No. de Telefono</label>
                     <input type='text' className="form-control" value={telefono} onChange={e => setTelefono(e.target.value)}></input>
                     <label>Direccion</label>
                     <input type='text' className="form-control" value={direccion} onChange={e => setDireccion(e.target.value)}></input>
