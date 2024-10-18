@@ -14,4 +14,17 @@
 /*align-items: center;*/    
 
 }
-
+.containerQuestion{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.formSelect{
+    height: 40px;
+    display: block;
+    width: 360px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

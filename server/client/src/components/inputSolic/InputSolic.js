@@ -3,8 +3,9 @@ import './InputSolic.css';
 import DoctorProfile from "../doctorProfile/doctorProfile";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import ListSolicitudes from "../get/ListSolic";
 
-const InputSolic = () => {
+const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
 
     const [doctors, setDoctors] = useState([]);
     const [availability, setAvailability] = useState([]);
@@ -42,6 +43,8 @@ const InputSolic = () => {
     }, []);
 
     const onsubmitform = async (e) => {
+
+
         e.preventDefault();
         try {
             const fecha = new Date().toISOString().slice(0, 16);
@@ -129,9 +132,9 @@ const InputSolic = () => {
             <div className="container">
                 <form className="form" onSubmit={onsubmitform}>
                 <h3 className="modal-title">Agenda tu cita</h3>
+                    <div className="containerQuestion">
                     <label>Doctor</label>
                     {/* <DoctorProfile /> */}
-                    
                     <label>
                         <select className="form-control" onChange={handleDoctorChange} value={selectedDoctor}>
                             <option value="">Selecciona...</option>
@@ -142,6 +145,8 @@ const InputSolic = () => {
                             ))}
                         </select>
                     </label>
+                    </div>
+
 
                     {selectedDoctor && (
                         <label>

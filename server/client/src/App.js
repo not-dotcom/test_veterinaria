@@ -20,14 +20,18 @@ function App() {
     }
   };
 
+  const getBlockedHours = async () => {
+    // Implementación de getBlockedHours
+  };
+
   useEffect(() => {
     getSolicitudes();
   }, []);
+  
 
   return (
     <div className="App">
       <Header />
-      <div hidden="true"><InputSolic getSolicitudes={getSolicitudes}/></div>
       <ListSolicitudes solicitudes={solicitudes} setSolicitudes={setSolicitudes} />
     </div>
   );
