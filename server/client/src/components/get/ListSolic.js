@@ -64,6 +64,13 @@ const ListSolicitudes = () => {
         getSolicitudes();
         getBlockedHours();
     }, []);
+    
+        const update = async () => {
+            await getSolicitudes();
+            await getBlockedHours();
+        };
+
+
 
     const columns = [
         {
@@ -132,6 +139,13 @@ const ListSolicitudes = () => {
     
     return (
         <Fragment >
+
+            <button onClick={
+                () => {
+                    getSolicitudes();
+                    getBlockedHours();
+                }
+            }>Refreshwe</button>
             <h2 style={{ textAlign: 'center' }}>Lista de Solicitudes</h2>
             <MaterialReactTable
                 columns={columns}
