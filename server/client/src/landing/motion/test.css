@@ -1,0 +1,56 @@
+.mainHere{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #ff008c 0%, rgb(211, 0, 255) 100%);
+    
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+
+}
+
+.example-container div{ 
+    background-color: white;
+    border-radius: 30px;
+  
+    background-color:#FC7A0A ;
+    border: 6px solid #FDB400;
+    display: grid;
+ 
+    align-items: center;
+    justify-content: center;
+    
+    
+    
+}
+.titleMini{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    grid-row:1;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.refresh{
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgb(0,0,0,0.4);
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

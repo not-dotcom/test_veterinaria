@@ -1,0 +1,36 @@
+.embla {
+    overflow: hidden;
+    /* border: 1px solid #000; */
+
+    /* border-radius: 100px; */
+    height: 500px;
+    width: 900px;
+    
+
+  }
+  .embla__container {
+    display: flex;
+    height: 100%;
+  
+  }
+  .embla__slide {
+    /* background: linear-gradient(180deg, #ff008c 0%, rgb(211, 0, 255) 100%); */
+    
+    flex: 0 0 100%;
+
+    display: grid;    
+    grid-area: 1fr 1fr 1fr 1fr / 1fr 1fr 1fr 1fr;
+    min-width: 0;
+    justify-content: center;
+    align-items: center;
+ 
+   
+  }
+
+  /*ESTILOS DE PRUEBA  */
+
+  .imageFlayer{
+    scale: .3;
+    grid-column: 4;
+    border: 1px solid red;
+  }
