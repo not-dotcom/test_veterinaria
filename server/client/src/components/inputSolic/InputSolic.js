@@ -132,7 +132,6 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
             <div className="container">
                 <form className="form" onSubmit={onsubmitform}>
                 <h3 className="modal-title">Agenda tu cita</h3>
-                    <div className="containerQuestion">
                     <label>Doctor</label>
                     {/* <DoctorProfile /> */}
                     <label>
@@ -145,8 +144,6 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
                             ))}
                         </select>
                     </label>
-                    </div>
-
 
                     {selectedDoctor && (
                         <label>
