@@ -6,7 +6,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import Test from '../motion/test';
 import imageFlayer from "../../media/flayer.png";
 export function EmblaCarousel() {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 7000 })])
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 700000 })])
 
 
   return (
