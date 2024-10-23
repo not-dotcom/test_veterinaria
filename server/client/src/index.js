@@ -9,7 +9,8 @@ import Register from '../src/components/register/register.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Landing from './landing/index.js';
 import { EmblaCarousel } from './landing/carousel/carousel.js';
-import Test from './landing/motion/test.js';;
+import Test from './landing/motion/test.js';
+;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
