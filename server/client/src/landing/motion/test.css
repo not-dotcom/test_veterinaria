@@ -1,8 +1,8 @@
-.mainHere{
+.mainHere {
     width: 100vw;
     height: 100vh;
     background: linear-gradient(180deg, #ff008c 0%, rgb(211, 0, 255) 100%);
-    
+
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -13,39 +13,240 @@
 
 }
 
-.example-container div{ 
+.example-container div {
     background-color: white;
     border-radius: 30px;
-  
-    background-color:#FC7A0A ;
+    background-color: #FC7A0A;
     border: 6px solid #FDB400;
     display: grid;
- 
     align-items: center;
     justify-content: center;
-    
-    
+}
+
+/*Estilos del contenedor "Tecnologia de punta" */
+.example-container>.tecno {
+    position: absolute;
+    bottom: 90px;
+    left: 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 160px;
+    height: 200px;
+    align-content: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+.example-container>.imageVet {
+    /* {position:"absolute",height:540, borderRadius:0, border:"0px solid white", userSelect:"none", left:70, top:2} */
+    position: absolute;
+    height: 540px;
+    border-radius: 0;
+    border: 0px solid white;
+    user-select: none;
+    left: 70px;
+    top: 2px;
+}
+
+.example-container>.imageVet:holder {}
+
+.example-container>.consul {
+    /*                style={{ position: 'absolute', bottom:320, right: 220, grid: '1fr /  60% 40%', height: 90, width: 240, alignContent: "center", justifyItems: "center" , cursor:"pointer"}}*/
+    position: absolute;
+    bottom: 50px;
+    right: 60px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 1fr;
+    width: 240px;
+    height: 90px;
+    align-content: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+.example-container>.vac {
+    /* style={{ position: 'absolute', top: 20, right: 160, height: 170, width: 170, grid: "1fr 1fr / 1fr", alignContent: "center", justifyItems: "center", cursor:"pointer" }} */
+    position: absolute;
+    top: 20px;
+    right: 250px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 170px;
+    height: 170px;
+    align-content: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .example-container>.tecno {
+        scale: 0.9;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .example-container>.tecno {
+        scale: .9;
+        bottom: 20px;
+    }
+
+    .example-container>.consul {
+        scale: .9;
+        bottom: 20px;
+        right: 130;
+    }
+
+    .example-container>.vac {
+        scale: .9;
+        top: 20px;
+        right: 130;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .example-container {
+        display: flex;
+        position: absolute;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+    }
+
+    .example-container>.imageVet {
+        position: relative;
+        width: 100%;
+        height: auto;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .mainHere {
+        background-color: RED;
+
+    }
+
+
+
+    .example-container>.tecno {
+        scale: 0.8;
+        left: 10px;
+        bottom: 80px;
+    }
+    .example-container > .consul {
+        scale: 0.8;
+        right: 20px;
+        bottom: 70px;
+    }
+    .example-container > .vac {
+        scale: 0.8;
+        top: 60px;
+        right: 220px;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .example-container>.tecno {
+        scale: 0.8;
+        left: 10px;
+        bottom: 20px;
+    }
+    .example-container > .consul {
+        scale: 0.8;
+        right: 20px;
+        bottom: 30px;
+    }
+    .example-container > .vac {
+        scale: 0.8;
+        top: 60px;
+        right: 150px;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .example-container>.tecno {
+        scale: 0.7;
+        left: -10px;
+        bottom: -25px;
+    }
+    .example-container > .consul {
+        scale: 0.7;
+        right: -20px;
+        bottom: -15px;
+    }
+    .example-container > .vac {
+        scale: 0.7;
+        top: -10px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .example-container>.tecno {
+        scale: 0.6;
+        left: -10px;
+        bottom: -30px;
+    }
+    .example-container > .consul {
+        scale: 0.6;
+        right: -20px;
+        bottom: -30px;
+    }
+    .example-container > .vac {
+        scale: 0.6;
+        top: -20px;
+        right: 110px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .example-container>.tecno {
+        scale: 0.5;
+        left: -30px;
+        bottom: -60px;
+    }
+    .example-container > .consul {
+        scale: 0.5;
+        right: -40px;
+        bottom: -30px;
+    }
+    .example-container > .vac {
+        scale: 0.5;
+        top: -30px;
+        right: 20px;
+
+    }
     
 }
-.titleMini{
+
+.titleMini {
     font-size: 1.5rem;
     font-weight: 500;
     color: white;
     text-align: center;
     margin: 0;
     padding: 0;
-    grid-row:1;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+    grid-row: 1;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
 }
 
-.refresh{
+.refresh {
     padding: 10px;
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgb(0,0,0,0.4);
+    background: rgb(0, 0, 0, 0.4);
     border-radius: 10px;
     width: 20px;
     height: 20px;

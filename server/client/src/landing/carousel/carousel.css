@@ -3,10 +3,7 @@
     /* border: 1px solid #000; */
 
     /* border-radius: 100px; */
-
-    width: 900px;
     
-
   }
   .embla__container {
     display: flex;
@@ -33,4 +30,9 @@
     scale: .3;
     grid-column: 4;
     border: 1px solid red;
+  }
+  @media only screen and (max-width:850px) {
+  .embla__slide{
+    display: flex;
+  }
   }
