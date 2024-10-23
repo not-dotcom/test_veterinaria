@@ -21,10 +21,10 @@ const Test = () => {
 
     return (
         <div className="example-container">
-            <img src={Free1} style={{position:"absolute",height:540, borderRadius:0, border:"0px solid white", userSelect:"none", left:70, top:2}}></img>
+            <img src={Free1} className='imageVet'></img>
 
             <motion.div
-                style={{ position: 'absolute',bottom:390,  left: 30, grid: "1fr 1fr / 1fr", width:160, height:200, alignContent: "center", justifyItems: "center", cursor:"pointer"}}
+            className='tecno'
                 animate={{ scale: move ? 1.2 : 1 }}
                 onClick={() => setMove(!move)}
                 onMouseEnter={() => handleMouseToggle(true)}
@@ -35,7 +35,7 @@ const Test = () => {
                 <MdOutlineBiotech style={{color: "white", fontSize: "6em", cursor:"pointer"}}></MdOutlineBiotech>
             </motion.div>
             <motion.div
-                style={{ position: 'absolute', bottom:320, right: 220, grid: '1fr /  60% 40%', height: 90, width: 240, alignContent: "center", justifyItems: "center" , cursor:"pointer"}}
+            className='consul'
                 animate={{ scale: move2 ? 1.2 : 1 }}
                 onClick={() => setMove2(!move2)}
                 transition={{ type: "spring", stiffness: 260, damping: 30 }}
@@ -47,7 +47,7 @@ const Test = () => {
 
             </motion.div>
             <motion.div
-                style={{ position: 'absolute', top: 20, right: 160, height: 170, width: 170, grid: "1fr 1fr / 1fr", alignContent: "center", justifyItems: "center", cursor:"pointer" }}
+            className='vac'
                 animate={{ scale: move3 ? 1.2 : 1 }}
                 onClick={() => setMove3(!move3)}
                 transition={{ type: "spring", stiffness: 260, damping: 30 }}
