@@ -5,7 +5,22 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ListSolicitudes from "../get/ListSolic";
 
+import InfoContacto from "./form/infoContacto/InfoContacto";
+import InfoPaciente from "./form/infoPaciente/InfoPaciente";
+import InfoServicio from "./form/infoServicio/InfoServicio";
+import Revision from "./form/Revision/Revision";
+
 const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
+
+    const [page, setPage] = useState(0);
+    const [formData, setFormData] = useState({
+        petName: '' // Información de contacto
+    });
+
+    const updateFormData = (newData) => {
+        setFormData(newData);
+      };
+
 
     const [doctors, setDoctors] = useState([]);
     const [availability, setAvailability] = useState([]);
@@ -18,7 +33,6 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
     const [nombre_doctor, setNombre_doctor] = useState([]);
     const [fecha_cita, setFecha_cita] = useState("");
     const [hora_cita, setHora_cita] = useState("");
-    const [paciente, setPaciente] = useState("");
     const [tipo_mascota, setTipo_mascota] = useState("");
     const [propietario, setPropietario] = useState("");
     const [cedula, setCedula] = useState("");
@@ -49,7 +63,7 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
         try {
             const fecha = new Date().toISOString().slice(0, 16);
             setCreated_at(fecha);
-            const body = { selectedDoctor, startDate, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at: fecha };
+            const body = { selectedDoctor, startDate, hora_cita, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at: fecha };
             const response = await fetch("http://localhost:5000/solicitudes", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -127,102 +141,56 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
         return times;
     };
 
+    const FormTitles = ["Paciente", "Servicio", "Contacto", "Revision"];
+
+    const PageDisplay = () => {
+        switch (page) {
+            case 0:
+                return <InfoPaciente   
+                data={formData.paciente}/>
+            case 1:
+                return <InfoServicio ></InfoServicio>
+            case 2:
+                return <InfoContacto ></InfoContacto>
+            case 3:
+                return <Revision ></Revision>
+            default:
+                return <InfoPaciente ></InfoPaciente>
+        }
+    }
+
+
+
     return (
-        <Fragment>
-            <div className="container">
-                <form className="form" onSubmit={onsubmitform}>
-                <h3 className="modal-title">Agenda tu cita</h3>
-                    <label>Doctor</label>
-                    {/* <DoctorProfile /> */}
-                    <label>
-                        <select className="form-control" onChange={handleDoctorChange} value={selectedDoctor}>
-                            <option value="">Selecciona...</option>
-                            {doctors.map(doctor => (
-                                <option key={doctor.id_doctor} value={doctor.id_doctor}>
-                                    {doctor.nombre_doctor}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    {selectedDoctor && (
-                        <label>
-                            Selecciona una fecha:
-                            <br></br>
-                            <DatePicker
-                            className="form-control"
-                                selected={startDate}
-                                onChange={handleDateChange}
-                                filterDate={isAvailableDay} // Filtra los días disponibles
-                                placeholderText="Selecciona una fecha"
-                                minDate={new Date()} // Opcional: desactivar días anteriores a hoy
-                            />
-                        </label>
-                    )}
-
-                    {startDate && availableTimes.length > 0 && (
-                        <>
-                            <label>
-                                Selecciona una hora:
-                                <br></br>
-                                <select className="form-control" value={hora_cita} onChange={e => setHora_cita(e.target.value)}>
-                                    
-                                    {availableTimes.map((time, index) => (
-                                        <option key={index} value={time}>
-                                            {time}
-                                        </option>
-                                    ))}
-                                </select>
-                            </label>
-                        </>
-                    )}
-
-                    {startDate && availableTimes.length === 0 && (
-                        <p>No hay horas disponibles para la fecha seleccionada.</p>
-                    )}
-                    <label>Nombre del Paciente</label>
-                    <input type='text' className="form-control" value={paciente} onChange={e => setPaciente(e.target.value)}></input>
-                    <label>Tipo de mascota</label>
-                    <input type='text' className="form-control" value={tipo_mascota} onChange={e => setTipo_mascota(e.target.value)}></input>
-                    <label>Nombre del Propietario</label>
-                    <input type='text' className="form-control" value={propietario} onChange={e => setPropietario(e.target.value)}></input>
-                    <label>No. de Cedula</label>
-                    <input type='text' className="form-control" value={cedula} onChange={e => setCedula(e.target.value)}></input>
-                    <label>Correo</label>
-                    <input type='email' className="form-control" value={correo} onChange={e => setCorreo(e.target.value)}></input>
-                    <label>No. de Telefono</label>
-                    <input type='text' className="form-control" value={telefono} onChange={e => setTelefono(e.target.value)}></input>
-                    <label>Direccion</label>
-                    <input type='text' className="form-control" value={direccion} onChange={e => setDireccion(e.target.value)}></input>
-                    <label>Tipo de cliente</label>
-                    <select className="form-control" value={tipo_cliente} onChange={e => setTipo_cliente(e.target.value)}>
-                        <option value="Graduado">Graduado</option>
-                        <option value="Part.">Part.</option>
-                        <option value="Estudiante">Estudiante</option>
-                        <option value="Docente">Docente</option>
-                        <option value="ADMO">ADMO.</option>
-                    </select>
-                    <label>Servicio</label>
-                    <select className="form-control" value={servicio} onChange={e => setServicio(e.target.value)}>
-                        <option value="ConsultaG general">Consulta General</option>
-                        <option value="Vacunacion">Vacunacion</option>
-                        <option value="Consulta + Ecografia">Consulta + Ecografia</option>
-                        <option value="Consulta + Rayos X">Consulta + Rayos X</option>
-                        <option value="Consulta prequirurgica">Consulta Prequirurgica</option>
-                        <option value="Consulta ortopedica">Consulta Ortopedica (Martes y Viernes - 08:00 - 12:00)</option>
-                        <option value="Consulta oncologica">Consulta Oncologica (Martes y Viernes - 08:00 - 12:00)</option>
-                    </select>
-                    <label>Forma de pago</label>
-                    <input type='text' className="form-control" value={forma_pago} onChange={e => setForma_pago(e.target.value)}></input>
-                    <label hidden="true">Fecha de creacion</label>
-                    <input hidden="true" type='datetime-local' className="form-control" value={created_at} onChange={e => setCreated_at(e.target.value)}></input>
-                    <div className="button-container">
-                    <button type="submit" className='btn btn-success'>Agendar</button>
+        <div className="formContainer" >
+            <div className='form'>
+                <div className='progressbar'></div>
+                <div className='form-container'>
+                    <div className='header'>
+                        <h1>{FormTitles[page]}</h1>
                     </div>
-                
-                </form>
+                    <div className='body'>{PageDisplay()}</div>
+                    <div className='footer'>
+                        <button
+                            disabled={page == FormTitles < 0}
+                            onClick={() => {
+                                setPage((currPage) => currPage - 1);
+                            }}
+
+                        >Prev</button>
+                        <button
+                            disabled={page == FormTitles.length - 1}
+                            onClick={() => {
+                                setPage((currPage) => currPage + 1);
+                            }}
+                        >
+                            Next</button>
+                    </div>
+                </div>
             </div>
-        </Fragment>
+
+        </div>
+
     )
 }
 

@@ -22,7 +22,7 @@ const Landing = () => {
             <nav className="navbarLanding">
                 <a href="">Inicio</a>
                 <a href="">Sobre nosotros</a>
-                <a href="">Galeria</a>
+                <a href="http://localhost:3000/galeria">Galeria</a>
             </nav>
 
 
