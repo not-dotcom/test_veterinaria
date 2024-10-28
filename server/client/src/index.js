@@ -9,8 +9,9 @@ import Register from '../src/components/register/register.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Landing from './landing/index.js';
 import { EmblaCarousel } from './landing/carousel/carousel.js';
-import Test from './landing/motion/test.js';
-;
+import Pruebas from './components/pruebas/pruebas.js';
+import InputSolic from './components/inputSolic/InputSolic.js';
+import Galeria from './components/Galeria/Galeria.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -23,8 +24,8 @@ root.render(
         <Route path="/register" element={<Register />} />
         <Route path="/landing" element={<Landing />} />
          <Route path="/caro" element={<EmblaCarousel />} /> {/*Esta ruta es provisional */}
-         <Route path="/test" element={<Test />} /> {/*Esta ruta es provisional */}
-        
+         <Route path="/test" element={<Pruebas />} /> {/*Esta ruta es provisional */}
+         <Route path="/galeria" element={<Galeria />} /> {/*Esta ruta es provisional */}
 
       </Routes>
     </BrowserRouter>

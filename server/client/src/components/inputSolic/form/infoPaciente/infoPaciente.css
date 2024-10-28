@@ -1,0 +1,68 @@
+.info-paciente-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 0.5fr 1fr 1fr 1fr;
+}
+.inputContainer{
+    display:grid;
+    grid-template-columns: 10px 1fr 0.1fr;
+    grid-template-rows: 0.1fr 1fr 0.1fr;
+
+}
+.inputContainer > input, select{ 
+    border: 2px solid #d3d3d3;
+    border-radius: 5px;
+    height: 6vh;
+    grid-column: 2;
+    padding-left: 9px;
+}
+.inputContainer > label{
+    font-size: 1.1em;
+    font-weight:400;
+    grid-column: 2;
+}
+.paciente, .propietario{
+    grid-row: 1;
+    grid-column: 1/3;
+    position: relative;
+    font-weight: 200;
+    font-size: 1.2em;
+}
+
+
+.paciente::after, .propietario::after {
+    content: "";
+    display: block;
+    position: relative;
+    width: 95%;
+    height:0.9px;
+    margin-top: 5px;
+     /* Ajusta la distancia desde el div según prefieras */
+    background-color: #d3d3d3;
+}
+
+.propietario{
+    grid-row: 3;
+    grid-column: 1/3;
+}
+#petName{
+    grid-row: 2;
+
+}
+#petType{
+    grid-row: 2;
+
+}
+#ownName{
+grid-row: 4;
+}
+#ownLast{
+    grid-row: 4;
+
+}
+#cedula{
+    grid-row: 5;
+
+}
+
+    

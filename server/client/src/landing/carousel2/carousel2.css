@@ -1,0 +1,77 @@
+.embla2{
+    overflow: hidden;
+    /* border: 1px solid #000; */
+
+    /* border-radius: 100px; */
+    height: 100vh;
+    
+  }
+  .embla__container2 {
+    display: flex;
+    height: 100%;
+  
+  }
+  .embla__slide2 {
+    /* background: linear-gradient(180deg, #ff008c 0%, rgb(211, 0, 255) 100%); */
+    
+    flex: 0 0 100%;
+
+    display: grid;    
+    grid-area: 1fr/ 1fr 20px 20px;
+    min-width: 0;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+ 
+   
+  }
+
+  /*ESTILOS DE PRUEBA  */
+
+  .imageFlayer2{
+    scale: 1;
+    grid-column: 1;
+    padding: 30px 100px 0px 100px;
+
+
+  }
+  @media only screen and (max-width:850px) {
+  .embla__slide2{
+    display: flex;
+  }
+  }
+  .text{
+    grid-column: 1;
+    grid-row: 2;
+    height: 100%;
+    text-align: center;
+
+  }
+  
+  .title1, .text1, .text2, .text3{
+    color: white;
+  }
+
+  .title1{
+    font-size: 30px;
+    font-weight: 200;
+
+  }
+  .text1{
+    font-size: 15px;
+    font-weight: 500;
+
+
+  }
+  .text2{
+    font-size: 22px;
+    font-weight: 300;
+
+  }
+  .text3{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+
+  }
