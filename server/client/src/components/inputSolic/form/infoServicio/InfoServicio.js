@@ -8,7 +8,7 @@ const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor, handleDat
 
   return (
     <div className="siosi">
-      <label>Doctor</label>
+      <label>Medico Veterinario</label>
       <Autocomplete
       style={{backgroundColor:"white"}}
         options={doctors}
@@ -174,7 +174,7 @@ function InfoServicio() {
       </div>
       <div className='tipoClienteDiv'>Servicio y tipo de cliente</div>
       <div className='inputContainer'>
-        <label>Tipo de Cliente (pocas opciones)</label>
+        <label>Perfil del cliente</label>
         <input></input>
       </div>
       <div className='inputContainer'>

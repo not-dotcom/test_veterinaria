@@ -25,15 +25,15 @@ function InfoPaciente({  data = {}, onDataChange }) {
       </div>
       <div className='propietario'>Propietario</div>
       <div className='inputContainer' id='ownName'>
-        <label>Primer Nombre</label>
+        <label>Nombre Completo</label>
         <input></input>
       </div>
       <div className='inputContainer' id='ownLast'>
-        <label>Primer Apellido</label>
+        <label>Apellidos</label>
         <input></input>
       </div>
       <div className='inputContainer' id='cedula'>
-        <label>No. Cedula</label>
+        <label>No. Cédula</label>
         <input></input>
       </div>
 

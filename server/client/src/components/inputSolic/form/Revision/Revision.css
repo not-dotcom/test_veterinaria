@@ -1,0 +1,16 @@
+.mainReporte{
+    grid-column: 1/3;
+
+}
+.imprimir{
+    display: block;
+    margin: 10px auto; /* Centra el botón horizontalmente */
+    padding: 5px 20px; /* Ajusta el padding según sea necesario */
+    background-color: #3188CC; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de fuente */
+    text-align: center; /* Centra el texto dentro del botón */
+}

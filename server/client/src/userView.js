@@ -8,6 +8,7 @@ import InfoPaciente from './components/inputSolic/form/infoPaciente/InfoPaciente
 import InfoServicio from './components/inputSolic/form/infoServicio/InfoServicio';
 import InfoContacto from './components/inputSolic/form/infoContacto/InfoContacto';
 import Revision from './components/inputSolic/form/Revision/Revision';
+import DayAnimation from './landing/catAnimation/day/dayAnimation';
 function UserView() {
   const [page, setPage] = useState(0);
   const PageDisplay = () => {
@@ -49,6 +50,8 @@ function UserView() {
       <div className="headerUser">
         <Header>
         </Header>
+        <DayAnimation></DayAnimation>
+
       </div>
 
 
@@ -56,7 +59,7 @@ function UserView() {
         <div className='statusContainer'>
           <div className='stepDiv1'>
             <div className={classes.divNumber1}><p className={classes.Number1}>1</p></div>
-            <div className='textDiv'> <p className='text'>Informacion del paciente</p></div>
+            <div className='textDiv'> <p className='text'>Información del paciente</p></div>
           </div>
           <div className='stepDiv2'>
             <div className={classes.divNumber2}><p className={classes.Number2}>2</p></div>
@@ -68,17 +71,18 @@ function UserView() {
           </div>
           <div className='stepDiv4'>
             <div className={classes.divNumber4}><p className={classes.Number4}>4</p></div>
-            <div className='textDiv'><p className='text'>Revision</p></div>
+            <div className='textDiv'><p className='text'>Revisión</p></div>
           </div>
 
         </div>
+        
       </div>
 
 
       <div className='body'>
         <label className='headerProv'>{FormTitles[page]}</label>
         {PageDisplay()}
-        <div className='botones'><button
+        <div className='botones'><button id='prev'
           disabled={page == FormTitles < 0}
           onClick={() => {
             setPage((currPage) => currPage - 1);
@@ -86,6 +90,7 @@ function UserView() {
 
         >Prev</button>
           <button
+            id='next'
             disabled={page == FormTitles.length - 1}
             onClick={() => {
               setPage((currPage) => currPage + 1);

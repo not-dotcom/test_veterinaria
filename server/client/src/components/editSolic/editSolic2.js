@@ -51,7 +51,7 @@ const EditSolic2 = ({ solicitud }) => {
                     <Box sx={style}>
                         <div className='header'>
                             <img src={logo} alt="Logo" className='logo' /> {/* Agrega la imagen del logo */}
-                            Clinica Veterinaria UDES
+                            Cliníca Veterinaria UDES
                         </div>
                         <div className='fecha'>{fechaDeCreacion}</div>
                         <div className='cita-agendada'>Cita agendada</div>

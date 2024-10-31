@@ -1,0 +1,32 @@
+.info-contacto-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.2fr 0.3fr 0.3fr 1fr;
+}
+.comunicacion{
+    grid-row: 1;
+    grid-column: 1/3;
+    position: relative;
+    font-weight: 200;
+    font-size: 1.2em;
+}
+
+.comunicacion::after{
+    content: "";
+    display: block;
+    position: relative;
+    width: 95%;
+    height:0.9px;
+    margin-top: 5px;
+     /* Ajusta la distancia desde el div según prefieras */
+    background-color: #d3d3d3;
+}
+.info-contacto-container #dir{
+    
+}
+.info-contacto-container #noTel{
+
+}
+.info-contacto-container #correo{
+
+}

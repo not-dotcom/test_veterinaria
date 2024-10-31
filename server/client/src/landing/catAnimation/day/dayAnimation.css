@@ -5,18 +5,18 @@
 
     height:530px;
     width:350px;
-    position: absolute;
+    position: relative;
     margin: auto;
-    right: 5px;
-    top: 5px;
-    transform: scale(0.5);
+    right: -710px;
+    top: -290px;
+    transform: scale(0.17);
 
 }
 .windowD{
     width: 250px;
     height: 300px;
     background-color: #53bdda;
-    outline: 12px solid #29467a;
+    outline: 16px solid #29467a;
     border-left: 5px solid #439abf;
     border-right: 5px solid #439abf;
     position: relative;
@@ -45,7 +45,7 @@
 .mountain-1D{
     height: 0;
     width: 0;
-    border-bottom: 60px solid #22596d;
+    border-bottom: 60px solid #008000;
     border-right: 20px solid transparent;
     position: absolute;
     bottom: 0;
@@ -55,7 +55,7 @@
     position: absolute;
     height: 0;
     width: 0;
-    border-bottom: 60px solid #22596d;
+    border-bottom: 60px solid #008000;
     border-right: 20px solid transparent;
     border-left: 20px solid transparent;
 }

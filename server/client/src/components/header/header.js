@@ -7,7 +7,7 @@ const Header = () => {
                     <img src={require('../../media/profile.jpg')} width="30" height="30" class="image" alt="Profile Image"></img>
 
         <a class="link" href="#" >
-            Sistema de administración de citas - clinica Veterinaria UDES
+            Sistema de Agendamiento de Citas - Clínica Veterinaria UDES Bucaramanga
         </a>
 
       </nav>  
