@@ -13,14 +13,19 @@ import Revision from "./form/Revision/Revision";
 const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
 
     const [page, setPage] = useState(0);
+    /*-------------------------------------*/
     const [formData, setFormData] = useState({
-        petName: '' // Información de contacto
+        paciente: {} // Aquí se almacenarán los datos de InfoPaciente
     });
+    const handleDataChange = (newData) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            paciente: newData
+        }));
+    };
 
-    const updateFormData = (newData) => {
-        setFormData(newData);
-      };
 
+    /**---------------------------------------------------------- */
 
     const [doctors, setDoctors] = useState([]);
     const [availability, setAvailability] = useState([]);
@@ -147,7 +152,7 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
         switch (page) {
             case 0:
                 return <InfoPaciente   
-                data={formData.paciente}/>
+                data={formData.paciente} onDataChange={handleDataChange}/>
             case 1:
                 return <InfoServicio ></InfoServicio>
             case 2:
@@ -187,6 +192,8 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
                             Next</button>
                     </div>
                 </div>
+                <h1>Datos Duros{JSON.stringify(formData, null, 2)}</h1>
+
             </div>
 
         </div>

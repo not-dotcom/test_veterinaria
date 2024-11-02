@@ -63,7 +63,7 @@
 .botones> button{
     font-size: 15px;
     color: white;
-    background-color: #008000;
+    background-color: #1966d3;
     margin-right: 40px;
     padding: 4px 40px;
     border-radius: 9px;
@@ -71,7 +71,7 @@
     height: 40px;
 }
 .botones> button:hover{
-    background-color: #30a243;
+    background-color: #1966d3;
     cursor: pointer;
     
 }
@@ -136,7 +136,7 @@
 
 
 .numberDivCurrent1 {
-    background-color: #008000;
+    background-color: #1966d3;
     position: relative;
     
 }
@@ -149,7 +149,7 @@
     transform: translateX(-50%);
     height: 50px;
     width: 3px;
-    background-image: linear-gradient(180deg, #008000 50%, transparent 50%);
+    background-image: linear-gradient(180deg, #1966d3 50%, transparent 50%);
     background-size: 100% 15px;
     animation: dotted-scroll 2s infinite linear;
     
@@ -165,7 +165,7 @@
 }
 
 .staticNumberDiv {
-    background-color: #008000;
+    background-color: #1966d3;
     position: relative;
     
 }
@@ -178,14 +178,14 @@
     transform: translateX(-50%);
     height: 50px;
     width: 3px;
-    background-image: linear-gradient(180deg, #008000 100%, transparent 0%);
+    background-image: linear-gradient(180deg, #1966d3 100%, transparent 0%);
     background-size: 100% 15px;
     
     
 }
 
 .numberDivCurrent4 {
-    background-color: #008000;
+    background-color: #1966d3;
     position: relative;
     /* outline: 4px solid #6fbe7c; */
 }

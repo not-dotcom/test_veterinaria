@@ -11,10 +11,22 @@ import Revision from './components/inputSolic/form/Revision/Revision';
 import DayAnimation from './landing/catAnimation/day/dayAnimation';
 function UserView() {
   const [page, setPage] = useState(0);
+
+  const [formData, setFormData] = useState({ paciente: {} });
+
+  const handleDataChange = (newData) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      paciente: newData
+    }));
+  };
+
+
+
   const PageDisplay = () => {
     switch (page) {
       case 0:
-        return <InfoPaciente></InfoPaciente>
+        return <InfoPaciente data={formData.paciente} onDataChange={handleDataChange} />;
       case 1:
         return <InfoServicio></InfoServicio>
       case 2:
@@ -50,7 +62,6 @@ function UserView() {
       <div className="headerUser">
         <Header>
         </Header>
-        <DayAnimation></DayAnimation>
 
       </div>
 
@@ -75,7 +86,7 @@ function UserView() {
           </div>
 
         </div>
-        
+
       </div>
 
 
@@ -98,6 +109,8 @@ function UserView() {
           >
             Next</button>
         </div>
+        <pre>{JSON.stringify(formData, null, 2)}</pre>
+
       </div>
 
 

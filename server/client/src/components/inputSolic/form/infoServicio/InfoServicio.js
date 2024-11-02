@@ -10,7 +10,7 @@ const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor, handleDat
     <div className="siosi">
       <label>Medico Veterinario</label>
       <Autocomplete
-      style={{backgroundColor:"white"}}
+        style={{ backgroundColor: "white" }}
         options={doctors}
         getOptionLabel={(option) => option.nombre_doctor || ""}
         onChange={(event, newValue) => handleDoctorChange(newValue)}
@@ -125,7 +125,7 @@ function InfoServicio() {
         <div className='inputContainer' id="doctorDiv" >
 
           <DoctorSelector
-         
+
             defaultValue="Selecciona un doctor"
             placeholder="Selecciona un doctor"
             doctors={doctors}
@@ -175,17 +175,37 @@ function InfoServicio() {
       <div className='tipoClienteDiv'>Servicio y tipo de cliente</div>
       <div className='inputContainer'>
         <label>Perfil del cliente</label>
-        <input></input>
+        <select>
+          <option value="Externo">Externo</option>
+          <option value="Estudiante">Estudiante</option>
+          <option value="Profesor">Profesor</option>
+          <option value="Graduado">Graduado</option>
+          <option value="Administrativo">Administrativo</option>
+        </select>
       </div>
       <div className='inputContainer'>
         <label>Servicio</label>
-        <input></input>
+        <select>
+          <option value="" disabled="true" className='Servicio'>Otro...</option>
+          <option value="Consulta" className='option'>Consulta</option>
+          <option value="Cirugia" hidden="true" disabled="true" className='option'>Cirugía</option>
+          <option value="Ecografia" hidden="true" disabled="true" className='option'>Ecografía</option>
+          <option value="Rayos X" hidden="true" disabled="true" className='option'>Rayos X</option>
+          <option value="Laboratorio Clinico" hidden="true" disabled="true" className='option'>Laboratorio Clínico</option>
+          <option value="Vacunacion" hidden="true" disabled="true" className='option'>Vacunación</option>
+          <option value="Profilaxis dental" hidden="true" disabled="true" className='option'>Profilaxis dental</option>
+          <option value="Desparasitacion" hidden="true" disabled="true" className='option'>Desparasitación</option>
+          <option value="Anestecia Inhalada" hidden="true"  disabled="true" className='option'>Anestesia Inhalada</option>
+        </select>
       </div>
       <div className='inputContainer'>
         <label>No. Cedula</label>
         <input></input>
       </div>
+
+
     </div>
+
   );
 }
 
