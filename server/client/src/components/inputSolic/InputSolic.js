@@ -192,7 +192,6 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
                             Next</button>
                     </div>
                 </div>
-                <h1>Datos Duros{JSON.stringify(formData, null, 2)}</h1>
 
             </div>
 

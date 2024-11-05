@@ -87,7 +87,12 @@
 .horaInput{
     width: 55%;
 }
-
+.fechainput:disabled,
+.horaInput:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 .horariosDisp{
     grid-row: 1;
     grid-column: 1/3;

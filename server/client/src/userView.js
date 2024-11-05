@@ -12,12 +12,29 @@ import DayAnimation from './landing/catAnimation/day/dayAnimation';
 function UserView() {
   const [page, setPage] = useState(0);
 
-  const [formData, setFormData] = useState({ paciente: {} });
+  const [formData, setFormData] = useState({ 
+    paciente: {
+      mascota: '',
+      tipoMascota: null,
+      razaMascota: '',
+      propietario: '',
+      cedula: '',
+    },
+    servicio: {
+      doctor: '',
+      selectedDoctor: null,
+      fecha_cita: null,
+      hora_cita: '',
+      tipoServicio: '',
+      tipoCliente: ''
+    }
+  });
 
-  const handleDataChange = (newData) => {
+
+  const handleDataChange = (section, newData) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      paciente: newData
+      [section]: newData
     }));
   };
 
@@ -26,9 +43,9 @@ function UserView() {
   const PageDisplay = () => {
     switch (page) {
       case 0:
-        return <InfoPaciente data={formData.paciente} onDataChange={handleDataChange} />;
+        return <InfoPaciente data={formData.paciente} onDataChange={(newData) => handleDataChange('paciente', newData)} />;
       case 1:
-        return <InfoServicio></InfoServicio>
+        return <InfoServicio data={formData.servicio} onDataChange={(newData) => handleDataChange('servicio', newData)} />;
       case 2:
         return <InfoContacto></InfoContacto>
       case 3:
@@ -109,7 +126,6 @@ function UserView() {
           >
             Next</button>
         </div>
-        <pre>{JSON.stringify(formData, null, 2)}</pre>
 
       </div>
 
