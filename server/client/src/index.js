@@ -19,6 +19,7 @@ root.render(
       <Routes>
         <Route path="/*" element={<App />} />
         <Route path="/user" element={<UserView />} />
+        <Route path="/user2" element={<InputSolic />} />
         <Route path="/doctors" element={<DoctorView />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

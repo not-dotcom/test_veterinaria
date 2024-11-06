@@ -185,9 +185,15 @@
 }
 
 .numberDivCurrent4 {
-    background-color: #1966d3;
+    background-color: white;
     position: relative;
+    outline: 3.4px solid #1966d3;;
     /* outline: 4px solid #6fbe7c; */
+}
+.numberCurrent4 {
+    place-self: center;
+    font-weight: 500;
+    color: #1966d3;
 }
 
 .number {

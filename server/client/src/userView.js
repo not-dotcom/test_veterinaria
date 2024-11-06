@@ -12,7 +12,7 @@ import DayAnimation from './landing/catAnimation/day/dayAnimation';
 function UserView() {
   const [page, setPage] = useState(0);
 
-  const [formData, setFormData] = useState({ 
+  const [formData, setFormData] = useState({
     paciente: {
       mascota: '',
       tipoMascota: null,
@@ -27,6 +27,13 @@ function UserView() {
       hora_cita: '',
       tipoServicio: '',
       tipoCliente: ''
+    }
+    ,
+    contacto: {
+      correo: '',
+      telefono: '',
+      direccion: ''
+
     }
   });
 
@@ -47,11 +54,11 @@ function UserView() {
       case 1:
         return <InfoServicio data={formData.servicio} onDataChange={(newData) => handleDataChange('servicio', newData)} />;
       case 2:
-        return <InfoContacto></InfoContacto>
+        return <InfoContacto data={formData.contacto} onDataChange={(newData) => handleDataChange('contacto', newData)} />;
       case 3:
-        return <Revision></Revision>
+        return <Revision formData={formData} />; // Pasa todo el formData
       default:
-        return <InfoPaciente></InfoPaciente>
+        return <InfoPaciente data={formData.paciente} onDataChange={(newData) => handleDataChange('paciente', newData)} />;
     }
   }
   const FormTitles = ["Paciente", "Servicio", "Contacto", "Revision"];
@@ -61,7 +68,7 @@ function UserView() {
       Number1: page >= 0 ? 'numberCurrent' : 'number',
       Number2: page >= 1 ? 'numberCurrent' : 'number',
       Number3: page >= 2 ? 'numberCurrent' : 'number',
-      Number4: page >= 3 ? 'numberCurrent' : 'number',
+      Number4: page >= 3 ? 'numberCurrent4' : 'number',
       divNumber1: page === 0 ? 'numberDivCurrent1' : 'staticNumberDiv',
       divNumber2: page < 1 ? 'numberDiv' : page === 1 ? 'numberDivCurrent1' : page > 1 ? 'staticNumberDiv' : 'numberDiv',
       divNumber3: page < 2 ? 'numberDiv' : page === 2 ? 'numberDivCurrent1' : page > 2 ? 'staticNumberDiv' : 'numberDiv',
@@ -128,7 +135,19 @@ function UserView() {
         </div>
 
       </div>
-
+      <pre
+        style={{
+          backgroundColor: '#f5f5f5',
+          padding: '1rem',
+          borderRadius: '4px',
+          fontFamily: 'monospace',
+          fontSize: '14px',
+          overflowX: 'auto',
+          whiteSpace: 'pre-wrap'
+        }}
+      >
+        {JSON.stringify(formData, null, 2)}
+      </pre>
 
     </div>
   );

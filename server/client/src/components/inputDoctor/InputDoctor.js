@@ -37,6 +37,7 @@ const InputDoctor = () => {
             const response = await fetch("http://localhost:5000/doctores");
             const jsonData = await response.json();
             setDoctores(jsonData);
+            console.log(jsonData);
         } catch (err) {
             console.log(err.message);
         }
