@@ -1,27 +1,109 @@
-.info-paciente-container{
+
+
+.info-paciente-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.5fr 1fr 0.5fr 1fr 1fr 1fr;
 }
-.inputContainer{
-    display:grid;
+
+.inputContainer {
+    display: grid;
     grid-template-columns: 10px 1fr 0.1fr;
     grid-template-rows: 0.1fr 1fr 0.1fr;
 
 }
-.inputContainer > input, select{ 
+
+.inputContainer>input,
+select {
     border: 2px solid #d3d3d3;
     border-radius: 5px;
     height: 6vh;
     grid-column: 2;
     padding-left: 9px;
 }
-.inputContainer > label{
+
+.tipoMascota {
+    border-radius: 5px;
+    height: 6vh;
+    grid-column: 2;
+    display: flex;
+}
+
+.tipoMascota>input {
+    width: 40px;
+}
+
+.inputContainer>label {
     font-size: 1.1em;
-    font-weight:400;
+    font-weight: 400;
     grid-column: 2;
 }
-.paciente, .propietario{
+
+.checkperro,
+.checkgato {
+    display: none;
+}
+
+.labelP,
+.labelG {
+    text-align: center;
+    vertical-align: middle;
+    width: 25%;
+    padding: 2px;
+    background-color: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Opcional: para centrar horizontalmente */
+    cursor: pointer;
+    margin-right: 5%;
+
+}
+
+.tipoMascota>select {
+    width: 25%;
+}
+.tipoMascota>select>option:checked{
+    display:none; 
+}
+
+
+.tipoMascota >select:checked{
+    background-color: red;
+}
+
+.option{
+    background-color: white;
+    color: black;
+
+
+}
+
+.checkperro:checked+.labelP {
+    background-color: #1966d3;
+    color: white;
+}
+
+.checkgato:checked+.labelG {
+    background-color: #1966d3;
+    color: white;
+}
+
+
+
+
+
+
+.paciente,
+.propietario {
     grid-row: 1;
     grid-column: 1/3;
     position: relative;
@@ -30,39 +112,45 @@
 }
 
 
-.paciente::after, .propietario::after {
+.paciente::after,
+.propietario::after {
     content: "";
     display: block;
     position: relative;
     width: 95%;
-    height:0.9px;
+    height: 0.9px;
     margin-top: 5px;
-     /* Ajusta la distancia desde el div según prefieras */
+    /* Ajusta la distancia desde el div según prefieras */
     background-color: #d3d3d3;
 }
 
-.propietario{
+.propietario {
     grid-row: 3;
     grid-column: 1/3;
 }
-#petName{
+
+#petName {
     grid-row: 2;
 
 }
-#petType{
+
+#petType {
     grid-row: 2;
 
 }
-#ownName{
-grid-row: 4;
+
+#ownName {
+    grid-row: 4;
 }
-#ownLast{
+
+#cedula {
     grid-row: 4;
 
 }
-#cedula{
-    grid-row: 5;
 
+.empty-select{
+    border: 1px solid green;
 }
-
-    
+.no-empty-select{
+    border: 1px solid red;
+}
