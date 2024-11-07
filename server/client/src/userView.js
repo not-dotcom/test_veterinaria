@@ -11,6 +11,7 @@ import Revision from './components/inputSolic/form/Revision/Revision';
 import DayAnimation from './landing/catAnimation/day/dayAnimation';
 function UserView() {
   const [page, setPage] = useState(0);
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     paciente: {
@@ -36,7 +37,57 @@ function UserView() {
 
     }
   });
+  const validateStep = (step) => {
+    switch (step) {
+      case 0: // InfoPaciente
+        return validatePaciente();
+      case 1: // InfoServicio
+        return validateServicio();
+      case 2: // InfoContacto
+        return validateContacto();
+      default:
+        return true;
+    }
+  };
+  const validatePaciente = () => {
+    const errors = {};
+    const { mascota, propietario, cedula } = formData.paciente;
 
+    if (!mascota?.trim()) errors.mascota = "Nombre de mascota requerido";
+    if (!propietario?.trim()) errors.propietario = "Nombre del propietario requerido";
+    if (!cedula) errors.cedula = "Cédula requerida";
+    if (!formData.paciente.tipoMascota && !formData.paciente.razaMascota) {
+      errors.tipo = "Seleccione tipo de mascota";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  const validateServicio = () => {
+    const errors = {};
+    const { doctor, fecha_cita, hora_cita, tipoServicio, tipo_cliente } = formData.servicio;
+
+    if (!doctor) errors.doctor = "Seleccione un doctor";
+    if (!fecha_cita) errors.fecha = "Seleccione fecha";
+    if (!hora_cita) errors.hora = "Seleccione hora";
+    if (!tipoServicio) errors.servicio = "Seleccione servicio";
+    if (!tipo_cliente) errors.cliente = "Seleccione tipo de cliente";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const validateContacto = () => {
+    const errors = {};
+    const { correo, telefono, direccion } = formData.contacto;
+
+    if (!correo?.trim()) errors.correo = "Correo requerido";
+    if (!telefono?.trim()) errors.telefono = "Teléfono requerido";
+    if (!direccion?.trim()) errors.direccion = "Dirección requerida";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleDataChange = (section, newData) => {
     setFormData((prevFormData) => ({
@@ -50,17 +101,33 @@ function UserView() {
   const PageDisplay = () => {
     switch (page) {
       case 0:
-        return <InfoPaciente data={formData.paciente} onDataChange={(newData) => handleDataChange('paciente', newData)} />;
+        return <InfoPaciente 
+          data={formData.paciente} 
+          onDataChange={(newData) => handleDataChange('paciente', newData)}
+          errors={errors}
+        />;
       case 1:
-        return <InfoServicio data={formData.servicio} onDataChange={(newData) => handleDataChange('servicio', newData)} />;
+        return <InfoServicio 
+          data={formData.servicio} 
+          onDataChange={(newData) => handleDataChange('servicio', newData)}
+          errors={errors}
+        />;
       case 2:
-        return <InfoContacto data={formData.contacto} onDataChange={(newData) => handleDataChange('contacto', newData)} />;
+        return <InfoContacto 
+          data={formData.contacto} 
+          onDataChange={(newData) => handleDataChange('contacto', newData)}
+          errors={errors}
+        />;
       case 3:
-        return <Revision formData={formData} />; // Pasa todo el formData
+        return <Revision formData={formData} />;
       default:
-        return <InfoPaciente data={formData.paciente} onDataChange={(newData) => handleDataChange('paciente', newData)} />;
+        return <InfoPaciente 
+          data={formData.paciente} 
+          onDataChange={(newData) => handleDataChange('paciente', newData)}
+          errors={errors}
+        />;
     }
-  }
+  };
   const FormTitles = ["Paciente", "Servicio", "Contacto", "Revision"];
   const getClassNames = () => {
     return {
@@ -126,16 +193,20 @@ function UserView() {
         >Prev</button>
           <button
             id='next'
-            disabled={page == FormTitles.length - 1}
+            disabled={page === FormTitles.length - 1}
             onClick={() => {
-              setPage((currPage) => currPage + 1);
+              if (validateStep(page)) {
+                setPage((currPage) => currPage + 1);
+                setErrors({}); // Limpiar errores al avanzar
+              }
             }}
           >
-            Next</button>
+            Next
+          </button>
         </div>
 
       </div>
-      <pre
+      {/* <pre
         style={{
           backgroundColor: '#f5f5f5',
           padding: '1rem',
@@ -147,7 +218,7 @@ function UserView() {
         }}
       >
         {JSON.stringify(formData, null, 2)}
-      </pre>
+      </pre> */}
 
     </div>
   );

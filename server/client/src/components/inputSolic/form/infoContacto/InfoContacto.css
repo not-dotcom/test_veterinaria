@@ -1,7 +1,7 @@
 .info-contacto-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.2fr 0.3fr 0.3fr 1fr;
+    grid-template-rows: 0.2fr 0.4fr 0.4fr 1fr;
 }
 .comunicacion{
     grid-row: 1;
@@ -28,5 +28,19 @@
 
 }
 .info-contacto-container #correo{
+
+}
+
+.error-message{
+    display: inline;
+    color: red;
+    position: absolute;
+    font-size: 0.8em;
+    margin-top: 10vh;
+    margin-left: 10px;
+}
+.input-error{
+    outline: 2px solid red;
+    background-color: rgba(255, 157, 157, 0.253);
 
 }
