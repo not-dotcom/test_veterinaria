@@ -30,6 +30,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     align-self: top;
+   
 
 }
 
@@ -41,6 +42,7 @@
 }
 #doctorDiv{
     grid-row: 1;
+    padding-top: 2px;
     grid-column: 1;
     
 }
@@ -132,4 +134,22 @@
     margin-top: 5px;
      /* Ajusta la distancia desde el div según prefieras */
     background-color: #d3d3d3;
+}
+
+#classErrorDoctor{
+    display: inline;
+color: red;
+position: absolute;
+font-size: 0.8em;
+margin-top: -4.2vh;
+margin-left: 10px;
+}
+
+.error-message{
+display: inline;
+color: red;
+position: absolute;
+font-size: 0.8em;
+margin-top: 10vh;
+margin-left: 10px;
 }

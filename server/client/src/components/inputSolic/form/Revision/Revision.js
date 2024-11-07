@@ -1,14 +1,52 @@
 import React from 'react';
 import './Revision.css';
+import ImprimirCita from './ImprimirCita';
+
 function Revision({ formData }) {
   const { paciente, servicio, contacto } = formData;
-
+  const handlePrint = () => {
+    window.print();
+  };
 
   const formatDate = (date) => {
     if (!date) return '';
     if (typeof date === 'string') return date;
     return new Date(date).toLocaleDateString();
   };
+
+  const handleSubmit = async () => {
+    try {
+      const formattedData = {
+        selectedDoctor: servicio.doctor,
+        startDate: servicio.fecha_cita,
+        hora_cita: servicio.hora_cita,
+        paciente: paciente.mascota,
+        tipo_mascota: paciente.tipoMascota,
+        propietario: paciente.propietario,
+        cedula: paciente.cedula,
+        correo: contacto.correo,
+        telefono: contacto.telefono,
+        direccion: contacto.direccion,
+        tipo_cliente: servicio.tipo_cliente,
+        servicio: servicio.tipoServicio,
+        forma_pago: "N/A",
+        created_at: new Date().toISOString().slice(0, 16)
+      };
+
+      const response = await fetch("http://localhost:5000/solicitudes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formattedData)
+      });
+
+      if (response.ok) {
+        window.location = "/user";
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="mainReporte" style={{ display: "flex", justifyContent: "center", width: "100%" }}>
       <div style={{ padding: '20px 20px 20px 20px', fontFamily: 'Arial, sans-serif', border: "3px solid #E8e8e8" }}>
@@ -33,11 +71,15 @@ function Revision({ formData }) {
           <div><strong>Dirección del paciente:</strong> {contacto.direccion}</div>
           <div><strong>Teléfono del propietario:</strong> {contacto.telefono}</div>
           <div><strong>Correo del propietario:</strong> {contacto.correo}</div>
-          <div><button className='imprimir'>Imprimir</button></div>
+          <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
+            <button className='imprimir'>Imprimir</button>
+            <button className='enviar' onClick={handleSubmit}>Enviar Solicitud</button>
+            
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Revision
+export default Revision;

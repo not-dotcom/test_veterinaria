@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './infoPaciente.css';
 
 // Componente InfoPaciente que recibe datos y una función para manejar cambios en los datos
-function InfoPaciente({ data = {}, onDataChange }) {
+function InfoPaciente({ data = {}, onDataChange, errors }) {
     // Estado para el tipo de mascota seleccionado
     const [tipoSeleccionado, setTipoSeleccionado] = useState(data.tipoMascota || null);
     // Estado para la raza de la mascota seleccionada
@@ -17,6 +17,17 @@ function InfoPaciente({ data = {}, onDataChange }) {
     // Maneja los cambios en los inputs de texto
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        if (name === 'cedula') {
+            // Reemplazar cualquier caracter que no sea número con string vacío
+            const numericValue = value.replace(/[^0-9]/g, '');
+            
+            if (typeof onDataChange === 'function') {
+                onDataChange({ ...data, [name]: numericValue });
+            }
+            return;
+        }
+    
+        // Para otros campos, mantener el comportamiento original
         if (typeof onDataChange === 'function') {
             onDataChange({ ...data, [name]: value });
         }
@@ -41,17 +52,21 @@ function InfoPaciente({ data = {}, onDataChange }) {
         }
     };
 
+
     return (
         <div className='info-paciente-container'>
             <div className='paciente'>Mascota</div>
             <div className='inputContainer' id='petName'>
-                <label>Nombre</label>
+                <label>Nombre de la mascota</label>
                 <input
                     type='text'
                     name='mascota'
-                    value={data.mascota || ''} // Conecta el valor del input al estado
-                    onChange={handleInputChange} // Maneja el cambio en el input
+                    value={data.mascota || ''}
+                    onChange={handleInputChange}
+                    className={errors?.mascota ? 'input-error' : ''}
                 />
+                {errors?.mascota && <span className="error-message">{errors.mascota}</span>}
+
             </div>
             <div className='inputContainer' id='petType'>
                 <label>Tipo de mascota</label>
@@ -65,6 +80,7 @@ function InfoPaciente({ data = {}, onDataChange }) {
                         onChange={() => handleCheckboxChange('perro')}
                     />
                     <label htmlFor="perro" className="labelP">Perro</label>
+                    {errors?.tipo && <span className="error-message-mascota">{errors.tipo}</span>}
                     <input
                         type="checkbox"
                         className="checkgato"
@@ -101,23 +117,26 @@ function InfoPaciente({ data = {}, onDataChange }) {
             <div className='inputContainer' id='ownName'>
                 <label>Nombre Completo</label>
                 <input
-                 type='text'
-                 name='propietario'
-                 value={data.propietario || ''} // Conecta el valor del input al estado
-                 onChange={handleInputChange} // Maneja el cambio en el input
+                    type='text'
+                    name='propietario'
+                    value={data.propietario || ''} // Conecta el valor del input al estado
+                    onChange={handleInputChange} // Maneja el cambio en el input
+                    className={errors?.propietario ? 'input-error' : ''}
                 ></input>
+                {errors?.propietario && <span className="error-message">{errors.propietario}</span>}
+
             </div>
             <div className='inputContainer' id='cedula'>
                 <label>No. Cédula</label>
                 <input
-                type='number'
-                name='cedula'
-                value={data.cedula || ''} // Conecta el valor del input al estado
-                onChange={handleInputChange}
-                 
-                 
+                    type='text'
+                    name='cedula'
+                    value={data.cedula || ''} // Conecta el valor del input al estado
+                    onChange={handleInputChange}
+                    className={errors?.cedula ? 'input-error' : ''}
+                />
+                {errors?.cedula && <span className="error-message">{errors.cedula}</span>}
 
-                ></input>
             </div>
         </div>
     );

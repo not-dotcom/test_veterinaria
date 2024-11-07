@@ -1,0 +1,26 @@
+/* PrintableCita.css */
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    .print-container, 
+    .print-container * {
+      visibility: visible;
+    }
+    .print-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  
+  .print-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .cita-info {
+    margin-top: 20px;
+    line-height: 1.6;
+  }

@@ -154,3 +154,25 @@ select {
 .no-empty-select{
     border: 1px solid red;
 }
+.input-error{
+    outline: 2px solid red;
+    background-color: rgba(255, 157, 157, 0.253);
+
+}
+
+.error-message{
+    display: inline;
+    color: red;
+    position: absolute;
+    font-size: 0.8em;
+    margin-top: 10vh;
+    margin-left: 10px;
+}
+.error-message-mascota{
+    display: inline;
+    color: red;
+    position: absolute;
+    font-size: 0.8em;
+    margin-top: 7vh;
+    margin-left: 0px;
+}

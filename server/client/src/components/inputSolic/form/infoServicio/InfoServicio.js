@@ -5,11 +5,13 @@ import { Autocomplete, TextField, Avatar } from '@mui/material';
 
 const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor }) => {
   return (
-    <div className="siosi">
+    <div className="fechadiv">
       <label>Medico Veterinario</label>
       <Autocomplete
-        style={{ backgroundColor: "white" }}
+      size="small"
+        style={{ backgroundColor: "white", outline:"2px solid #d3d3d2", borderRadius:"2px"}}
         options={doctors}
+        
         getOptionLabel={(option) => option.nombre_doctor || ""}
         onChange={(event, newValue) => handleDoctorChange(newValue)}
         renderOption={(props, option) => (
@@ -30,7 +32,7 @@ const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor }) => {
 };
 
 
-function InfoServicio({ data = {}, onDataChange }) {
+function InfoServicio({ data = {}, onDataChange, errors }) {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [availability, setAvailability] = useState([]);
@@ -188,7 +190,7 @@ function InfoServicio({ data = {}, onDataChange }) {
     <div className='info-servicio-container'>
       <div className='horariosDisp'>Seleccione al doctor y horarios disponibles</div>
       <div id="doctorMain">
-        <div className='inputContainer' id="doctorDiv" >
+        <div id="doctorDiv">
 
           <DoctorSelector
 
@@ -201,6 +203,7 @@ function InfoServicio({ data = {}, onDataChange }) {
             startDate={startDate}
             isAvailableDay={isAvailableDay}
           />
+          {errors?.doctor && <span id="classErrorDoctor" className="error-message">{errors.doctor}</span>}
         </div>
 
 
@@ -217,6 +220,7 @@ function InfoServicio({ data = {}, onDataChange }) {
             disabled={!selectedDoctor}
             value={data.fecha_cita}
           />
+          {errors?.fecha && <span className="error-message">{errors.fecha}</span>}
         </div>
 
 
@@ -263,12 +267,15 @@ function InfoServicio({ data = {}, onDataChange }) {
           value={data.tipo_cliente || ''}
           onChange={handleSelectChange}
         >
+          <option value="" disabled="true" className='Servicio'>Seleccionar...</option>
           <option value="Externo">Externo</option>
           <option value="Estudiante">Estudiante</option>
           <option value="Profesor">Profesor</option>
           <option value="Graduado">Graduado</option>
           <option value="Administrativo">Administrativo</option>
         </select>
+        {errors?.cliente && <span className="error-message">{errors.cliente}</span>}
+
       </div>
       <div className='inputContainer'>
         <label>Servicio</label>
@@ -277,7 +284,7 @@ function InfoServicio({ data = {}, onDataChange }) {
         value={data.tipoServicio || ''}
         onChange={handleSelectChange}
         >
-          <option value="" disabled="true" className='Servicio'>Otro...</option>
+          <option value="" disabled="true" className='Servicio'>Seleccionar...</option>
           <option value="Consulta" className='option'>Consulta</option>
           <option value="Cirugia" hidden="true" disabled="true" className='option'>Cirugía</option>
           <option value="Ecografia" hidden="true" disabled="true" className='option'>Ecografía</option>
@@ -288,6 +295,7 @@ function InfoServicio({ data = {}, onDataChange }) {
           <option value="Desparasitacion" hidden="true" disabled="true" className='option'>Desparasitación</option>
           <option value="Anestecia Inhalada" hidden="true" disabled="true" className='option'>Anestesia Inhalada</option>
         </select>
+        {errors?.servicio && <span className="error-message">{errors.servicio}</span>}
       </div>
 
 
