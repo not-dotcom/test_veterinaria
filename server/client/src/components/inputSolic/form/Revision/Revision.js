@@ -1,12 +1,8 @@
 import React from 'react';
 import './Revision.css';
-import ImprimirCita from './ImprimirCita';
-
 function Revision({ formData }) {
   const { paciente, servicio, contacto } = formData;
-  const handlePrint = () => {
-    window.print();
-  };
+
 
   const formatDate = (date) => {
     if (!date) return '';

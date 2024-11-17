@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import pool from './db.js';
-import { ConstructionOutlined } from '@mui/icons-material';
+
 const app = express();
 
 // middleware
@@ -9,6 +9,161 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+
+
+import crypto from "crypto";
+import bcrypt from "bcrypt";
+// import { SALT_ROUNDS } from "./config.js";
+class validation{
+    static username(username){
+        if (typeof username !== 'string') throw new Error('username must be a string')
+        if (username.length < 3) throw new Error('username must be at least 3 characters long')
+        if (username.length > 40) throw new Error('username must be at most 20 characters long')
+    }
+    static password(password){
+        if (typeof password !== 'string') throw new Error('password must be a string')
+        if (password.length < 3) throw new Error('password must be at least 3 characters long')
+    }
+}
+ 
+
+export class UserRepository {
+    static async create({username, password}) {
+        // 1. Validate input
+        validation.username(username);
+        validation.password(password);
+
+        // 2. Check if username exists
+        const existingUser = await pool.query(
+            "SELECT * FROM users WHERE username = $1",
+            [username]
+        );
+
+        if (existingUser.rows.length > 0) {
+            throw new Error('username already exists');
+        }
+
+        // 3. Create new user
+        const id = crypto.randomUUID();
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = await pool.query(
+            "INSERT INTO users (_id, username, password) VALUES ($1, $2, $3) RETURNING *",
+            [id, username, hashedPassword]
+        );
+
+        return newUser.rows[0];
+    }
+    static async login({username, password}) {
+        // 1. Validate input
+        validation.username(username);
+        validation.password(password);
+
+        // 2. Check if username exists
+        const user = await pool.query(
+            "SELECT * FROM users WHERE username = $1",
+            [username]
+        );
+
+        if (user.rows.length === 0) {
+            throw new Error('User not found');
+        }
+
+        // 3. Check password
+        const passwordMatch = await bcrypt.compare(password, user.rows[0].password);
+
+        if (!passwordMatch) {
+            throw new Error('Incorrect password');
+        }
+
+        return user.rows[0];
+    }
+}
+
+
+////////////////////////////
+/* Registrar usuarios*/
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+    
+    // Input validation
+    if (!username || !password) {
+        return res.status(400).json({
+            error: 'Missing required fields'
+        });
+    }
+
+    try {
+        const user = await UserRepository.create({ username, password });
+        
+        return res.status(201).json({
+            id: user._id,
+            username: user.username,
+            // Don't send back password hash
+        });
+
+    } catch (error) {
+        // Handle specific error types
+        if (error.message === 'username already exists') {
+            return res.status(409).json({
+                error: 'Username already taken'
+            });
+        }
+
+        // Log unexpected errors
+        console.error('Registration error:', error);
+        
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+});
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    
+    // Input validation
+    if (!username || !password) {
+        return res.status(400).json({
+            error: 'Missing required fields'
+        });
+    }
+
+    try {
+        const user = await pool.query(
+            "SELECT * FROM users WHERE username = $1",
+            [username]
+        );
+
+        if (user.rows.length === 0) {
+            return res.status(404).json({
+                error: 'User not found'
+            });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.rows[0].password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({
+                error: 'Incorrect password'
+            });
+        }
+
+        return res.status(200).json({
+            id: user.rows[0]._id,
+            username: user.rows[0].username,
+            // Don't send back password hash
+        });
+
+    } catch (error) {
+        console.error('Login error:', error);
+        
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+});
+//////////////////////////
 
 //get all solicitudes
 app.get("/solicitudes", async (req, res) => {
@@ -90,6 +245,8 @@ app.get("/doctores", async (req, res) => {
 });
 
 //get a doctor
+ 
+
 
 //create a doctor
 app.post("/doctores", async (req, res) => {

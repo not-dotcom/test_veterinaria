@@ -6,9 +6,31 @@
     height: 100vh;
     background-color: #f5f5f5;
     gap: 10px;
+    border: 1px solid red;
     
 }
+.error-message{
+    border: 1px solid red;
+    position: relative;
+}
+.formDiv{
+    grid-template-columns: 10px 1fr 1fr 10px;
 
+    
+   
+}
+.formDiv > form{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(27, 113, 181);
+    padding: 30px;
+    border-radius: 10px;
+    color: #f5f5f5;
+}
+.titleLogin{
+    text-align: center;
+
+}
 .register{
     background-color: transparent;
     border: none;
