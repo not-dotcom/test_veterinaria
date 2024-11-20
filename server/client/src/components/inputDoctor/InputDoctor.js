@@ -34,7 +34,13 @@ const InputDoctor = () => {
 
     const getDoctores = async () => {
         try {
-            const response = await fetch("http://localhost:5000/doctores");
+            const response = await fetch("http://localhost:5000/doctores",{
+                method: "GET",
+                credentials: 'include', // Añade esta línea
+                headers: {
+                "Content-Type": "application/json"
+                }
+            });
             const jsonData = await response.json();
             setDoctores(jsonData);
             console.log(jsonData);

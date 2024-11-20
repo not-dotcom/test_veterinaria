@@ -12,24 +12,35 @@ import { EmblaCarousel } from './landing/carousel/carousel.js';
 import Pruebas from './components/pruebas/pruebas.js';
 import InputSolic from './components/inputSolic/InputSolic.js';
 import Galeria from './components/Galeria/Galeria.js';
+import { AuthProvider } from './context/AuthContext.js';
+import ProtectedRoute from './components/ProtectedRoute';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<App />} />
+        <Route path="/app" element={
+            <ProtectedRoute>
+              <App />
+            </ProtectedRoute>} />
         <Route path="/user" element={<UserView />} />
         <Route path="/user2" element={<InputSolic />} />
-        <Route path="/doctors" element={<DoctorView />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/landing" element={<Landing />} />
          <Route path="/caro" element={<EmblaCarousel />} /> {/*Esta ruta es provisional */}
          <Route path="/test" element={<Pruebas />} /> {/*Esta ruta es provisional */}
          <Route path="/galeria" element={<Galeria />} /> {/*Esta ruta es provisional */}
-
+         <Route path="/doctors" element={
+            <ProtectedRoute>
+              <DoctorView />
+            </ProtectedRoute>
+          } />
+          
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );
 
