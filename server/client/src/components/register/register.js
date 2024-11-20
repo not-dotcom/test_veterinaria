@@ -77,7 +77,7 @@ const Register = () => {
             </form>
             <button 
                 className='login-link' 
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/')}
                 disabled={loading}
             >
                 ¿Ya tienes cuenta? Inicia sesión

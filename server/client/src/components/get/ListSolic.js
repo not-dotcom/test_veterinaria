@@ -27,7 +27,13 @@ const ListSolicitudes = () => {
 
     const getSolicitudes = async () => {
         try {
-            const response = await fetch("http://localhost:5000/solicitudes");
+            const response = await fetch("http://localhost:5000/solicitudes",{
+                method: "GET",
+                credentials: 'include', // Añade esta línea
+                headers: {
+                "Content-Type": "application/json"
+                }
+            });
             const jsonData = await response.json();
             setSolicitudes(jsonData);
         } catch (err) {
