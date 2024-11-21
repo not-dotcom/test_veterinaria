@@ -7,6 +7,7 @@ import ListSolicitudes from './components/get/ListSolic';
 import InputSolic from './components/inputSolic/InputSolic';
 import Header from './components/header/header';
 
+
 function App() {
   const [solicitudes, setSolicitudes] = useState([]);
 

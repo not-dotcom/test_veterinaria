@@ -26,9 +26,11 @@ const Register = () => {
         try {
             const response = await fetch('http://localhost:5000/register', {
                 method: 'POST',
+                credentials: 'include', // Añade esta línea
                 headers: {
                     'Content-Type': 'application/json',
                 },
+
                 body: JSON.stringify(formData)
             });
 
@@ -39,7 +41,7 @@ const Register = () => {
             }
 
             // Registro exitoso
-            navigate('/login');
+            navigate('/iniciar-sesion');
         } catch (err) {
             setError(err.message);
         } finally {
@@ -77,7 +79,7 @@ const Register = () => {
             </form>
             <button 
                 className='login-link' 
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/iniciar-sesion')}
                 disabled={loading}
             >
                 ¿Ya tienes cuenta? Inicia sesión

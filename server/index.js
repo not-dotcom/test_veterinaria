@@ -121,7 +121,8 @@ const verifyToken = (req, res, next) => {
 
 ////////////////////////////
 /* Registrar usuarios*/
-app.post('/register', async (req, res) => {
+
+app.post('/register', verifyToken, async (req, res) => {
     const { username, password } = req.body;
     
     // Input validation
@@ -201,11 +202,10 @@ app.post('/login', async (req, res) => {
 //////////////////////////
 
 // Apply to routes that need protection
-app.use('/solicitudes', verifyToken);
-app.use('/doctores', verifyToken);
-app.use('/horarios', verifyToken);
+// app.use('/solicitudes', verifyToken);
 
 //get all solicitudes
+
 app.get("/solicitudes", verifyToken, async (req, res) => {
     try {
         const allSolicitudes = await pool.query("SELECT * FROM solicitudes");
@@ -217,7 +217,9 @@ app.get("/solicitudes", verifyToken, async (req, res) => {
 });
 
 //get a solicitud
-app.get("/solicitudes/:id", async (req, res) => {
+/*
+*/
+app.get("/solicitudes/:id", verifyToken, async (req, res) => {
     try {
         const { id } = req.params;
         const solicitud = await pool.query("SELECT * FROM solicitudes WHERE id_solic = $1", [id]);
@@ -244,7 +246,13 @@ app.post("/solicitudes", async (req, res) => {
 });
 
 //update a solicitud
-app.put("/solicitudes/:id", async (req, res) => {
+/*NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION*/
+app.put("/solicitudes/:id", verifyToken, async (req, res) => {
     try {
         const { id } = req.params;
         const { fecha_cita, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at } = req.body;
@@ -257,7 +265,12 @@ app.put("/solicitudes/:id", async (req, res) => {
 });
 
 //delete a solicitud
-app.delete("/solicitudes/:id", async (req, res) => {
+/*NECESITA AUTORIZACION
+Pero seria necesario modificar el endpoint de update
+para que el ususario solo pueda modificar su estatus de cancelado
+
+ */
+app.delete("/solicitudes/:id", verifyToken, async (req, res) => {
     try {
         const { id } = req.params;
         await pool.query("DELETE FROM solicitudes WHERE id_solic=$1", [
@@ -274,7 +287,7 @@ app.delete("/solicitudes/:id", async (req, res) => {
 });
 
 //get all doctors
-app.get("/doctores", verifyToken, async (req, res) => {
+app.get("/doctores", async (req, res) => {
     try {
         const allDoctors = await pool.query("SELECT * FROM doctores");
         res.json(allDoctors.rows);
@@ -289,7 +302,8 @@ app.get("/doctores", verifyToken, async (req, res) => {
 
 
 //create a doctor
-app.post("/doctores", async (req, res) => {
+
+app.post("/doctores", verifyToken, async (req, res) => {
     try {
         const { cedulaCiudadania, nombreDoctor, numeroTelefono, especialidad } = req.body;
         const newDoctor = await pool.query("INSERT INTO doctores (nombre_doctor, numero_telefono, cedula_ciudadania, id_horario, especialidad) VALUES($1, $2, $3, $4, $5) RETURNING *",
@@ -303,7 +317,13 @@ app.post("/doctores", async (req, res) => {
 });
 
 //delete a doctor
-app.delete("/doctores/:id", async (req, res) => {
+/*NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION
+NECESITA AUTORIZACION*/
+app.delete("/doctores/:id", verifyToken, async (req, res) => {
     try {
         const { id } = req.params;
         await pool.query("DELETE FROM doctores WHERE id_doctor=$1", [
@@ -346,7 +366,11 @@ app.get("/horario/:id", async (req, res) => {
 
     }
 });
+/*KIKE 
 
+
+
+*/
 //create, update and delete a horario (formulario de horario en /doctors)
 app.post("/horario", async (req, res) => {
     try {
@@ -422,6 +446,22 @@ app.get('/verify', (req, res) => {
         res.status(401).json({ isAuthenticated: false });
     }
 });
+app.post('/logout', (req, res) => {
+    try {
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/'
+        });
+        
+        return res.status(200).json({ message: 'Sesión cerrada exitosamente' });
+    } catch (error) {
+        console.error('Logout error:', error);
+        return res.status(500).json({ error: 'Error al cerrar sesión' });
+    }
+});
+
 
 app.listen(5000, () => {
     console.log("Server has started on port 5000");

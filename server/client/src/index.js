@@ -20,23 +20,24 @@ root.render(
     <AuthProvider>
     <BrowserRouter>
       <Routes>
+        /*Proteger */
+        <Route path="/" element={<Landing />} />{/*PAGINA PRINCIPAL*/}
         <Route path="/app" element={
             <ProtectedRoute>
               <App />
-            </ProtectedRoute>} />
-        <Route path="/user" element={<UserView />} />
-        <Route path="/user2" element={<InputSolic />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/landing" element={<Landing />} />
-         <Route path="/caro" element={<EmblaCarousel />} /> {/*Esta ruta es provisional */}
-         <Route path="/test" element={<Pruebas />} /> {/*Esta ruta es provisional */}
-         <Route path="/galeria" element={<Galeria />} /> {/*Esta ruta es provisional */}
+            </ProtectedRoute>} />{/*Lista de solicitudes*/}
+        <Route path="/user" element={<UserView />} />{/*Hacer una solicitud*/}
+        <Route path="/iniciar-sesion" element={<Login />} />{/*Iniciar sesion*/}
+        <Route path="/register" element={
+          <ProtectedRoute>
+            <Register />
+            </ProtectedRoute>} />{/*Registrar*/}
+         <Route path="/galeria" element={<Galeria />} /> {/*Galeria */}
          <Route path="/doctors" element={
             <ProtectedRoute>
               <DoctorView />
             </ProtectedRoute>
-          } />
+          } />{/*Lista de Doctores*/}
           
       </Routes>
     </BrowserRouter>
