@@ -43,7 +43,7 @@ const Login = (props) => {
             }
             //Login Exitoso
             setIsAuthenticated(true); // Actualizar estado de autenticación
-            navigate('/doctors'); // Redirigir a ruta protegida
+            navigate('/app'); // Redirigir a ruta protegida
         } catch (err) {
             setError(err.message);
             setIsAuthenticated(false);
@@ -76,7 +76,7 @@ const Login = (props) => {
                 
                 />
                 <button type='submit' className='buttonLogin' disabled={loading}>
-                    {loading ? 'Ingresando' : 'Ingresar'}
+                    {loading ? 'Ingresando...' : 'Ingresar'}
                 </button>
                
 

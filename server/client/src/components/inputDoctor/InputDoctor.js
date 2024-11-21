@@ -53,7 +53,9 @@ const InputDoctor = () => {
         try {
             console.log("Deleting doctor with id:", id); // Log the id
             const response = await fetch(`http://localhost:5000/doctores/${id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                credentials: 'include' // Añade esta línea
+
             });
             console.log(response);
             // Optionally, remove the deleted solicitud from the state
@@ -107,6 +109,7 @@ const InputDoctor = () => {
             const body = { cedulaCiudadania, nombreDoctor, numeroTelefono, especialidad };
             const response = await fetch("http://localhost:5000/doctores", {
                 method: "POST",
+                credentials: 'include', // Añade esta línea
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });

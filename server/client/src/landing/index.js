@@ -17,7 +17,7 @@ const Landing = () => {
 
             <div className="caro"><EmblaCarousel
             ></EmblaCarousel></div>
-            <div className="buttom"><button className="buttonLanding1">Iniciar sesion</button></div>
+            <div className="buttom"><a className="buttonLanding1" href="/iniciar-sesion">Iniciar sesion</a></div>
             <div className="buttom2"><a href="http://localhost:3000/user" className="buttonLanding2" >Haz una cita</a></div>
             <nav className="navbarLanding">
                 <a href="">Inicio</a>
