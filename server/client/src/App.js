@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <ListSolicitudes solicitudes={solicitudes} setSolicitudes={setSolicitudes} />
+      <ListSolicitudes solicitudes={solicitudes} setSolicitudes={setSolicitudes}/>
     </div>
   );
 }

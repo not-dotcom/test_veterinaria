@@ -1,4 +1,4 @@
-.nav {
+.navbarSistem {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -18,14 +18,63 @@
 .link:hover {
     /* Add hover styles if needed */
 }
+.navbarSistem > img{
+    width: 50px;
+    height: 50px;
+    margin:1px 0 1px 10px;
+    border: 3px solid #1966d3;
+    border-radius: 100%;
+    display: block;
+    cursor:pointer;
 
-.image {
+}
+.navbarSistem > img:hover{
+    border: 3px solid #1966d3;
+    border-radius: 100%;
+    display: block;
+}
+/* .image {
 
     display: block;
     margin-left: 10px;
-    height: 50px;
-    width: 50px;
-    border-radius: 100px;
-}
+
+    border-radius: 100%;
+} */
 nav{
 }
+
+.profileDiv {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 5px;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 1px 10px 1px 10px;
+    border-left: 1px solid #ddd;
+    
+
+}
+  
+  .avatarProfile {
+    grid-column: 1;
+    grid-row: 1 /4;
+    margin-right: 10px;
+  }
+  
+  .nameProfile {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .roleProfile {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+    color: #666;
+    font-size: 12px;
+  }

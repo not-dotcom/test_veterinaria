@@ -1,45 +1,55 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import {
-    MaterialReactTable, useMaterialReactTable,
-} from 'material-react-table';
+import React, { Fragment, useEffect, useState, useMemo, useCallback } from 'react';
+import { MaterialReactTable } from 'material-react-table';
 import EditSolic2 from '../editSolic/editSolic2';
 import './ListSolic.css';
+import { MRT_Localization_ES } from 'material-react-table/locales/es';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-
+const POLLING_INTERVAL = 2000;
 
 const ListSolicitudes = () => {
     const [solicitudes, setSolicitudes] = useState([]);
     const [blockedHours, setBlockedHours] = useState([]);
+    const [error, setError] = useState(null);
 
-    const deleteSolicitud = async (id) => {
+    // Memoizar funciones
+    const deleteSolicitud = useCallback(async (id) => {
+        if (!window.confirm('¿Está seguro de eliminar esta solicitud?')) {
+            return;
+        }
         try {
-            console.log("Deleting solicitud with id:", id); // Log the id
             const response = await fetch(`http://localhost:5000/solicitudes/${id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                credentials: 'include'
             });
-            console.log(response);
-            // Optionally, remove the deleted solicitud from the state
-            setSolicitudes(solicitudes.filter(solicitud => solicitud.id_solic !== id));
+            
+            if (!response.ok) throw new Error('Error al eliminar');
+            
+            setSolicitudes(prev => prev.filter(solicitud => solicitud.id_solic !== id));
         } catch (err) {
-            console.log(err.message);
+            setError(err.message);
         }
-    };
+    }, []);
 
-    const getSolicitudes = async () => {
+    const getSolicitudes = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:5000/solicitudes",{
+            const response = await fetch("http://localhost:5000/solicitudes", {
                 method: "GET",
-                credentials: 'include', // Añade esta línea
-                headers: {
-                "Content-Type": "application/json"
-                }
+                credentials: 'include',
+                headers: { "Content-Type": "application/json" }
             });
+    
+            if (!response.ok) throw new Error('Error al cargar datos');
+            
             const jsonData = await response.json();
-            setSolicitudes(jsonData);
+            setSolicitudes(prev => {
+                return JSON.stringify(prev) !== JSON.stringify(jsonData) ? jsonData : prev;
+            });
+            setError(null);
         } catch (err) {
-            console.log(err.message);
+            setError(err.message);
         }
-    };
+    }, []);
 
     const getBlockedHours = async () => {
         try {
@@ -69,31 +79,60 @@ const ListSolicitudes = () => {
     useEffect(() => {
         getSolicitudes();
         getBlockedHours();
-    }, []);
-    
-        const update = async () => {
-            await getSolicitudes();
-            await getBlockedHours();
-        };
 
+        const interval = setInterval(() => {
+            getSolicitudes();
+            getBlockedHours();
+        }, POLLING_INTERVAL);
 
+        return () => clearInterval(interval);
+    }, [getSolicitudes, getBlockedHours]);
 
-    const columns = [
+    // Memoizar columns
+    const columns = useMemo(() => [
         {
             accessorKey: "fecha_cita",
-            header: "Fecha de la cita",
+            header: "Fecha Cita",
+            Cell: ({ cell }) => {
+                const date = new Date(cell.getValue());
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
+            },
+            size:160,
         },
         {
             accessorKey: "hora_cita",
-            header: "Hora de la cita",
+            header: "Hora",
+            Cell: ({ cell }) => {
+                const [hours, minutes] = cell.getValue().split(':');
+                const hour = parseInt(hours);
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const hour12 = hour % 12 || 12;
+                return `${hour12}:${minutes} ${ampm}`;
+            },
+            size:100,
+            enableColumnActions: false,
         },
         {
             accessorKey: "paciente",
             header: "Paciente",
+            enableSorting: false,
+            enableColumnActions:false,
+            size:160,
         },
         {
             accessorKey: "tipo_mascota",
-            header: "Tipo de mascota",
+            header: "Tipo/Mascota",
+        },
+        // Agregar nueva columna para el doctor
+        {
+            accessorKey: "nombre_doctor", // Este debe coincidir con el nombre del campo en la base de datos
+            header: "Doctor",
+            enableSorting: true,
+            size: 160,
         },
         {
             accessorKey: "propietario",
@@ -130,52 +169,75 @@ const ListSolicitudes = () => {
         {
             accessorKey: "created_at",
             header: "Fecha de creacion",
+            Cell: ({ cell }) => {
+                const date = new Date(cell.getValue());
+                return date.toLocaleString('es-ES', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZone: 'America/Bogota' // Adjust this to your timezone
+                });
+            }
         },
         {
             accessorKey: "edit",
             header: "Imprimir",
             Cell: ({ row }) => <EditSolic2 solicitud={row.original} />,
+            enableColumnPinning: true,
+
         },
         {
             accessorKey: "delete",
-            header: "Delete",
-            Cell: ({ row }) => <button onClick={() => deleteSolicitud(row.original.id_solic)} className='btn btn-danger'>Delete</button>
+            header: "Borrar",
+            size: 80, 
+            enableSorting: false,
+            enableColumnActions:false,
+            
+            Cell: ({ row }) => <button onClick={() => deleteSolicitud(row.original.id_solic)} className='btn btn-danger'><DeleteIcon></DeleteIcon></button>
         },
-    ];
-    
-    return (
-        <Fragment >
+    ], [deleteSolicitud]); // Dependencia necesaria para el botón delete
 
-            <button onClick={
-                () => {
-                    getSolicitudes();
-                    getBlockedHours();
-                }
-            }>Refreshwe</button>
-            <h2 style={{ textAlign: 'center' }}>Lista de Solicitudes</h2>
+    // Memoizar acciones de la tabla
+    const renderTopToolbarCustomActions = useCallback(() => (
+        <div className="headerTable">
+            <label className="tableTitle">
+                Registro de solicitudes
+            </label>
+            {error && (
+                <small style={{color: 'red', marginLeft: '10px'}}>
+                    {error}
+                </small>
+            )}
+        </div>
+    ), [error]);
+
+    return (
+        <div style={{ padding: "20px" }}>
             <MaterialReactTable
                 columns={columns}
                 data={solicitudes}
-            ></MaterialReactTable>
-           
-                {/* <p>Contenido para el manejo de las horas</p>
-                {["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"].map(hour => (
-                    <label key={hour} className="checkbox-label">
-                        <input
-                            className="checkbox"
-                            type="checkbox"
-                            checked={blockedHours.includes(hour)}
-                            onChange={() => toggleHour(hour)}
-                        />
-                        <span>{hour}</span>
-                    </label>
-                ))} */}
-
-                
-
-
-        </Fragment>
+                renderTopToolbarCustomActions={renderTopToolbarCustomActions}
+                muiTablePaperProps={{
+                    elevation: 0,
+                    sx: {
+                        borderRadius: '0.5rem',
+                        border: '1px solid #e0e0e0',
+                    },
+                }}
+                enableColumnResizing
+                enablePagination
+                enableColumnFilters
+                enableGlobalFilter
+                localization={MRT_Localization_ES}
+                initialState={{
+                    columnPinning: { left: ['fecha_cita'], right: ['delete'] }
+                }}
+            />
+        </div>
     );
-}
+};
 
 export default ListSolicitudes;

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import './infoServicio.css';
 import DatePicker from 'react-datepicker';
 import { Autocomplete, TextField, Avatar } from '@mui/material';
@@ -40,6 +40,7 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [startDate, setStartDate] = useState(data.fecha_cita ? new Date(data.fecha_cita) : null);
   const [hora_cita, setHora_cita] = useState(data.hora_cita || '');
+  const filteredTimesRef = useRef([]);
 
 
   useEffect(() => {
@@ -144,47 +145,82 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
     return result;
   };
 
-  const handleDateChange = (date) => {
+  // At the top of your component, add a debug helper
+const logStateUpdate = (source, times) => {
+  console.log(`[${source}] Updating availableTimes:`, times);
+};
+
+// Modify handleDateChange
+const handleDateChange = async (date) => {
+  try {
     setStartDate(date);
     const dayNumber = date.getDay();
-
-    // Keep existing availability check logic
+    
+    if (!selectedDoctor) return;
+    
+    const formattedDate = date.toISOString().split('T')[0];
+    
     const available = availability.find(
-      item => item.id_doctor === selectedDoctor.id_doctor && item.dia_semana === dayNumber
+      item => item.id_doctor === selectedDoctor.id_doctor && 
+      item.dia_semana === dayNumber
     );
-
+    
     if (available) {
-      const startHour = available.hora_inicio;
-      const endHour = available.hora_final;
-      const times = generateAvailableTimes(startHour, endHour);
-      setAvailableTimes(times);
+      const allTimes = generateAvailableTimes(available.hora_inicio, available.hora_final);
+      logStateUpdate('generateTimes', allTimes);
+      
+      const response = await fetch(
+        `http://localhost:5000/citas-agendadas/${selectedDoctor.nombre_doctor}/${formattedDate}`
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch booked appointments');
+      }
+      
+      const bookedTimes = await response.json();
+      
+      // Store filtered times in ref
+      filteredTimesRef.current = allTimes.filter(time => !bookedTimes.includes(time));
+      logStateUpdate('afterFilter', filteredTimesRef.current);
+      
+      // Set state only once with ref value
+      setAvailableTimes(filteredTimesRef.current);
     } else {
+      filteredTimesRef.current = [];
       setAvailableTimes([]);
     }
 
-    // Add the data handling like in handleSelectChange
     if (typeof onDataChange === 'function') {
       onDataChange({
         ...data,
-        fecha_cita: date
+        fecha_cita: date,
+        hora_cita: '' // Reset hora_cita when date changes
       });
     }
-  };
+  } catch (error) {
+    console.error('Error in handleDateChange:', error);
+    filteredTimesRef.current = [];
+    setAvailableTimes([]);
+  }
+};
 
-  // Función para generar intervalos de 30 minutos entre hora_inicio y hora_final
-
-  const generateAvailableTimes = (start, end) => {
-    const times = [];
-    let current = new Date();
-    current.setHours(start.split(':')[0], start.split(':')[1], 0, 0);
-    const endTime = new Date();
-    endTime.setHours(end.split(':')[0], end.split(':')[1], 0, 0);
-    while (current < endTime) {
-      times.push(current.toTimeString().slice(0, 5));
-      current.setMinutes(current.getMinutes() + 30); // Intervalo de 30 minutos
-    }
-    return times;
-  };
+// Remove or comment out the useEffect that watches availableTimes
+// Modificar la función generateAvailableTimes
+const generateAvailableTimes = (start, end) => {
+  const times = [];
+  let current = new Date();
+  current.setHours(parseInt(start.split(':')[0]), parseInt(start.split(':')[1]), 0, 0);
+  const endTime = new Date();
+  endTime.setHours(parseInt(end.split(':')[0]), parseInt(end.split(':')[1]), 0, 0);
+  
+  while (current < endTime) {
+    // Formatear a HH:mm:ss para coincidir con el formato de la BD
+    const timeString = current.toTimeString().slice(0, 8);
+    times.push(timeString);
+    current.setMinutes(current.getMinutes() + 30);
+  }
+  return times;
+};
 
   return (
     <div className='info-servicio-container'>
@@ -239,13 +275,13 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
                   });
                 }
               }}
-              disabled={!startDate || availableTimes.length === 0}
+              disabled={!startDate || filteredTimesRef.current.length === 0}
               value={hora_cita || data.hora_cita || ''}
             >
-              {availableTimes.length > 0 ? (
-                availableTimes.map((time, index) => (
+              {filteredTimesRef.current.length > 0 ? (
+                filteredTimesRef.current.map((time, index) => (
                   <option key={index} value={time}>
-                    {time}
+                    {time.slice(0, 5)}
                   </option>
                 ))
               ) : (
@@ -255,7 +291,7 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
           </label>
         </div>
 
-        {startDate && availableTimes.length === 0 && (
+        {startDate && filteredTimesRef.current.length === 0 && (
           <p>No hay horas disponibles para la fecha seleccionada.</p>
         )}
       </div>
