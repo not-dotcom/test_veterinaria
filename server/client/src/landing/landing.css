@@ -40,8 +40,14 @@ a {
   /* AQUI ESTA EL LOGO / #1 */
   height: 60px;
   width: 60px;
+  border-radius: 100%;
+  cursor: pointer;
 
   border: 4px solid rgba(46, 73, 144, 1);
+  transition: 1s;
+}
+.image:hover {
+  scale: 1.2;
 }
 
 .imageDiv {
@@ -60,8 +66,12 @@ a {
   border-radius: 8px;
   font-size: 1.3vw;
   padding: 7px 15px;
-  transition: 2s;
+  transition: 0.5s;
 
+}
+.buttonLanding1:hover{
+  scale: 1.1;
+  color: white;
 }
 
 
@@ -80,7 +90,7 @@ a {
 }
 
 .buttonLanding2:hover{
-  scale: 1.2;
+  scale: 1.1;
   color: white;
 }
 

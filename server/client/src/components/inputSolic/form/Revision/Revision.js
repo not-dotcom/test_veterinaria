@@ -12,6 +12,10 @@ function Revision({ formData }) {
 
   const handleSubmit = async () => {
     try {
+      // Create date and subtract 5 hours
+      const now = new Date();
+      now.setHours(now.getHours() - 5);
+      
       const formattedData = {
         selectedDoctor: servicio.doctor,
         startDate: servicio.fecha_cita,
@@ -26,7 +30,7 @@ function Revision({ formData }) {
         tipo_cliente: servicio.tipo_cliente,
         servicio: servicio.tipoServicio,
         forma_pago: "N/A",
-        created_at: new Date().toISOString().slice(0, 16)
+        created_at: now.toISOString() // Send adjusted time
       };
 
       const response = await fetch("http://localhost:5000/solicitudes", {

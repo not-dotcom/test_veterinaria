@@ -35,10 +35,13 @@ function InfoPaciente({ data = {}, onDataChange, errors }) {
 
     // Maneja los cambios en los checkboxes de tipo de mascota
     const handleCheckboxChange = (tipo) => {
-        setTipoSeleccionado(tipo);
+        // Capitalize first letter for both animal types
+        const formattedTipo = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+        
+        setTipoSeleccionado(formattedTipo);
         setRazaSeleccionada('');
         if (typeof onDataChange === 'function') {
-            onDataChange({ ...data, tipoMascota: tipo, razaMascota: '' });
+            onDataChange({ ...data, tipoMascota: formattedTipo, razaMascota: '' });
         }
     };
 
@@ -76,7 +79,7 @@ function InfoPaciente({ data = {}, onDataChange, errors }) {
                         className="checkperro"
                         id="perro"
                         name="perro"
-                        checked={tipoSeleccionado === 'perro'}
+                        checked={tipoSeleccionado === 'Perro'}
                         onChange={() => handleCheckboxChange('perro')}
                     />
                     <label htmlFor="perro" className="labelP">Perro</label>
@@ -86,7 +89,7 @@ function InfoPaciente({ data = {}, onDataChange, errors }) {
                         className="checkgato"
                         id="gato"
                         name="gato"
-                        checked={tipoSeleccionado === 'gato'}
+                        checked={tipoSeleccionado === 'Gato'} 
                         onChange={() => handleCheckboxChange('gato')}
                     />
                     <label htmlFor="gato" className="labelG">Gato</label>

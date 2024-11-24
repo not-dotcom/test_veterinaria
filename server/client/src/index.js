@@ -14,6 +14,7 @@ import InputSolic from './components/inputSolic/InputSolic.js';
 import Galeria from './components/Galeria/Galeria.js';
 import { AuthProvider } from './context/AuthContext.js';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminUsers from './components/adminUsers/AdminUsers.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -38,6 +39,7 @@ root.render(
               <DoctorView />
             </ProtectedRoute>
           } />{/*Lista de Doctores*/}
+          <Route path="/users" element={<AdminUsers />} />
           
       </Routes>
     </BrowserRouter>
