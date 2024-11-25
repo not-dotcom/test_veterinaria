@@ -34,7 +34,9 @@ const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor }) => {
 
 function InfoServicio({ data = {}, onDataChange, errors }) {
   const [doctors, setDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState(
+    data.doctor ? doctors.find(doc => doc.nombre_doctor === data.doctor) : null
+  );
   const [availability, setAvailability] = useState([]);
   const [availableDays, setAvailableDays] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
@@ -44,10 +46,33 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
 
 
   useEffect(() => {
-    if (data.fecha_cita) {
-      setStartDate(new Date(data.fecha_cita));
+    if (data.fecha_cita && data.doctor) {
+      const date = new Date(data.fecha_cita);
+      setStartDate(date);
+      
+      // Fetch available times for the saved date
+      if (selectedDoctor) {
+        const formattedDate = date.toISOString().split('T')[0];
+        fetch(`http://localhost:5000/citas-agendadas/${selectedDoctor.nombre_doctor}/${formattedDate}`)
+          .then(response => response.json())
+          .then(bookedTimes => {
+            const dayNumber = date.getDay();
+            const available = availability.find(
+              item => item.id_doctor === selectedDoctor.id_doctor && 
+              item.dia_semana === dayNumber
+            );
+            
+            if (available) {
+              const allTimes = generateAvailableTimes(available.hora_inicio, available.hora_final);
+              const filteredTimes = allTimes.filter(time => !bookedTimes.includes(time));
+              filteredTimesRef.current = filteredTimes;
+              setAvailableTimes(filteredTimes);
+            }
+          })
+          .catch(error => console.error('Error fetching booked times:', error));
+      }
     }
-  }, [data.fecha_cita]);
+  }, [data.fecha_cita, data.doctor, selectedDoctor, availability]);
 
   useEffect(() => {
     if (data.hora_cita) {
@@ -115,23 +140,26 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
   };
 
   const handleDoctorChange = (newValue) => {
-    const doctorId = newValue ? newValue.id_doctor : '';
     setSelectedDoctor(newValue);
-
-    // Obtener los días disponibles según el doctor seleccionado
     const daysAvailable = availability
-      .filter(item => item.id_doctor === doctorId)
+      .filter(item => item.id_doctor === newValue?.id_doctor)
       .map(item => item.dia_semana);
-
+    
     setAvailableDays(daysAvailable);
-    setStartDate(null); // Reiniciar la fecha seleccionada
-    setAvailableTimes([]); // Reiniciar horas disponibles
+    
+    // Keep current date if it's valid for new doctor
+    const currentDate = startDate;
+    if (currentDate && !daysAvailable.includes(currentDate.getDay())) {
+      setStartDate(null);
+      setAvailableTimes([]);
+    }
 
-    // Actualizar el estado en el componente padre con solo el nombre del doctor
     if (typeof onDataChange === 'function') {
       onDataChange({
         ...data,
-        doctor: newValue ? newValue.nombre_doctor : ''
+        doctor: newValue ? newValue.nombre_doctor : '',
+        fecha_cita: startDate,
+        hora_cita: hora_cita
       });
     }
   };
