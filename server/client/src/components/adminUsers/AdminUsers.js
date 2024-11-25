@@ -85,6 +85,18 @@ const AdminUsers = () => {
       setError(err.message);
     }
   }, []);
+  const renderTopToolbarCustomActions = useCallback(() => (
+    <div className="headerTable">
+        <label className="tableTitle">
+            Usuarios
+        </label>
+        {error && (
+            <small style={{color: 'red', marginLeft: '10px'}}>
+                {error}
+            </small>
+        )}
+    </div>
+), [error]);
 
   return (
     <div>
@@ -97,6 +109,7 @@ const AdminUsers = () => {
           enableColumnFilters
           enableColumnSorting
           enablePagination
+          renderTopToolbarCustomActions={renderTopToolbarCustomActions}
           localization={MRT_Localization_ES}
 
           muiTableProps={{

@@ -466,6 +466,23 @@ app.delete("/doctores/:id", verifyToken, async (req, res) => {
   }
 });
 
+app.put("/doctores/:id/toggle", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { activo } = req.body;
+    
+    await pool.query(
+      "UPDATE doctores SET activo = $1 WHERE id_doctor = $2",
+      [activo, id]
+    );
+    
+    res.json({ message: "Estado del doctor actualizado" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "Error al actualizar estado del doctor" });
+  }
+});
+
 //get all horarios
 app.get("/horarios/", async (req, res) => {
   try {

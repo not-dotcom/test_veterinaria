@@ -204,7 +204,7 @@ const ListSolicitudes = () => {
     const renderTopToolbarCustomActions = useCallback(() => (
         <div className="headerTable">
             <label className="tableTitle">
-                Registro de solicitudes
+                Solicitudes
             </label>
             {error && (
                 <small style={{color: 'red', marginLeft: '10px'}}>

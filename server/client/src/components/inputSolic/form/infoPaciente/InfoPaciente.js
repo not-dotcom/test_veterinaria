@@ -4,13 +4,13 @@ import './infoPaciente.css';
 // Componente InfoPaciente que recibe datos y una función para manejar cambios en los datos
 function InfoPaciente({ data = {}, onDataChange, errors }) {
     // Estado para el tipo de mascota seleccionado
-    const [tipoSeleccionado, setTipoSeleccionado] = useState(data.tipoMascota || null);
+    const [tipoSeleccionado, setTipoSeleccionado] = useState(data.tipoMascota || 'Otro');
     // Estado para la raza de la mascota seleccionada
     const [razaSeleccionada, setRazaSeleccionada] = useState(data.razaMascota || '');
 
     // Efecto que actualiza el estado inicial cuando el componente se monta o los datos cambian
     useEffect(() => {
-        setTipoSeleccionado(data.tipoMascota || null);
+        setTipoSeleccionado(data.tipoMascota || 'Otro');
         setRazaSeleccionada(data.razaMascota || '');
     }, [data]);
 
@@ -45,13 +45,18 @@ function InfoPaciente({ data = {}, onDataChange, errors }) {
         }
     };
 
-    // Maneja los cambios en el select de raza de mascota
+    // Modificar el handleSelectChange en InfoPaciente.js
     const handleSelectChange = (e) => {
         const valorSeleccionado = e.target.value;
-        setTipoSeleccionado(null);
         setRazaSeleccionada(valorSeleccionado);
+        setTipoSeleccionado(valorSeleccionado); // Actualizar también el tipo seleccionado
+
         if (typeof onDataChange === 'function') {
-            onDataChange({ ...data, tipoMascota: null, razaMascota: valorSeleccionado });
+            onDataChange({ 
+                ...data, 
+                tipoMascota: valorSeleccionado, // Usar el valor seleccionado como tipo
+                razaMascota: valorSeleccionado 
+            });
         }
     };
 
