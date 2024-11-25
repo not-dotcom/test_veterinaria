@@ -67,6 +67,28 @@ const InputDoctor = () => {
     }
   };
 
+  const toggleDoctorStatus = async (id, currentStatus) => {
+    try {
+      const response = await fetch(`http://localhost:5000/doctores/${id}/toggle`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ activo: !currentStatus })
+      });
+  
+      if (response.ok) {
+        // Actualiza el estado local
+        setDoctores(doctores.map(doctor => 
+          doctor.id_doctor === id 
+            ? {...doctor, activo: !doctor.activo}
+            : doctor
+        ));
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   useEffect(() => {
     getDoctores();
   }, []);
@@ -110,6 +132,19 @@ const InputDoctor = () => {
         </button>
       ),
     },
+    {
+      accessorKey: "estado",
+      header: "Estado",
+      Cell: ({ row }) => (
+        <button 
+          onClick={() => toggleDoctorStatus(row.original.id_doctor, row.original.activo)}
+          className={`btn ${row.original.activo ? 'btn-danger' : 'btn-success'}`}
+        >
+          {row.original.activo ? 'Deshabilitar' : 'Habilitar'}
+        </button>
+      ),
+    }
+    
   ];
 
   const onsubmitform = async (e) => {
@@ -134,16 +169,16 @@ const InputDoctor = () => {
   };
 
   return (
-    <Fragment>
+    <div style={{ padding: "20px" }}>
       <MaterialReactTable
         /*Aqui van los valSSores de las tablas de doctores*/
         columns={columnsDoctores}
         data={doctores}
-        enableRowSelection={true}
+        enableRowSelection={false}
         renderTopToolbarCustomActions={() => (
           <div className="headerTable">
             <label className="tableTitle">Doctores</label>
-            <button onClick={handleOpen} className="btn btn-success">
+            <button onClick={handleOpen} className="btn btn-secondary">
               Agregar
             </button>
           </div>
@@ -197,7 +232,7 @@ const InputDoctor = () => {
               ></input>
               <br></br>
               <div className="button-container">
-                <button type="submit" className="btn btn-success">
+                <button type="submit" className="btn btn-primary">
                   Agregar
                 </button>
               </div>
@@ -205,7 +240,7 @@ const InputDoctor = () => {
           </Box>
         </Modal>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

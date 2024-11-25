@@ -9,6 +9,7 @@ import { Avatar } from "@mui/material";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 const Header = () => {
   const [userData, setUserData] = useState({
@@ -123,7 +124,7 @@ const Header = () => {
           navigate("/app");
         }}
       >
-        <PetsIcon />
+        <EventAvailableIcon />
       </IconButton>
       <IconButton 
         size="large" 

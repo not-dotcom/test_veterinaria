@@ -84,9 +84,14 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
   }, [data.doctor, doctors, availability, data.fecha_cita]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/doctores')
+    // Modify fetch to only get active doctors
+    fetch('http://localhost:5000/doctores?active=true')
       .then(response => response.json())
-      .then(data => setDoctors(data))
+      .then(data => {
+        // Filter only active doctors if needed
+        const activeDoctors = data.filter(doctor => doctor.activo);
+        setDoctors(activeDoctors);
+      })
       .catch(error => console.error('Error al obtener doctores:', error));
 
     fetch('http://localhost:5000/horarios')
