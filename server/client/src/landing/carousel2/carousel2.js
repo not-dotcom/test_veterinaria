@@ -25,7 +25,7 @@ export function EmblaCarousel() {
   return (
     <div className="embla2" ref={emblaRef}>
       <div className="embla__container2">
-        <div className="embla__slide2">
+        {/* <div className="embla__slide2">
           <img
             src={imageFlayer}
             width="900px"
@@ -33,30 +33,14 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
+            <p className="title1"> 4Dr. Ana Martínez</p>
             <p className="text1">Dermatología Veterinaria</p>
             <p className="text2">
               Consulta general, diagnóstico por imagen, tratamiento
               dermatológico.
             </p>
           </div>
-        </div>
-        <div className="embla__slide2">
-          <img
-            src={imageFlayer2}
-            width="900px"
-            className="imageFlayer2"
-            alt="Profile Image"
-          ></img>
-          <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
-            <p className="text2">
-              Consulta general, diagnóstico por imagen, tratamiento
-              dermatológico.
-            </p>
-          </div>
-        </div>
+        </div> */}
         <div className="embla__slide2">
           <img
             src={imageFlayer3}
@@ -65,47 +49,16 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
+            <p className="title1"> Dr. Jennifer Andrea Barrera Rivera</p>
+            <p className="text1">Médica Veterinaria</p>
             <p className="text2">
-              Consulta general, diagnóstico por imagen, tratamiento
-              dermatológico.
+            Consulta General
             </p>
           </div>
         </div>
-        <div className="embla__slide">
-          <img
-            src={imageFlayer4}
-            width="900px"
-            className="imageFlayer2"
-            alt="Profile Image"
-          ></img>
-          <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
-            <p className="text2">
-              Consulta general, diagnóstico por imagen, tratamiento
-              dermatológico.
-            </p>
-          </div>
-        </div>
-        <div className="embla__slide">
-          <img
-            src={imageFlayer5}
-            width="900px"
-            className="imageFlayer2"
-            alt="Profile Image"
-          ></img>
-          <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
-            <p className="text2">
-              Consulta general, diagnóstico por imagen, tratamiento
-              dermatológico.
-            </p>
-          </div>
-        </div>
-        <div className="embla__slide">
+        
+      
+        {/* <div className="embla__slide">
           <img
             src={imageFlayer6}
             width="900px"
@@ -113,15 +66,15 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
+            <p className="title1"> 6Dr. Ana Martínez</p>
             <p className="text1">Dermatología Veterinaria</p>
             <p className="text2">
               Consulta general, diagnóstico por imagen, tratamiento
               dermatológico.
             </p>
           </div>
-        </div>
-        <div className="embla__slide">
+        </div> */}
+        {/* <div className="embla__slide">
           <img
             src={imageFlayer7}
             width="900px"
@@ -129,14 +82,14 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
+            <p className="title1"> 7Dr. Ana Martínez</p>
             <p className="text1">Dermatología Veterinaria</p>
             <p className="text2">
               Consulta general, diagnóstico por imagen, tratamiento
               dermatológico.
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="embla__slide">
           <img
             src={imageFlayer8}
@@ -145,31 +98,17 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
+            <p className="title1">Gabriel Eduardo Álvarez Avendaño
+            </p>
+            <p className="text1">DMédico Veterinario</p>
             <p className="text2">
               Consulta general, diagnóstico por imagen, tratamiento
               dermatológico.
             </p>
           </div>
         </div>
-        <div className="embla__slide">
-          <img
-            src={imageFlayer9}
-            width="900px"
-            className="imageFlayer2"
-            alt="Profile Image"
-          ></img>
-          <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
-            <p className="text2">
-              Consulta general, diagnóstico por imagen, tratamiento
-              dermatológico.
-            </p>
-          </div>
-        </div>
-        <div className="embla__slide">
+       
+        {/* <div className="embla__slide">
           <img
             src={imageFlayer10}
             width="900px"
@@ -177,14 +116,14 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
+            <p className="title1"> 10Dr. Ana Martínez</p>
             <p className="text1">Dermatología Veterinaria</p>
             <p className="text2">
               Consulta general, diagnóstico por imagen, tratamiento
               dermatológico.
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="embla__slide">
           <img
             src={imageFlayer11}
@@ -193,11 +132,11 @@ export function EmblaCarousel() {
             alt="Profile Image"
           ></img>
           <div className="text">
-            <p className="title1"> Dr. Ana Martínez</p>
-            <p className="text1">Dermatología Veterinaria</p>
+            <p className="title1">Diana Ximena Ruíz Mojica
+            </p>
+            <p className="text1">Médica Veterinaria</p>
             <p className="text2">
-              Consulta general, diagnóstico por imagen, tratamiento
-              dermatológico.
+              Consulta general.
             </p>
           </div>
         </div>

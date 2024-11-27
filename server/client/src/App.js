@@ -17,7 +17,6 @@ function App() {
       const jsonData = await response.json();
       setSolicitudes(jsonData);
     } catch (err) {
-      console.log(err.message);
     }
   };
 

@@ -39,7 +39,6 @@ const Register = () => {
     formDataToSend.append('nombre', formData.nombre);
     formDataToSend.append('rol', formData.rol);
     if (formData.photo) {
-      console.log('Appending photo:', formData.photo); // Debug log
       formDataToSend.append('photo', formData.photo);
     }
 
@@ -51,7 +50,6 @@ const Register = () => {
       });
 
       const data = await response.json();
-      console.log('Response data:', data); // Debug log
 
       if (!response.ok) {
         throw new Error(data.error || "Error en el registro");
@@ -69,65 +67,93 @@ const Register = () => {
 
   return (
     <div className="mainReg">
-      <h1>Register</h1>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Usuario"
-          value={formData.username}
-          onChange={handleChange}
-          minLength={3}
-          maxLength={30}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={formData.password}
-          onChange={handleChange}
-          minLength={3}
-          required
-        />
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          value={formData.nombre}
-          onChange={handleChange}
-          minLength={3}
-          maxLength={30}
-          required
-        ></input>
-        <select
-          name="rol"
-          value={formData.rol}
-          onChange={handleChange}
-          required
-        >
+      <div className="formDivReg">
+        <form onSubmit={handleSubmit} className="formRegister">
+          <h1 className="titleRegister">Registro</h1>
+          <input
+            type="text"
+            name="username"
+            placeholder="Usuario"
+            value={formData.username}
+            onChange={handleChange}
+            minLength={3}
+            maxLength={30}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            value={formData.password}
+            onChange={handleChange}
+            minLength={3}
+            required
+          />
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            minLength={3}
+            maxLength={30}
+            required
+          />
+          <select
+            name="rol"
+            value={formData.rol}
+            onChange={handleChange}
+            required
+          >
             <option value="">Selecciona un rol</option>
             <option value="admin">Administrador Principal</option>
             <option value="user">Administrador</option>
-        </select>
-        <input
-          type="file"
-          name="photo"
-          accept=".jpg,.jpeg,.png"
-          onChange={handleFileChange}
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? "Registrando..." : "Registrar"}
-        </button>
-      </form>
-      <button
-        className="login-link"
-        onClick={() => navigate("/iniciar-sesion")}
-        disabled={loading}
-      >
-        ¿Ya tienes cuenta? Inicia sesi��n
-      </button>
+          </select>
+          <div className="file-input-wrapper">
+            <input
+              type="file"
+              name="photo"
+              accept=".jpg,.jpeg,.png"
+              onChange={handleFileChange}
+            />
+          </div>
+          <button type="submit" className="buttonRegister" disabled={loading}>
+            {loading ? "Registrando..." : "Registrar"}
+          </button>
+          <button
+            className="loginLink"
+            onClick={() => navigate("/iniciar-sesion")}
+            disabled={loading}
+          >
+            ¿Ya tienes cuenta? Inicia sesión
+          </button>
+        </form>
+        {error && <div className="error-message">{error}</div>}
+      </div>
+      <div className="middle">
+        {/* Copy the entire gradient background code from Login.js */}
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix
+                in="blur"
+                mode="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8"
+                result="goo"
+              />
+              <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+          </defs>
+        </svg>
+        <div className="gradients-container">
+          <div className="g1"></div>
+          <div className="g2"></div>
+          <div className="g3"></div>
+          <div className="g4"></div>
+          <div className="g5"></div>
+        </div>
+      </div>
     </div>
   );
 };

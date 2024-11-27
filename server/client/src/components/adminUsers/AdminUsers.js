@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { MaterialReactTable } from "material-react-table";
-import { IconButton, Tooltip } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../header/header";
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 
@@ -44,29 +43,21 @@ const AdminUsers = () => {
       {
         accessorKey: "actions",
         header: "Acciones",
+        size: 80,
+        enableSorting: false,
+        enableColumnActions: false,
         Cell: ({ row }) => (
-          <div>
-            <Tooltip title="Editar">
-              <IconButton onClick={() => handleEdit(row.original)}>
-                <Edit />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Eliminar">
-              <IconButton onClick={() => handleDelete(row.original._id)}>
-                <Delete />
-              </IconButton>
-            </Tooltip>
-          </div>
+          <button 
+            onClick={() => handleDelete(row.original._id)} 
+            className="btn btn-danger"
+          >
+            <DeleteIcon />
+          </button>
         ),
       },
     ],
     []
   );
-
-  const handleEdit = (user) => {
-    // Add your edit logic here
-    console.log("Edit user:", user);
-  };
 
   const handleDelete = useCallback(async (id) => {
     if (!window.confirm("¿Está seguro de eliminar este usuario?")) {

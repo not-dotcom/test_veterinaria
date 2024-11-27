@@ -5,9 +5,126 @@
     align-items: center;
     height: 100vh;
     background-color: #f5f5f5;
+    position: relative;
+    min-height: 100vh;
 }
 .mainReg > form{
     display: flex;
     flex-direction: column;
     
+}
+
+.formDivReg {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.formRegister {
+  border: 1px solid white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  background: rgba(25, 68, 121, 0.71);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.formRegister > input,
+.formRegister > select {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.formRegister > select {
+  cursor: pointer;
+}
+
+.formRegister > select > option {
+  background: rgba(25, 68, 121, 0.9);
+  color: white;
+}
+
+.titleRegister {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.buttonRegister {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  font-size: 1.2rem;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 20px;
+}
+
+.buttonRegister:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.loginLink {
+  color: white;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: 0.3s;
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
+.error-message-register {
+  color: #ff4444;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+.file-input-wrapper {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.file-input-wrapper input[type="file"] {
+  color: white;
+  font-size: 1rem;
+}
+
+.file-input-wrapper input[type="file"]::-webkit-file-upload-button {
+  background: rgba(255, 255, 255, 0.16);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
 }

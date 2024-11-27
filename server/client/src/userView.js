@@ -173,9 +173,6 @@ function UserView() {
 
   return (
     <div className="userContainer">
-      <div className="headerUser">
-        <Header></Header>
-      </div>
 
       <div className="statusSolic">
         <div className="statusContainer">

@@ -1,66 +1,89 @@
-.main2{
-    background: rgb(27, 113, 181);
-  background: radial-gradient(circle, rgba(27, 113, 181, 1) 35%, rgba(46, 73, 144, 1) 100%);
+.main2 {
+  background: linear-gradient(135deg, #1b71b5 0%, #2e4990 100%);
   width: 100%;
+  height: 100vh; /* Cambiado de min-height a height */
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 10% 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-rows: 1fr;  /* Simplificado a una sola fila */
+  gap: 2rem;
+  padding: 2rem;
+  overflow: auto; /* Añadido para manejar contenido desbordante */
 }
-.caro2{
-    background-color: transparent;
-    display: grid;
+
+.caro2 {
+  background-color: transparent;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  grid-row: 1/3;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.title {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.text2, .text3 {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.servicios {
+  display: grid;
+  padding: 1rem;
+}
+
+.servicios ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 0;
+}
+
+.servicios li {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.servicios li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove individual grid positioning since we're using grid-template-columns */
+.c1, .c2 {
+  grid-column: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main2 {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 20%;
-    height: 100vh;
-    grid-row: 1/3;
-    overflow: hidden;
-
-}
-
-.servicios{
-    display: grid;
-    grid-row: 2;
-    grid-column: 1;
-    padding: 0px 100px 0px 100px;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-}
-.servicios ul{
-    list-style: none;
-    display: grid;
- 
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-}
-.servicios li{
-    color: white;
-
-}
-
-.c1{
-    grid-column: 1;
-}
-.c2{
-    grid-column: 2;
-    
-}
-#u{
-        grid-row: 1;
-}
-#d{
-    grid-row: 2;
-}
-#t{
-    grid-row: 3;
-}
-#c{
-    grid-row: 4;
-}
-#ci{
-    grid-row: 5;
-}
-#s{
-    grid-row: 6;
+    padding: 1rem;
+  }
+  
+  .servicios ul {
+    grid-template-columns: 1fr;
+  }
+  
+  .caro2 {
+    height: 50vh;
+    grid-row: auto;
+  }
 }
