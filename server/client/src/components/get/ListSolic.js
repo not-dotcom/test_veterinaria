@@ -57,7 +57,6 @@ const ListSolicitudes = () => {
             const jsonData = await response.json();
             setBlockedHours(jsonData);
         } catch (err) {
-            console.log(err.message);
         }
     };
 
@@ -72,7 +71,6 @@ const ListSolicitudes = () => {
             const updatedBlockedHours = await response.json();
             setBlockedHours(updatedBlockedHours);
         } catch (err) {
-            console.log(err.message);
         }
     };
 

@@ -34,7 +34,6 @@ const HorarioDoctor = ({ doctor }) => {
             const jsonData = await response.json();
             setHorario(jsonData);
         } catch (err) {
-            console.log(err.message);
         }
     };
 

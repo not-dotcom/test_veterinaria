@@ -11,19 +11,17 @@ dotenv.config();
 
 const app = express();
 
-// middleware
-// notificaciones de nuevas solicitudes mediante correo
 app.use(
   cors({
-    origin: "http://localhost:3000", // URL de tu frontend
-    credentials: true, // Importante para cookies
+    origin: "http://localhost:3000", 
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token"],
   })
 );
 app.use(express.json());
 app.use(cookieParser());
-// Añade esto cerca del inicio de index.js
+
 app.use('/media/profile', express.static('./client/src/media/profile'));
 
 app.use((req, res, next) => {
@@ -83,7 +81,6 @@ class validation {
 
 export class UserRepository {
   static async create({ username, password, nombre, rol, photo }) {
-    console.log("Creating user with photo:", photo); // Debug log
 
     validation.username(username);
     validation.password(password);
@@ -99,7 +96,6 @@ export class UserRepository {
         [id, username, hashedPassword, nombre, rol, photo]
       );
 
-      console.log("Created user row:", newUser.rows[0]); // Debug log
       return newUser.rows[0];
     } catch (err) {
       console.error("Database error:", err); // Debug log
@@ -172,7 +168,6 @@ app.post("/register", verifyToken, upload.single("photo"), async (req, res) => {
   const { username, password, nombre, rol } = req.body;
   const photoFilename = req.file ? req.file.filename : "default.jpg";
 
-  console.log("Photo filename:", photoFilename); // Debug log
   // Input validation
   if (!username || !password || !nombre || !rol) {
     return res.status(400).json({
@@ -188,7 +183,6 @@ app.post("/register", verifyToken, upload.single("photo"), async (req, res) => {
       rol,
       photo: photoFilename,
     });
-    console.log("Created user:", user); // Debug log
     return res.status(201).json({
       id: user._id,
       username: user.username,
@@ -288,7 +282,6 @@ app.get("/solicitudes", verifyToken, async (req, res) => {
     res.json(allSolicitudes.rows);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
-    console.log(error.message);
   }
 });
 
@@ -304,7 +297,6 @@ app.get("/solicitudes/:id", verifyToken, async (req, res) => {
     );
     res.json(solicitud.rows[0]);
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -327,7 +319,6 @@ app.post("/solicitudes", async (req, res) => {
       forma_pago,
       created_at,
     } = req.body;
-    console.log(startDate);
     const newSolic = await pool.query(
       "INSERT INTO solicitudes (fecha_cita, hora_cita, paciente, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at, nombre_doctor) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
       [
@@ -349,7 +340,6 @@ app.post("/solicitudes", async (req, res) => {
     );
     res.json(newSolic.rows[0]);
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -399,7 +389,6 @@ app.put("/solicitudes/:id", verifyToken, async (req, res) => {
     );
     res.json("Solicitud fue actualizada");
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -413,10 +402,8 @@ app.delete("/solicitudes/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query("DELETE FROM solicitudes WHERE id_solic=$1", [id]);
-    console.log(id);
     res.status(200).json({ message: "Solicitud fue eliminada" });
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -426,7 +413,6 @@ app.get("/doctores", async (req, res) => {
     const allDoctors = await pool.query("SELECT * FROM doctores");
     res.json(allDoctors.rows);
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -444,7 +430,6 @@ app.post("/doctores", verifyToken, async (req, res) => {
     );
     res.json(newDoctor.rows[0]);
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -459,10 +444,8 @@ app.delete("/doctores/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query("DELETE FROM doctores WHERE id_doctor=$1", [id]);
-    console.log(id);
     res.status(200).json({ message: "Solicitud fue eliminada" });
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -478,7 +461,6 @@ app.put("/doctores/:id/toggle", verifyToken, async (req, res) => {
     
     res.json({ message: "Estado del doctor actualizado" });
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ error: "Error al actualizar estado del doctor" });
   }
 });
@@ -490,7 +472,6 @@ app.get("/horarios/", async (req, res) => {
     const horarios = await pool.query("SELECT * FROM horarios");
     res.json(horarios.rows);
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -498,16 +479,13 @@ app.get("/horarios/", async (req, res) => {
 app.get("/horario/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const horarios = await pool.query(
       "SELECT * FROM horarios WHERE id_doctor = $1",
       [id]
     );
-    console.log(horarios);
     res.json(horarios.rows);
   } catch (error) {
-    console.log(error.message);
-  }
+ }
 });
 /*KIKE 
 
@@ -609,11 +587,9 @@ app.get("/citas-agendadas/:doctorId/:fecha", async (req, res) => {
     );
     res.json(citasAgendadas.rows.map(cita => cita.hora_cita));
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ error: "Error getting booked appointments" });
   }
 });
 
 app.listen(5000, () => {
-  console.log("Server has started on port 5000");
 });

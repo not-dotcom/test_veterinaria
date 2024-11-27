@@ -78,3 +78,53 @@ nav{
     color: #666;
     font-size: 12px;
   }
+
+/* Add to header.css */
+.nav-item {
+  display: flex;
+  align-items: center;
+  margin: 0 0px; /* Add 20px margin on both sides */
+}
+
+.nav-text {
+  color: #666;
+  font-size: 14px;
+}
+
+/* When icon is selected (primary color) */
+.nav-item:has(button[color="primary"]) .nav-text {
+  color: #1976d2;
+}
+
+/* In header.css, update/add these styles: */
+.button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.button-text {
+  font-size: 12px;
+  transition: color 0.3s;
+}
+
+/* Color states */
+.MuiIconButton-root {
+  color: #666;
+}
+
+.MuiIconButton-colorPrimary .button-text {
+  color: #1976d2;
+}
+
+.MuiIconButton-colorInherit .button-text {
+  color: #666;
+}
+
+/* Or if you prefer padding */
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0 10px; /* Add 20px padding on both sides */
+}

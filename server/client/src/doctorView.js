@@ -9,7 +9,7 @@ import Header from './components/header/header';
 function doctorView() {
   return (
     <div className="App">
-      <Header></Header>
+      <Header />
       <InputDoctor />
     </div>
   );

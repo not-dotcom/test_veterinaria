@@ -76,7 +76,6 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
             });
             window.location = "/user";
         } catch (error) {
-            console.log(error.message);
         }
     };
 

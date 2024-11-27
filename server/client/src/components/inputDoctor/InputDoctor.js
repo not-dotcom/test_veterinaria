@@ -8,7 +8,7 @@ import "./InputDoctor.css";
 import Horarios from "../horarios/horarios";
 import HorarioDoctor from "../horarioDoctor/HorarioDoctor";
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const InputDoctor = () => {
   const [doctores, setDoctores] = useState([]);
@@ -46,24 +46,19 @@ const InputDoctor = () => {
       });
       const jsonData = await response.json();
       setDoctores(jsonData);
-      console.log(jsonData);
     } catch (err) {
-      console.log(err.message);
     }
   };
 
   const deleteDoctor = async (id) => {
     try {
-      console.log("Deleting doctor with id:", id); // Log the id
       const response = await fetch(`http://localhost:5000/doctores/${id}`, {
         method: "DELETE",
         credentials: "include", // Añade esta línea
       });
-      console.log(response);
       // Optionally, remove the deleted solicitud from the state
       setDoctores(doctores.filter((doctor) => doctor.id_doctor !== id));
     } catch (err) {
-      console.log(err.message);
     }
   };
 
@@ -115,20 +110,23 @@ const InputDoctor = () => {
       header: "Editar",
       Cell: ({ row }) => <Horarios doctor={row.original} />,
     },
-    {
-      accessorKey: "horarios",
-      header: "Ver horario",
-      Cell: ({ row }) => <HorarioDoctor doctor={row.original} />,
-    },
+    // {
+    //   accessorKey: "horarios",
+    //   header: "Ver horario",
+    //   Cell: ({ row }) => <HorarioDoctor doctor={row.original} />,
+    // },
     {
       accessorKey: "delete",
       header: "Eliminar",
+      size: 80,
+      enableSorting: false,
+      enableColumnActions: false,
       Cell: ({ row }) => (
         <button
           onClick={() => deleteDoctor(row.original.id_doctor)}
           className="btn btn-danger"
         >
-          Eliminar
+          <DeleteIcon />
         </button>
       ),
     },
@@ -164,7 +162,6 @@ const InputDoctor = () => {
       });
       window.location = "/doctors";
     } catch (error) {
-      console.log(error.message);
     }
   };
 

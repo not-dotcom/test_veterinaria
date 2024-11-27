@@ -105,37 +105,54 @@ const Header = () => {
       />
       <a className="link" href="#"></a>
     
-      <IconButton
-        size="large"
-        aria-label="show profile"
-        color={usersIconColor}
-        onClick={() => {
-          navigate("/users");
-        }}
-      >
-        <AccountCircleIcon />
-      </IconButton>
-      <IconButton
-        size="large"
-        aria-label="show profile"
-        color={petsIconColor}
-        onClick={() => {
-          
-          navigate("/app");
-        }}
-      >
-        <EventAvailableIcon />
-      </IconButton>
-      <IconButton 
-        size="large" 
-        aria-label="show doctors" 
-        color={doctorIconColor}
-        onClick={() => {
-          navigate("/doctors");
-        }}
-      >
-        <LocalHospitalIcon />
-      </IconButton>
+      <div className="nav-item">
+        <IconButton
+          size="large"
+          aria-label="show profile"
+          color={usersIconColor}
+          onClick={() => {
+            navigate("/users");
+          }}
+        >
+          <div className="button-content">
+            <AccountCircleIcon />
+            <span className="button-text">Usuarios</span>
+          </div>
+        </IconButton>
+      </div>
+
+      <div className="nav-item">
+        <IconButton
+          size="large"
+          aria-label="show profile"
+          color={petsIconColor}
+          onClick={() => {
+            navigate("/app");
+          }}
+        >
+          <div className="button-content">
+            <EventAvailableIcon />
+            <span className="button-text">Solicitudes</span>
+          </div>
+        </IconButton>
+      </div>
+
+      <div className="nav-item">
+        <IconButton 
+          size="large" 
+          aria-label="show doctors" 
+          color={doctorIconColor}
+          onClick={() => {
+            navigate("/doctors");
+          }}
+        >
+          <div className="button-content">
+            <LocalHospitalIcon />
+            <span className="button-text">Doctores</span>
+          </div>
+        </IconButton>
+      </div>
+
       <div className="profileDiv">
         <Avatar
           className="avatarProfile"

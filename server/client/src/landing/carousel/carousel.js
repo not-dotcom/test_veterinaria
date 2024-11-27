@@ -14,7 +14,6 @@ export function EmblaCarousel() {
       <div className="embla__container">
         <div className="embla__slide"><Test></Test></div>
         <div className="embla__slide"><img src={imageFlayer} width="900px" height="900px" className="imageFlayer" alt="Profile Image"></img></div>
-        <div className="embla__slide">Slide 3</div>
       </div>
 
     </div>

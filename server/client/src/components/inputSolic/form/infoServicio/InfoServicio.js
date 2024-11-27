@@ -180,7 +180,6 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
 
   // At the top of your component, add a debug helper
 const logStateUpdate = (source, times) => {
-  console.log(`[${source}] Updating availableTimes:`, times);
 };
 
 // Modify handleDateChange

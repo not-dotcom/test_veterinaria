@@ -165,14 +165,13 @@ select {
     color: red;
     position: absolute;
     font-size: 0.8em;
-    margin-top: 10vh;
     margin-left: 10px;
 }
 .error-message-mascota{
     display: inline;
     color: red;
     position: absolute;
-    font-size: 0.8em;
-    margin-top: 7vh;
+    font-size: 0.83em;
+    margin-top: 6.4vh;
     margin-left: 0px;
 }
