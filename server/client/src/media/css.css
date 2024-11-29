@@ -1,0 +1,51 @@
+.main {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 10% 10% 1fr 1fr 10% 10%;
+    grid-template-rows: 10% 1fr;
+    grid-template-areas:
+    "logo navbar navbar navbar login login2"
+    "intro intro intro caro caro caro";
+    grid-gap: 10px;
+}
+.main div{
+border: 1px solid;
+}
+
+
+.logo{
+    grid-area: logo;
+
+}
+.navbar{
+    grid-area: navbar;
+
+}
+.login{
+    grid-area: login;
+}
+.intro{
+    grid-area: intro;
+
+}
+.login2{
+    grid-area: login2;
+}
+.caro{
+    grid-area: caro;
+}
+
+@media only screen and (max-width: 1200px){
+   .main{
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
+    grid-template-areas:"logo navbar login"
+    "logo navbar login2"
+    "intro intro intro"
+    "caro caro caro";
+   }
+
+
+
+    
+}

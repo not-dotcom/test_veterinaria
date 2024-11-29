@@ -3,6 +3,7 @@ import { MaterialReactTable } from "material-react-table";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../header/header";
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
+import { API_URL } from "../../config";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -10,7 +11,8 @@ const AdminUsers = () => {
 
   const getUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch(`${API_URL}/users`, {
+        // href={`${FRONTEND_URL}/user`}
         credentials: "include",
       });
       const data = await response.json();
@@ -64,7 +66,7 @@ const AdminUsers = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/users/${id}`, {
+      const response = await fetch(`${API_URL}/users/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

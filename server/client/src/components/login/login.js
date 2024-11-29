@@ -3,6 +3,7 @@ import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../media/profile.jpg"; // Importa la imagen del logo
+import { API_URL } from "../../config"; 
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Login = (props) => {
     setError("");
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         credentials: "include", // Importante
         headers: {

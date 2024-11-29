@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import './infoServicio.css';
 import DatePicker from 'react-datepicker';
 import { Autocomplete, TextField, Avatar } from '@mui/material';
+import { API_URL } from "../../../../config";
 
 const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor }) => {
   return (
@@ -53,7 +54,7 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
       // Fetch available times for the saved date
       if (selectedDoctor) {
         const formattedDate = date.toISOString().split('T')[0];
-        fetch(`http://localhost:5000/citas-agendadas/${selectedDoctor.nombre_doctor}/${formattedDate}`)
+        fetch(`${API_URL}/citas-agendadas/${selectedDoctor.nombre_doctor}/${formattedDate}`)
           .then(response => response.json())
           .then(bookedTimes => {
             const dayNumber = date.getDay();
@@ -110,7 +111,7 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
 
   useEffect(() => {
     // Modify fetch to only get active doctors
-    fetch('http://localhost:5000/doctores?active=true')
+    fetch(`${API_URL}/doctores?active=true`)
       .then(response => response.json())
       .then(data => {
         // Filter only active doctors if needed
@@ -119,7 +120,7 @@ function InfoServicio({ data = {}, onDataChange, errors }) {
       })
       .catch(error => console.error('Error al obtener doctores:', error));
 
-    fetch('http://localhost:5000/horarios')
+    fetch(`${API_URL}/horarios`)
       .then(response => response.json())
       .then(data => setAvailability(data))
       .catch(error => console.error('Error al obtener disponibilidad:', error));
@@ -202,7 +203,7 @@ const handleDateChange = async (date) => {
       logStateUpdate('generateTimes', allTimes);
       
       const response = await fetch(
-        `http://localhost:5000/citas-agendadas/${selectedDoctor.nombre_doctor}/${formattedDate}`
+        `${API_URL}/citas-agendadas/${selectedDoctor.nombre_doctor}/${formattedDate}`
       );
       
       if (!response.ok) {

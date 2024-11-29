@@ -9,6 +9,7 @@ import Horarios from "../horarios/horarios";
 import HorarioDoctor from "../horarioDoctor/HorarioDoctor";
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { API_URL } from "../../config";
 
 const InputDoctor = () => {
   const [doctores, setDoctores] = useState([]);
@@ -37,7 +38,7 @@ const InputDoctor = () => {
 
   const getDoctores = async () => {
     try {
-      const response = await fetch("http://localhost:5000/doctores", {
+      const response = await fetch(`${API_URL}/doctores`, {
         method: "GET",
         credentials: "include", // Añade esta línea
         headers: {
@@ -52,7 +53,7 @@ const InputDoctor = () => {
 
   const deleteDoctor = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/doctores/${id}`, {
+      const response = await fetch(`${API_URL}/doctores/${id}`, {
         method: "DELETE",
         credentials: "include", // Añade esta línea
       });
@@ -64,7 +65,7 @@ const InputDoctor = () => {
 
   const toggleDoctorStatus = async (id, currentStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/doctores/${id}/toggle`, {
+      const response = await fetch(`${API_URL}/doctores/${id}/toggle`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -154,7 +155,7 @@ const InputDoctor = () => {
         numeroTelefono,
         especialidad,
       };
-      const response = await fetch("http://localhost:5000/doctores", {
+      const response = await fetch(`${API_URL}/doctores`, {
         method: "POST",
         credentials: "include", // Añade esta línea
         headers: { "Content-Type": "application/json" },

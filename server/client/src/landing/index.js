@@ -2,6 +2,7 @@ import React from "react";
 import "./landing.css";
 import image from "../media/profile.jpg";
 import { EmblaCarousel } from "./carousel/carousel";
+import { FRONTEND_URL } from "../config";
 
 const Landing = () => {
   return (
@@ -19,14 +20,14 @@ const Landing = () => {
         </a>
       </div>
       <div className="buttom2">
-        <a href="http://localhost:3000/user" className="buttonLanding2">
+        <a  href={`${FRONTEND_URL}/user`} className="buttonLanding2">
           Haz una cita
         </a>
       </div>
       <nav className="navbarLanding">
         <a href="">Inicio</a>
         {/* <a href="">Sobre nosotros</a> */}
-        <a href="http://localhost:3000/galeria">Galeria</a>
+        <a href={`${FRONTEND_URL}/galeria`}>Galeria</a>
       </nav>
 
       <div className="column">
@@ -43,7 +44,7 @@ const Landing = () => {
           reciba la atención que merece.
         </p>
         <div className="buttom2">
-          <a className="buttonLanding2" href="http://localhost:3000/user">
+          <a className="buttonLanding2" href={`${FRONTEND_URL}/user`}>
             Haz una cita
           </a>
         </div>

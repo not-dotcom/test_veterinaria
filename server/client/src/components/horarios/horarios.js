@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Modal, Box, Typography } from '@mui/material';
+import { API_URL } from "../../config";
 
 import "./horarios.css";
 
@@ -28,7 +29,7 @@ const Horarios = ({ doctor }) => {
 
     const getHorario = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/horario/${id}`);
+            const response = await fetch(`${API_URL}/horario/${id}`);
             const jsonData = await response.json();
             setHorario(jsonData);
         } catch (err) {
@@ -147,7 +148,7 @@ const Horarios = ({ doctor }) => {
             };
 
             // Enviar los datos al servidor
-            const response = await fetch(`http://localhost:5000/horario`, {
+            const response = await fetch(`${API_URL}/horario`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

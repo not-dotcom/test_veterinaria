@@ -11,6 +11,7 @@ import {
   Button
 } from '@mui/material';
 import './doctorProfile.css';
+import { API_URL } from '../../config';
 
 export default function DoctorProfile() {
   const [doctors, setDoctors] = useState([]);
@@ -23,7 +24,7 @@ export default function DoctorProfile() {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch("http://localhost:5000/doctores");
+        const response = await fetch(`${API_URL}/doctores`);
         if (!response.ok) {
           throw new Error("Failed to fetch doctors");
         }
