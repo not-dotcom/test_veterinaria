@@ -10,6 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import { API_URL } from "../../config";
 
 const Header = () => {
   const [userData, setUserData] = useState({
@@ -28,7 +29,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/verify", {
+        const response = await fetch(`${API_URL}/verify`, {
           credentials: "include",
         });
 
@@ -70,7 +71,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch(`${API_URL}/logout`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Modal, Box, Typography } from '@mui/material';
 import './HorarioDoctor.css';
+import { API_URL } from "../../config";
 
 const HorarioDoctor = ({ doctor }) => {
     const [horario, setHorario] = useState([]);
@@ -30,7 +31,7 @@ const HorarioDoctor = ({ doctor }) => {
 
     const getHorario = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/horario/${id}`);
+            const response = await fetch(`${API_URL}/horario/${id}`);
             const jsonData = await response.json();
             setHorario(jsonData);
         } catch (err) {

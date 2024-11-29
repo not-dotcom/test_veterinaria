@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListSolicitudes from './components/get/ListSolic';
 import InputSolic from './components/inputSolic/InputSolic';
 import Header from './components/header/header';
+import { API_URL } from './config'; 
+
 
 
 function App() {
@@ -13,7 +15,7 @@ function App() {
 
   const getSolicitudes = async () => {
     try {
-      const response = await fetch("http://localhost:5000/solicitudes");
+      const response = await fetch(`${API_URL}/solicitudes`)
       const jsonData = await response.json();
       setSolicitudes(jsonData);
     } catch (err) {

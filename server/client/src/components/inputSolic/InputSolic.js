@@ -9,6 +9,7 @@ import InfoContacto from "./form/infoContacto/InfoContacto";
 import InfoPaciente from "./form/infoPaciente/InfoPaciente";
 import InfoServicio from "./form/infoServicio/InfoServicio";
 import Revision from "./form/Revision/Revision";
+import { API_URL } from "../../config";
 
 const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
 
@@ -50,12 +51,12 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
     const [created_at, setCreated_at] = useState("");
 
     useEffect(() => {
-        fetch('http://localhost:5000/doctores')
+        fetch(`${API_URL}/doctores`)
             .then(response => response.json())
             .then(data => setDoctors(data))
             .catch(error => console.error('Error al obtener doctores:', error));
 
-        fetch('http://localhost:5000/horarios')
+        fetch(`${API_URL}/horarios`)
             .then(response => response.json())
             .then(data => setAvailability(data))
             .catch(error => console.error('Error al obtener disponibilidad:', error));
@@ -69,7 +70,7 @@ const InputSolic = ({ getSolicitudes, getBlockedHours }) => {
             const fecha = new Date().toISOString().slice(0, 16);
             setCreated_at(fecha);
             const body = { selectedDoctor, startDate, hora_cita, tipo_mascota, propietario, cedula, correo, telefono, direccion, tipo_cliente, servicio, forma_pago, created_at: fecha };
-            const response = await fetch("http://localhost:5000/solicitudes", {
+            const response = await fetch(`${API_URL}/solicitudes`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)

@@ -4,6 +4,7 @@ import EditSolic2 from '../editSolic/editSolic2';
 import './ListSolic.css';
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { API_URL } from '../../config';
 
 const POLLING_INTERVAL = 2000;
 
@@ -18,7 +19,7 @@ const ListSolicitudes = () => {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:5000/solicitudes/${id}`, {
+            const response = await fetch(`${API_URL}/solicitudes/${id}`, {
                 method: "DELETE",
                 credentials: 'include'
             });
@@ -33,7 +34,7 @@ const ListSolicitudes = () => {
 
     const getSolicitudes = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:5000/solicitudes", {
+            const response = await fetch(`${API_URL}/solicitudes`, {
                 method: "GET",
                 credentials: 'include',
                 headers: { "Content-Type": "application/json" }
@@ -53,7 +54,7 @@ const ListSolicitudes = () => {
 
     const getBlockedHours = async () => {
         try {
-            const response = await fetch("http://localhost:5000/blocked-hours");
+            const response = await fetch(`${API_URL}/blocked-hours`);
             const jsonData = await response.json();
             setBlockedHours(jsonData);
         } catch (err) {
@@ -63,7 +64,7 @@ const ListSolicitudes = () => {
     const toggleHour = async (hour) => {
         try {
             const method = blockedHours.includes(hour) ? "DELETE" : "POST";
-            const response = await fetch("http://localhost:5000/blocked-hours", {
+            const response = await fetch(`${API_URL}/blocked-hours`, {
                 method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ hour })

@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import html2pdf from 'html2pdf.js';
+import { API_URL } from '../../../../config';
 
 function Revision({ formData }) {
   const [openModal, setOpenModal] = useState(false);
@@ -86,7 +87,7 @@ function Revision({ formData }) {
         created_at: now.toISOString() // Send adjusted time
       };
 
-      const response = await fetch("http://localhost:5000/solicitudes", {
+      const response = await fetch(`${API_URL}/solicitudes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formattedData)

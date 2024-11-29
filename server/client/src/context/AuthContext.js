@@ -1,5 +1,6 @@
 // src/context/AuthContext.js
 import { createContext, useState, useContext, useEffect } from 'react';
+import { API_URL } from '../config';
 
 const AuthContext = createContext(null);
 
@@ -11,7 +12,7 @@ export const AuthProvider = ({ children }) => {
         // Verificar token al cargar
         const verifyAuth = async () => {
             try {
-                const response = await fetch('http://localhost:5000/verify', {
+                const response = await fetch(`${API_URL}/verify`, {
                     credentials: 'include'
                 });
                 setIsAuthenticated(response.ok);
