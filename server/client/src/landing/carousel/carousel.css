@@ -27,7 +27,8 @@
   /*ESTILOS DE PRUEBA  */
 
   .imageFlayer{
-    scale: .3;
+    top: 100px;
+    scale: .75;
     grid-column: 4;
   }
   @media only screen and (max-width:850px) {

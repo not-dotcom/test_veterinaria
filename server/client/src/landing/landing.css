@@ -28,12 +28,14 @@ a {
 .caro {
   grid-area: caro;
   width: 100%;
-  overflow: hidden;
+  height: 100%;
   display: flex;
-
-
-
-
+  justify-content: flex-end; /* Alinea a la derecha */
+  align-items: flex-end; /* Alinea abajo */
+  min-width: 300px; /* Añade un ancho mínimo */
+  min-height: 300px; /* Añade una altura mínima */
+  overflow: visible; /* Asegura que el contenido no se oculte */
+  position: relative; /* Para mantener el posicionamiento absoluto de los hijos */
 }
 
 .image {
@@ -184,25 +186,29 @@ a {
 
 @media only screen and (max-width:850px) {
   .caro {
+    width: 100%;
+    height: 100%;
+    margin: auto; /* Centra el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    min-height: 400px; /* Altura mínima para el contenedor */
+    transform: scale(0.8); /* Reduce el tamaño pero mantiene visible */
+    transform-origin: center center;
   } 
 
   .main {
     display: grid;
     height: 100%;
-    grid-template-columns: 0.2fr 1fr 1fr 0.2fr;
-    grid-template-rows: 0.1fr 0.1fr 0.7fr 0.08fr ;
-    /*LINEA QUE SE PODRIA BORRAR*/
-
+    min-height: 100vh; /* Asegura altura mínima */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
       "image nav nav nav"
        "intro intro intro intro"
       "caro caro caro caro"
      
-      "iniciar iniciar cita cita"
-   
-    
-
-
+      "iniciar iniciar cita cita";
+    gap: 10px;
   }
   
   .column > .buttom2{
@@ -212,4 +218,10 @@ a {
     font-size: 2.5vw;
   }
 
+}
+
+@media only screen and (max-width: 600px) {
+  .caro {
+    transform: scale(0.6);
+  }
 }

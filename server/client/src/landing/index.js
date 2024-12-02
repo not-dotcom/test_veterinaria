@@ -3,7 +3,7 @@ import "./landing.css";
 import image from "../media/profile.jpg";
 import { EmblaCarousel } from "./carousel/carousel";
 import { FRONTEND_URL } from "../config";
-
+import Test from "./motion/test";
 const Landing = () => {
   return (
     <div className="main">
@@ -12,7 +12,8 @@ const Landing = () => {
       </div>
 
       <div className="caro">
-        <EmblaCarousel></EmblaCarousel>
+        {/* <EmblaCarousel></EmblaCarousel> */}
+        <Test></Test>
       </div>
       <div className="buttom">
         <a className="buttonLanding1" href="/iniciar-sesion">

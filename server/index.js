@@ -221,6 +221,7 @@ app.get("/users", verifyToken, async (req, res) => {
   }
 });
 
+
 app.delete("/users/:id", verifyToken, async (req, res) => {
   try {
     await pool.query("DELETE FROM users WHERE _id = $1", [req.params.id]);
