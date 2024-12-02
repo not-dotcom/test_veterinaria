@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../header/header";
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
 import { API_URL } from "../../config";
+import { Link } from 'react-router-dom';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -80,16 +81,20 @@ const AdminUsers = () => {
   }, []);
   const renderTopToolbarCustomActions = useCallback(() => (
     <div className="headerTable">
-        <label className="tableTitle">
-            Usuarios
-        </label>
-        {error && (
-            <small style={{color: 'red', marginLeft: '10px'}}>
-                {error}
-            </small>
-        )}
+      <div className="headerTable">
+        <label className="tableTitle">Usuarios</label>
+        <Link to="/register" className="btn btn-primary" style={{fontSize:"14px"}}>
+          Agregar
+        </Link>
+      </div>
+      
+      {error && (
+        <small style={{color: 'red', marginLeft: '10px'}}>
+          {error}
+        </small>
+      )}
     </div>
-), [error]);
+  ), [error]);
 
   return (
     <div>
@@ -104,6 +109,7 @@ const AdminUsers = () => {
           enablePagination
           renderTopToolbarCustomActions={renderTopToolbarCustomActions}
           localization={MRT_Localization_ES}
+          
 
           muiTableProps={{
             sx: {
