@@ -100,7 +100,7 @@ export function EmblaCarousel() {
           <div className="text">
             <p className="title1">Gabriel Eduardo Álvarez Avendaño
             </p>
-            <p className="text1">DMédico Veterinario</p>
+            <p className="text1">Médico Veterinario</p>
             <p className="text2">
               Consulta general, diagnóstico por imagen, tratamiento
               dermatológico.

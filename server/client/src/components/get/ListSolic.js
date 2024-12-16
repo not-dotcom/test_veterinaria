@@ -139,7 +139,7 @@ const ListSolicitudes = () => {
         },
         {
             accessorKey: "cedula",
-            header: "Cedula",
+            header: "Cédula",
         },
         {
             accessorKey: "correo",
@@ -147,11 +147,11 @@ const ListSolicitudes = () => {
         },
         {
             accessorKey: "telefono",
-            header: "Telefono",
+            header: "Teléfono",
         },
         {
             accessorKey: "direccion",
-            header: "Direccion",
+            header: "Dirección",
         },
         {
             accessorKey: "tipo_cliente",
@@ -167,7 +167,7 @@ const ListSolicitudes = () => {
         },
         {
             accessorKey: "created_at",
-            header: "Fecha de creacion",
+            header: "Fecha de Creación",
             Cell: ({ cell }) => {
                 const date = new Date(cell.getValue());
                 return date.toLocaleString('es-ES', {

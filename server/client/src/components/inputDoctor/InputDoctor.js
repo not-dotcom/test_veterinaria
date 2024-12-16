@@ -1,14 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-} from "material-react-table";
-import { Button, Modal, Box, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { MaterialReactTable } from "material-react-table";
+import { Modal, Box } from "@mui/material";
 import "./InputDoctor.css";
 import Horarios from "../horarios/horarios";
-import HorarioDoctor from "../horarioDoctor/HorarioDoctor";
-import { MRT_Localization_ES } from 'material-react-table/locales/es';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { MRT_Localization_ES } from "material-react-table/locales/es";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { API_URL } from "../../config";
 
 const InputDoctor = () => {
@@ -40,27 +36,24 @@ const InputDoctor = () => {
     try {
       const response = await fetch(`${API_URL}/doctores`, {
         method: "GET",
-        credentials: "include", // Añade esta línea
+        credentials: "include", 
         headers: {
           "Content-Type": "application/json",
         },
       });
       const jsonData = await response.json();
       setDoctores(jsonData);
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const deleteDoctor = async (id) => {
     try {
       const response = await fetch(`${API_URL}/doctores/${id}`, {
         method: "DELETE",
-        credentials: "include", // Añade esta línea
+        credentials: "include", 
       });
-      // Optionally, remove the deleted solicitud from the state
       setDoctores(doctores.filter((doctor) => doctor.id_doctor !== id));
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const toggleDoctorStatus = async (id, currentStatus) => {
@@ -69,16 +62,17 @@ const InputDoctor = () => {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ activo: !currentStatus })
+        body: JSON.stringify({ activo: !currentStatus }),
       });
-  
+
       if (response.ok) {
-        // Actualiza el estado local
-        setDoctores(doctores.map(doctor => 
-          doctor.id_doctor === id 
-            ? {...doctor, activo: !doctor.activo}
-            : doctor
-        ));
+        setDoctores(
+          doctores.map((doctor) =>
+            doctor.id_doctor === id
+              ? { ...doctor, activo: !doctor.activo }
+              : doctor
+          )
+        );
       }
     } catch (err) {
       console.error(err.message);
@@ -96,11 +90,11 @@ const InputDoctor = () => {
     },
     {
       accessorKey: "cedula_ciudadania",
-      header: "Cedula",
+      header: "Cédula",
     },
     {
       accessorKey: "numero_telefono",
-      header: "Numero de telefono",
+      header: "Numero de Teléfono",
     },
     {
       accessorKey: "especialidad",
@@ -111,11 +105,6 @@ const InputDoctor = () => {
       header: "Editar",
       Cell: ({ row }) => <Horarios doctor={row.original} />,
     },
-    // {
-    //   accessorKey: "horarios",
-    //   header: "Ver horario",
-    //   Cell: ({ row }) => <HorarioDoctor doctor={row.original} />,
-    // },
     {
       accessorKey: "delete",
       header: "Eliminar",
@@ -135,15 +124,18 @@ const InputDoctor = () => {
       accessorKey: "estado",
       header: "Estado",
       Cell: ({ row }) => (
-        <button 
-          onClick={() => toggleDoctorStatus(row.original.id_doctor, row.original.activo)}
-          className={`btn ${row.original.activo ? 'btn-danger' : 'btn-success'}`}
+        <button
+          onClick={() =>
+            toggleDoctorStatus(row.original.id_doctor, row.original.activo)
+          }
+          className={`btn ${
+            row.original.activo ? "btn-danger" : "btn-success"
+          }`}
         >
-          {row.original.activo ? 'Deshabilitar' : 'Habilitar'}
+          {row.original.activo ? "Deshabilitar" : "Habilitar"}
         </button>
       ),
-    }
-    
+    },
   ];
 
   const onsubmitform = async (e) => {
@@ -157,13 +149,12 @@ const InputDoctor = () => {
       };
       const response = await fetch(`${API_URL}/doctores`, {
         method: "POST",
-        credentials: "include", // Añade esta línea
+        credentials: "include", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
       window.location = "/doctors";
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
@@ -187,7 +178,6 @@ const InputDoctor = () => {
           },
         }}
         localization={MRT_Localization_ES}
-
       ></MaterialReactTable>
 
       <div className="">

@@ -17,7 +17,7 @@ const Landing = () => {
       </div>
       <div className="buttom">
         <a className="buttonLanding1" href="/iniciar-sesion">
-          Iniciar sesion
+        Iniciar sesión
         </a>
       </div>
       <div className="buttom2">
@@ -28,7 +28,7 @@ const Landing = () => {
       <nav className="navbarLanding">
         <a href="">Inicio</a>
         {/* <a href="">Sobre nosotros</a> */}
-        <a href={`${FRONTEND_URL}/galeria`}>Galeria</a>
+        <a href={`${FRONTEND_URL}/galeria`}>Galería</a>
       </nav>
 
       <div className="column">
