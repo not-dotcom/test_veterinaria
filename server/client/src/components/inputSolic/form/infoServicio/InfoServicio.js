@@ -7,7 +7,7 @@ import { API_URL } from "../../../../config";
 const DoctorSelector = ({ doctors, handleDoctorChange, selectedDoctor }) => {
   return (
     <div className="fechadiv">
-      <label>Medico Veterinario</label>
+      <label>Médico Veterinario</label>
       <Autocomplete
       size="small"
         style={{ backgroundColor: "white", outline:"2px solid #d3d3d2", borderRadius:"2px"}}

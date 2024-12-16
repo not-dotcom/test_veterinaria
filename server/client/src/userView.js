@@ -134,7 +134,7 @@ function UserView() {
         );
     }
   };
-  const FormTitles = ["Paciente", "Servicio", "Contacto", "Revision"];
+  const FormTitles = ["Paciente", "Servicio", "Contacto", "Revisión"];
   const getClassNames = () => {
     return {
       statusSolic:

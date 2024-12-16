@@ -7,11 +7,10 @@ body {}
   display: grid;
   grid-template-columns: 1% 10% 10% 1fr 1fr 10% 10% 1%;
   grid-template-rows: 10% 1fr;
-  /*LINEA QUE SE PODRIA BORRAR*/
+
 
   grid-template-areas:
-    /* "image image area area area area"
-    "iniciar cita area caro caro caro"; */
+
     "image image area nav nav cita iniciar area9"
     "intro intro intro intro caro caro caro caro";
   grid-gap: 10px;
@@ -39,7 +38,7 @@ a {
 }
 
 .image {
-  /* AQUI ESTA EL LOGO / #1 */
+
   height: 60px;
   width: 60px;
   border-radius: 100%;
